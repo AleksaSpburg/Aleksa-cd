@@ -4,17 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Алекса | Кроссдрессер</title>
+    <!-- Подключаем красивые шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        body { background: #1a1a1a; color: #fff; font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #d4af37; }
-        a { color: #ff69b4; text-decoration: none; }
+        /* Цвета и настройки */
+        :root {
+            --gold: #d4af37;
+            --pink: #ff69b4;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0f0f1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Основной контейнер - эффект стекла */
+        .glass-card {
+            width: 90%;
+            max-width: 450px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Свечение за карточкой */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Фото */
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Имя */
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3em;
+            font-weight: 600;
+            color: var(--gold);
+            margin: 10px 0;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Описание */
+        p.subtitle {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* Кнопки-ссылки */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .links a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            font-size: 1em;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--pink);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+            transform: translateY(-3px);
+        }
+
     </style>
 </head>
 <body>
-    <h1>Привет, я Алекса ✨</h1>
-    <p>Добро пожаловать на мою страницу.</p>
-    <p>Ссылки на мои профили:</p>
-    <p><a href="ССЫЛКА_НА_BBS">Мой профиль на BBS</a></p>
-    <p><a href="ССЫЛКА_НА_TONPLACE">Мой профиль на TonPlace</a></p>
+    <div class="glass-card">
+        <!-- Сюда мы вставим фото. Пока это заглушка. -->
+        <img src="https://via.placeholder.com/150" alt="Алекса" class="profile-photo">
+        
+        <h1>Алекса</h1>
+        <p class="subtitle">Кроссдрессер • Санкт-Петербург</p>
+
+        <div class="links">
+            <a href="ССЫЛКА_НА_BBS" target="_blank">Мой профиль на BBS</a>
+            <a href="ССЫЛКА_НА_TONPLACE" target="_blank">Мой профиль на TonPlace</a>
+            <a href="https://t.me/ТВОЙ_ТЕЛЕГРАМ" target="_blank">Связаться в Telegram</a>
+        </div>
+    </div>
 </body>
 </html>
