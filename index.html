@@ -3,322 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Алекса | Official Hub</title>
-    <!-- Подключаем современные, более дерзкие и премиальные шрифты -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://googleapis.com" rel="stylesheet">
+    <title>Aleksa | System Hub</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #0b0b0b;
-            --border-color: #262626;
-            --accent-pink: #d946ef;
-            --accent-blue: #3b82f6;
-            --text-main: #e5e5e5;
+            --bg-dark: #060606;
+            --card-bg: #121212;
+            --border-muted: #222222;
+            --accent-neon: #c084fc;
+            --text-silver: #d4d4d8;
         }
 
-        * {
-            box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
 
         body {
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            /* Эффект пленочного зерна (тактильный шум) на чистом CSS */
-            background-color: var(--bg-color);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://w3.org width='100%25' height='100%25' fill='%230b0b0b'/%3e%3cfilter id='noise'%3e%3cfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3e%3c/filter%3e%3crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3e%3c/svg%3e");
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
+            margin: 0; padding: 20px; min-height: 100vh;
+            background-color: var(--bg-dark);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://w3.org width='100%25' height='100%25' fill='%23060606'/%3e%3cfilter id='noise'%3e%3cfeTurbulence type='fractalNoise' baseFrequency='0.90' numOctaves='4' stitchTiles='stitch'/%3e%3c/filter%3e%3crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3e%3c/svg%3e");
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Inter', sans-serif; color: var(--text-silver);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Главный хаб-контейнер */
-        .hub-container {
-            width: 100%;
-            max-width: 440px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            text-align: center;
-            padding: 20px 0;
-        }
+        .hub-interface { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 28px; position: relative; }
 
-        /* Блок профиля */
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .lang-switcher {
+            position: absolute; top: 0; right: 0; z-index: 10;
+            display: flex; gap: 8px; background: rgba(18, 18, 18, 0.6);
+            padding: 4px; border-radius: 8px; border: 1px solid var(--border-muted);
         }
-
-        .avatar-wrapper {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            margin-bottom: 16px;
+        .lang-btn {
+            background: transparent; border: none; color: #52525b;
+            font-size: 0.7em; font-weight: 600; cursor: pointer; padding: 4px 8px; border-radius: 6px;
         }
+        .lang-btn.active { color: var(--text-silver); background: #27272a; }
 
-        /* Интерактивное неоновое кольцо вокруг фото */
-        .profile-photo {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid var(--border-color);
-            position: relative;
-            z-index: 2;
-        }
+        .system-header { text-align: center; padding: 10px 0; }
 
-        .avatar-wrapper::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent-pink), var(--accent-blue));
-            z-index: 1;
-            opacity: 0.4;
-            filter: blur(4px);
-        }
+        .avatar-container { position: relative; width: 140px; height: 190px; margin: 0 auto 20px auto; }
+        .avatar-img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-muted); position: relative; z-index: 2; }
+        .avatar-container::after { content: ''; position: absolute; inset: -3px; border-radius: 14px; background: linear-gradient(135deg, var(--accent-neon), #3b82f6); z-index: 1; opacity: 0.25; filter: blur(6px); }
+        .avatar-container:hover::after { opacity: 0.6; filter: blur(10px); }
 
-        .avatar-wrapper:hover::after {
-            opacity: 1;
-            filter: blur(8px);
-            transform: rotate(180deg);
-        }
-
-        /* Эффект жидкого хрома (Liquid Chrome) для имени */
         h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.8em;
-            font-weight: 800;
-            margin: 10px 0 5px 0;
-            letter-spacing: 4px;
-            background: linear-gradient(to bottom, #ffffff 0%, #a3a3a3 45%, #171717 50%, #737373 55%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+            font-family: 'Cinzel', serif; font-size: 2.6em; font-weight: 900; margin: 0 0 6px 0; letter-spacing: 6px;
+            background: linear-gradient(to bottom, #ffffff 0%, #a1a1aa 43%, #18181b 50%, #71717a 57%, #ffffff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+        }
+        h1:hover { letter-spacing: 9px; }
+
+        .system-status { font-size: 0.7em; color: #52525b; text-transform: uppercase; letter-spacing: 4px; display: flex; justify-content: center; align-items: center; gap: 6px; }
+        .status-dot { height: 6px; width: 6px; border-radius: 50%; background: #22c55e; }
+
+        .hero-quote {
+            font-size: 0.75em; font-style: italic; color: #71717a; max-width: 320px; margin: 16px auto 0 auto; line-height: 1.5; letter-spacing: 0.5px;
         }
 
-        h1:hover {
-            letter-spacing: 8px;
-            transform: scale(1.02);
-        }
+        .bento-layers { display: flex; flex-direction: column; gap: 14px; }
+        .layer-card { position: relative; display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; text-decoration: none; color: var(--text-silver); background: var(--card-bg); border: 1px solid var(--border-muted); border-radius: 16px; overflow: hidden; }
+        .layer-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(192, 132, 252, 0.05), transparent); opacity: 0; }
+        .layer-card:hover { border-color: #3f3f46; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7); }
+        .layer-card:hover::before { opacity: 1; }
+        
+        .card-meta { text-align: left; max-width: 88%; }
+        .meta-id { font-size: 0.6em; font-weight: 600; color: #52525b; letter-spacing: 2px; text-transform: uppercase; }
+        .meta-title { font-size: 1.1em; font-weight: 600; color: #f4f4f5; margin: 4px 0; display: block; }
+        .meta-desc { font-size: 0.8em; color: #71717a; line-height: 1.4; }
+        
+        .meta-quote { display: block; font-size: 0.75em; font-style: italic; color: #444446; margin-top: 10px; line-height: 1.4; letter-spacing: 0.3px; }
+        .layer-card:hover .meta-quote { color: #a1a1aa; }
 
-        p.subtitle {
-            font-size: 0.75em;
-            color: #737373;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin: 0;
-        }
+        .card-icon { font-size: 1.1em; color: #3f3f46; }
+        .layer-card:hover .card-icon { color: #fff; transform: translate(3px, -3px); }
 
-        /* Сетка бруталистичных карточек */
-        .bento-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-        }
+        .deep-zone { margin-top: 10px; padding: 24px; background: rgba(18, 18, 18, 0.3); border: 1px dashed rgba(192, 132, 252, 0.2); border-radius: 20px; display: flex; flex-direction: column; gap: 16px; position: relative; overflow: hidden; }
+        .deep-photo-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center 35%; opacity: 0.12; z-index: 1; filter: saturate(1.2) contrast(1.1); }
+        .deep-zone:hover .deep-photo-bg { opacity: 0.35; transform: scale(1.03); }
+        .deep-header { position: relative; z-index: 2; display: flex; justify-content: space-between; font-size: 0.65em; letter-spacing: 2px; text-transform: uppercase; }
+        .deep-tag { color: var(--accent-neon); font-weight: 600; }
+        .deep-status { color: #e11d48; font-weight: 600; animation: pulse 2s infinite; }
+        .deep-info { position: relative; z-index: 2; text-align: left; }
+        .deep-title { font-size: 1.2em; font-weight: 700; color: #f4f4f5; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .deep-desc { font-size: 0.8em; color: #71717a; line-height: 1.4; }
+        .deep-zone .meta-quote { color: #581c87; }
+        .deep-zone:hover .meta-quote { color: #d8b4fe; }
+        
+        .deep-trigger { position: relative; z-index: 2; background: #f4f4f5; color: #060606; text-decoration: none; text-align: center; padding: 14px; border-radius: 12px; font-size: 0.8em; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .deep-trigger:hover { background: var(--accent-neon); color: #fff; box-shadow: 0 0 25px rgba(192, 132, 252, 0.4); }
 
-        /* Базовый стиль карточки-ссылки */
-        .bento-card {
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            text-decoration: none;
-            color: var(--text-main);
-            background: rgba(23, 23, 23, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
+        footer { text-align: center; font-size: 0.55em; color: #27272a; letter-spacing: 3px; text-transform: uppercase; }
+        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* Светящийся внутренний слой при наведении */
-        .bento-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(217, 70, 239, 0.08), rgba(59, 130, 246, 0.08));
-            opacity: 0;
-        }
-
-        .bento-card:hover {
-            border-color: #525252;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .bento-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-info {
-            text-align: left;
-        }
-
-        .card-tag {
-            font-size: 0.65em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #a3a3a3;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .card-title {
-            font-size: 1.05em;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .card-arrow {
-            font-size: 1.2em;
-            color: #525252;
-        }
-
-        .bento-card:hover .card-arrow {
-            color: #fff;
-            transform: translate(2px, -2px);
-        }
-
-        /* Особый стиль для главной платформы */
-        .bento-card.primary-platform {
-            border-color: rgba(217, 70, 239, 0.3);
-        }
-        .bento-card.primary-platform .card-tag {
-            color: var(--accent-pink);
-            font-weight: 600;
-        }
-
-        /* ЯЧЕЙКА С ТИЗЕРОМ (Скрытый контент) */
-        .teaser-card {
-            position: relative;
-            background: rgba(23, 23, 23, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 24px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        /* Размытый бэкграунд-заглушка */
-        .teaser-blur-bg {
-            absolute: inset 0;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://unsplash.com') center/cover;
-            filter: blur(25px);
-            opacity: 0.15;
-            z-index: 1;
-        }
-
-        .teaser-card:hover .teaser-blur-bg {
-            opacity: 0.3;
-            transform: scale(1.05);
-        }
-
-        .teaser-header {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.65em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .tag-locked { color: #f59e0b; font-weight: 600; }
-        .tag-age { color: #737373; }
-
-        .teaser-body {
-            position: relative;
-            z-index: 2;
-            text-align: left;
-        }
-        .teaser-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-        .teaser-desc {
-            font-size: 0.8em;
-            color: #a3a3a3;
-            line-height: 1.4;
-        }
-
-        /* Кнопка внутри тизера */
-        .teaser-btn {
-            position: relative;
-            z-index: 2;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .teaser-btn:hover {
-            background: var(--accent-pink);
-            color: #fff;
-            box-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
-        }
-
-        footer {
-            font-size: 0.6em;
-            color: #404040;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 10px;
-        }
+        [data-lang="en"] { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="hub-container">
+    <div class="hub-interface">
         
-        <!-- СЕКЦИЯ ПРОФИЛЯ -->
-        <div class="profile-section">
-            <div class="avatar-wrapper">
-                <!-- Ваше фото (сейчас заглушка, замените на свое) -->
-                <img src="https://placeholder.com" alt="Алекса" class="profile-photo">
+        <!-- ЯЗЫКОВОЙ ПЕРЕКЛЮЧАТЕЛЬ -->
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+            <button class="lang-btn" onclick="setLang('en')">EN</button>
+        </div>
+        
+        <!-- HERO SECTION -->
+        <header class="system-header">
+            <div class="avatar-container">
+                <img id="main-avatar" src="image_XCPqU1.png" alt="Aleksa" class="avatar-img">
             </div>
             <h1>ALEKSA</h1>
-            <p class="subtitle">Кроссдрессер • Санкт-Петербург</p>
+            <div class="system-status">
+                <span class="status-dot"></span> 
+                <span data-lang="ru">Искусство метаморфозы</span>
+                <span data-lang="en">The Art of Metamorphosis</span>
+            </div>
+            <!-- ЦИТАТА НА ВХОДЕ (УРОВЕНЬ 1) -->
+            <div class="hero-quote">
+                <span data-lang="ru">«Ты — не ночь. Ты — то, что ночь делает с телом, когда никто не видит.»</span>
+                <span data-lang="en">“You are not the night. You are what the night does to a body when no one is watching.”</span>
+            </div>
+        </header>
+
+        <!-- LAYERS -->
+        <div class="bento-layers">
+            
+            <!-- Ссылка 1: TonPlace (УРОВЕНЬ 3) -->
+            <a href="ВСТАВЬ_ССЫЛКУ_НА_TONPLACE" target="_blank" class="layer-card">
+                <div class="card-meta">
+                    <span class="meta-id">[ LAYER_01 // PREMIUM FEED ]</span>
+                    
+                    <span data-lang="ru" class="meta-title">TonPlace Official</span>
+                    <span data-lang="ru" class="meta-desc">Эксклюзивный зашифрованный медиа-архив, съемки без цензуры и приватный чат.</span>
+                    <span data-lang="ru" class="meta-quote">«Желание — это не голод. Это медленное таяние на языке, когда уже не важно, кто кого пробует...»</span>
+                    
+                    <span data-lang="en" class="meta-title">TonPlace Premium</span>
+                    <span data-lang="en" class="meta-desc">Exclusive encrypted media archive, uncensored photo/video, and direct 24/7 chat.</span>
+                    <span data-lang="en" class="meta-quote">“Desire is not hunger. It is a slow melting on the tongue, when it no longer matters who is tasting whom...”</span>
+                </div>
+                <div class="card-icon">↗</div>
+            </a>
+
+            <!-- Ссылка 2: Telegram (УРОВЕНЬ 2) -->
+            <a href="ВСТАВЬ_ССЫЛКУ_НА_ТЕЛЕГРАМ_КАНАЛ" target="_blank" class="layer-card">
+                <div class="card-meta">
+                    <span class="meta-id">[ LAYER_02 // LIVE STREAM ]</span>
+                    
+                    <span data-lang="ru" class="meta-title">Telegram Backstage</span>
+                    <span data-lang="ru" class="meta-desc">Закулисье метаморфоз в реальном времени, спойлеры к релизам и личные инсайды.</span>
+                    <span data-lang="ru" class="meta-quote">«Твоя кожа пахнет так, будто её писали на языке, который я забыл, но тело помнит...»</span>
+                    
+                    <span data-lang="en" class="meta-title">Telegram Backstage</span>
+                    <span data-lang="en" class="meta-desc">Real-time lifestyle updates, upcoming release teasers, and personal insights.</span>
+                    <span data-lang="en" class="meta-quote">“Your skin smells as if it were written in a language I have forgotten, but the body remembers...”</span>
+                </div>
+                <div class="card-icon">↗</div>
+            </a>
+
+            <!-- Скрытая VIP-зона (Deep Access) -->
+            <div class="deep-zone">
+                <div class="deep-photo-bg" style="background-image: url('image_1O3kMx.png');"></div>
+                <div class="deep-header">
+                    <span class="deep-tag">[ NODE // DEEP ACCESS ]</span>
+                    <span class="deep-status">RESTRICTED</span>
+                </div>
+                <div class="deep-info">
+                    <span data-lang="ru" class="deep-title">Приватный Терминал</span>
+                    <span data-lang="ru" class="deep-desc">Прямой конфиденциальный контакт. Запросы на индивидуальные сессии, закрытые встречи и эксклюзивные условия.</span>
+                    <span data-lang="ru" class="meta-quote">«Ты — не тело. Ты — температура, при которой моё молчание становится влажным... Пространство, где мы становимся гуще, темнее и слаще.»</span>
+                    
+                    <span data-lang="en" class="deep-title">Private Terminal</span>
+                    <span data-lang="en" class="deep-desc">Direct confidential liaison. Secure booking for private encounters, custom content requests, and premium terms.</span>
+                    <span data-lang="en" class="meta-quote">“You are not a body. You are the temperature at which my silence turns wet... A space where we become thicker, darker, and sweeter.”</span>
+                </div>
+                
+                <a href="ВСТАВЬ_ССЫЛКУ_НА_ВТОРОЙ_ТЕЛЕГРАМ" target="_blank" class="deep-trigger">
+                    <span data-lang="ru">Установить Соединение</span>
+                    <span data-lang="en">Initialize Connection</span>
+                </a>
+            </div>
+
         </div>
 
-        <!-- СЕТКА ССЫЛОК (BENTO) -->
-        <div class="bento-grid">
-            
-            <!-- Ссылка 1: TonPlace (Главная платформа) -->
-            <a href="ССЫЛКА_НА_TONPLACE" target="_blank" class="bento-card primary-platform">
-                <div class="card-info">
-                    <span class="card-tag">🔥 Premium Only</span>
-                    <span class="card-title">Профиль на TonPlace</span>
-                </div>
-                <div class="card-arrow">↗</div>
-            </a>
+        <footer>
+            © 2026 ALEKSA.SYS // COGNITIVE DEVIATION. ADULTS ONLY.
+        </footer>
 
-            <!-- Ссылка 2: BBS -->
-            <a href="ССЫЛКА_НА_BBS" target="_blank" class="bento-card">
-                <div class="card-info">
-                    <span class="card-tag">Community</span>
-                    <span class="card-title">Мой профиль на BBS</span>
-                </div>
-                <div class="card-arrow">↗</div>
-            </a>
+    </div>
 
-            <!-- Ссылка 3: Telegram -->
+    <script>
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+            });
+
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.style.display = (el.getAttribute('data-lang') === lang) ? 'block' : 'none';
+            });
+
+            const avatar = document.getElementById('main-avatar');
+            if (lang === 'ru') {
+                avatar.src = 'image_XCPqU1.png';
+            } else {
+                avatar.src = 'image_N4TNPl.png';
+            }
+        }
+    </script>
+
+</body>
+</html>
