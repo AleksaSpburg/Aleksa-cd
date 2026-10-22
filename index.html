@@ -17,10 +17,10 @@
             padding: 0;
             background-color: #000;
             
-            /* Ссылка на КАЧЕСТВЕННЫЙ черный мрамор с золотом */
-            background-image: url('https://images.unsplash.com/photo-1550537687-c91072c4792d?q=80&w=2560&auto=format&fit=crop'); 
+            /* Твой новый, обрезанный, качественный мрамор */
+            background-image: url('img/bg-marble.jpg'); 
             
-            /* Настройки единого полотна */
+            /* Настройки, чтобы мрамор лег ровно на весь экран без повторений */
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
@@ -35,14 +35,13 @@
             align-items: center;
         }
 
-        /* Затемнение, чтобы мрамор не перебивал текст */
+        /* Легкое затемнение, чтобы текст читался на золотых прожилках */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4); 
+            background: rgba(0, 0, 0, 0.5); 
             z-index: -1;
-            pointer-events: none;
         }
 
         #intro-container {
@@ -57,7 +56,7 @@
             gap: 0.5em; 
             padding: 20px;
             position: relative;
-            z-index: 1; 
+            z-index: 1;
         }
 
         .word {
@@ -86,6 +85,7 @@
             filter: blur(20px) drop-shadow(0 0 40px rgba(255, 215, 0, 1));
             transition: all 4s ease-in-out; 
         }
+
     </style>
 </head>
 <body>
