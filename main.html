@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Главная</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Montserrat:wght@300&family=Caveat:wght@400&display=swap" rel="stylesheet">
+    <title>ALEKSA | Главная - Тест</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Montserrat:wght@300;400&family=Playfair+Display:wght@400;700&family=Caveat:wght@400&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'TagType';
@@ -18,120 +18,224 @@
             margin: 0;
             padding: 0;
             background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Каждый блок занимает весь экран */
+        .test-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Фон: Мрамор */
+        .marble-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
             background-image: url('img/bg-marble2.jpg'); 
             background-size: cover; 
             background-position: center;
-            background-repeat: no-repeat;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Montserrat', sans-serif;
+            z-index: 1;
         }
 
-        /* Затемнение фона */
-        body::before {
+        .marble-bg::after {
             content: '';
-            position: fixed;
+            position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7); 
-            z-index: -1;
+            background: rgba(0, 0, 0, 0.7);
         }
 
-        .photo-placeholder {
-            width: 250px;
-            height: 350px;
-            background-color: #111;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #555;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
-            /* Сюда мы потом вставим твое фото */
+        /* Фото на весь экран с растворенными краями */
+        .photo-fullscreen {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* ВРЕМЕННАЯ ЗАГЛУШКА. Потом поменяем на твою картинку */
+            background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            z-index: 2;
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            opacity: 0.7;
         }
 
-        .name-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            letter-spacing: 10px;
-            color: #d4af37;
-            margin: 0 0 40px 0;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .question-container {
+        .content-overlay {
+            position: relative;
+            z-index: 3;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 30px;
             align-items: center;
-            margin-top: 20px;
-            max-width: 90%;
+            margin-top: 10vh;
         }
 
-        /* --- 4 ВАРИАНТА ВОПРОСА --- */
+        /* --- ВАРИАНТЫ ИМЕНИ --- */
         
-        /* 1. Элегантный (как Vogue) */
-        .q-elegant {
+        /* 1. Высокая мода (Vogue) */
+        .name-1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 20px;
+            text-transform: uppercase;
+            margin: 0 0 30px 0;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+        }
+
+        /* 2. Твой шрифт (Кибер-нуар) */
+        .name-2 {
+            font-family: 'TagType', cursive;
+            font-size: 4rem;
+            letter-spacing: 10px;
+            margin: 0 0 30px 0;
+            color: #fff;
+            -webkit-text-stroke: 2px #d4af37;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        /* 3. Классическая роскошь (Playfair) */
+        .name-3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin: 0 0 30px 0;
+            color: #d4af37;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* 4. Минимализм (Широкий) */
+        .name-4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 30px;
+            text-transform: uppercase;
+            margin: 0 0 30px 0;
+            color: #fff;
+        }
+
+        /* --- ВАРИАНТЫ ВОПРОСА --- */
+        
+        /* 1. Элегантный */
+        .q-1 {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1.8rem;
-            color: #fff;
-            opacity: 0.9;
+            font-size: 2rem;
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
-        /* 2. Кибер-нуар (Твой шрифт) */
-        .q-tagtype {
+        /* 2. Кибер-нуар */
+        .q-2 {
             font-family: 'TagType', cursive;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
             color: #fff;
             -webkit-text-stroke: 1px #d4af37;
-            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0,0,0,0.8);
         }
 
         /* 3. Минимализм */
-        .q-minimal {
+        .q-3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            color: #ccc;
+            letter-spacing: 8px;
+            color: #eee;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
         /* 4. Рукописный */
-        .q-caveat {
+        .q-4 {
             font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #d4af37;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
-        /* Кнопка назад для тестов */
-        .back-btn {
-            margin-top: 50px;
-            color: #555;
-            text-decoration: none;
+        /* Надписи-подсказки */
+        .label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
             font-size: 0.8rem;
-            border-bottom: 1px solid #555;
+            color: #888;
+            z-index: 10;
+        }
+
+        /* --- ДЛЯ ТЕЛЕФОНОВ --- */
+        @media (max-width: 768px) {
+            .name-1 { font-size: 2.5rem; letter-spacing: 10px; }
+            .name-2 { font-size: 2.5rem; letter-spacing: 5px; }
+            .name-3 { font-size: 3rem; letter-spacing: 2px; }
+            .name-4 { font-size: 1.8rem; letter-spacing: 15px; }
+            
+            .q-1 { font-size: 1.5rem; padding: 0 20px; }
+            .q-2 { font-size: 1.3rem; padding: 0 20px; }
+            .q-3 { font-size: 0.8rem; letter-spacing: 5px; padding: 0 20px;}
+            .q-4 { font-size: 2rem; padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="photo-placeholder">Здесь будет твое фото</div>
-    <h1 class="name-title">ALEKSA</h1>
-    
-    <div class="question-container">
-        <div class="q-elegant">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
-        <div class="q-tagtype">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
-        <div class="q-minimal">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
-        <div class="q-caveat">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+    <!-- ВАРИАНТ 1: Высокая мода -->
+    <div class="test-section">
+        <div class="label">Имя 1 (Vogue) + Вопрос 1 (Элегантный)</div>
+        <div class="marble-bg"></div>
+        <div class="photo-fullscreen"></div>
+        <div class="content-overlay">
+            <h1 class="name-1">ALEKSA</h1>
+            <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+        </div>
     </div>
 
-    <a href="index.html" class="back-btn">Вернуться к интро</a>
+    <!-- ВАРИАНТ 2: Кибер-нуар -->
+    <div class="test-section">
+        <div class="label">Имя 2 (TagType) + Вопрос 2 (Кибер)</div>
+        <div class="marble-bg"></div>
+        <div class="photo-fullscreen"></div>
+        <div class="content-overlay">
+            <h1 class="name-2">ALEKSA</h1>
+            <div class="q-2">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+        </div>
+    </div>
+
+    <!-- ВАРИАНТ 3: Классическая роскошь -->
+    <div class="test-section">
+        <div class="label">Имя 3 (Playfair) + Вопрос 3 (Минимализм)</div>
+        <div class="marble-bg"></div>
+        <div class="photo-fullscreen"></div>
+        <div class="content-overlay">
+            <h1 class="name-3">ALEKSA</h1>
+            <div class="q-3">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+        </div>
+    </div>
+
+    <!-- ВАРИАНТ 4: Минимализм и рукописный -->
+    <div class="test-section">
+        <div class="label">Имя 4 (Минимализм) + Вопрос 4 (Рукописный)</div>
+        <div class="marble-bg"></div>
+        <div class="photo-fullscreen"></div>
+        <div class="content-overlay">
+            <h1 class="name-4">ALEKSA</h1>
+            <div class="q-4">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+        </div>
+    </div>
 
 </body>
 </html>
