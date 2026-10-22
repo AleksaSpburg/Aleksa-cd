@@ -15,8 +15,7 @@
         body {
             margin: 0;
             padding: 0;
-            /* Имитация черного мрамора на фоне (радиальный градиент) */
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            background: #000; /* Абсолютно черный фон */
             color: #fff;
             font-family: 'TagType', cursive; 
             overflow: hidden; 
@@ -47,33 +46,34 @@
             transition: opacity 1.5s ease, transform 1.5s ease;
             letter-spacing: 5px; 
             
-            /* --- ЭФФЕКТ ЗОЛОТОГО МРАМОРА --- */
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            /* --- ТЕКСТУРА ЗОЛОТОГО МРАМОРА --- */
+            /* Берем картинку с золотым мрамором и вставляем её внутрь текста */
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* Добавляем золотую тень, чтобы текст выделялся на черном */
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+            
+            /* Тень, чтобы текст выделялся на черном фоне (без свечения) */
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.9));
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            /* Усиливаем золотое свечение при появлении */
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
         }
 
         /* --- РАСТВОРЕНИЕ (Золотая пыль) --- */
         .word.explode {
             opacity: 0;
-            transform: scale(1.3); 
+            transform: scale(1.1); 
             
-            /* Убираем градиент, чтобы текст мог исчезнуть */
-            background: none;
-            -webkit-text-fill-color: rgba(212, 175, 55, 0.2);
-            color: transparent; 
+            /* Убираем картинку, чтобы текст исчез */
+            background-image: none;
+            -webkit-text-fill-color: rgba(212, 175, 55, 0.5); /* Тусклое золото */
             
-            /* Эффект мощной вспышки и размытия */
-            filter: blur(25px) drop-shadow(0 0 50px rgba(212, 175, 55, 1));
+            /* При исчезновении добавляем вспышку */
+            filter: blur(15px) drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
             transition: all 4s ease-in-out; 
         }
 
