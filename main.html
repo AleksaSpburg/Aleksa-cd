@@ -3,44 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Тест композиций</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Cormorant+Garamond:ital,wght@1,300&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>ALEKSA | Сравнение вариантов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    
     <style>
-        @font-face {
-            font-family: 'TagType';
-            src: url('fonts/TagType.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            padding: 0;
             background-color: #000;
             color: #fff;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
         }
 
-        /* Базовый блок на весь экран */
-        .test-section {
+        /* Общие настройки для секций */
+        .section {
             position: relative;
             width: 100vw;
-            height: 100vh;
+            height: 100svh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            border-bottom: 2px solid #333;
-        }
-
-        /* Слой с твоим фото (базовый) */
-        .photo-layer {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('img/bg-main-ru.png'); 
-            background-size: cover;
-            z-index: 1;
-            transition: all 0.5s;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #222;
         }
 
         /* Ярлыки для ориентира */
@@ -48,205 +40,191 @@
             position: absolute;
             top: 20px; left: 20px;
             background: rgba(0,0,0,0.8);
-            padding: 10px 15px;
-            font-size: 0.9rem;
+            padding: 8px 15px;
+            font-size: 0.8rem;
             color: #d4af37;
             z-index: 10;
-            border: 1px solid #d4af37;
-            border-radius: 5px;
-            font-weight: bold;
+            border: 1px solid #444;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* =========================================
-           ВАРИАНТ 1: Кинематографичный (Растворение внизу)
-           ========================================= */
-        .v1 .photo-layer {
-            background-position: center top;
-            /* Плавно растворяем низ картинки в черноту */
-            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        /* Верхняя навигация */
+        .top-nav {
+            position: absolute;
+            top: 30px;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+        }
+        .nav-name {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #d4af37;
+            opacity: 0.7;
+        }
+
+        /* Текстовые стили */
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(4rem, 15vw, 9rem);
+            line-height: 1;
+            letter-spacing: 0.01em;
+            background: linear-gradient(180deg, #f3e2a9 0%, #d4af37 48%, #8c6b22 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: #cbb98a;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0,0,0,1);
+            opacity: 0.9;
+        }
+
+        .monogram {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(20rem, 50vw, 35rem);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(212, 175, 55, 0.08);
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+
+        /* --- ВАРИАНТ 1: "Черный бархат" (Сильное затемнение, текст разделен) --- */
+        .v1 .bg {
+            position: absolute; inset: 0;
+            background: url("img/bg-main-ru.png") 50% 30% / cover no-repeat;
+            z-index: 1;
+        }
+        .v1 .bg::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)); /* Максимально гасим красный */
         }
         .v1 .content {
-            position: absolute;
-            bottom: 5%;
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-        }
-        .v1 .name {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            letter-spacing: 10px;
-            margin: 0 0 10px 0;
-            color: #d4af37;
-            text-shadow: 0 0 20px rgba(0,0,0,1);
-        }
-        .v1 .question {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.5rem;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0,0,0,1);
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 1rem;
         }
 
-        /* =========================================
-           ВАРИАНТ 2: Эффект виньетки (Мягкие края по кругу)
-           ========================================= */
-        .v2 .photo-layer {
-            background-position: center;
-            /* Растворяем края по кругу (эффект софита) */
-            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
-            mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+        /* --- ВАРИАНТ 2: "Свечение" (Меньше затемнения, фото играет) --- */
+        .v2 .bg {
+            position: absolute; inset: 0;
+            background: url("img/bg-main-ru.png") 55% 30% / cover no-repeat;
+            z-index: 1;
+        }
+        .v2 .bg::after {
+            content: ""; position: absolute; inset: 0;
+            background: radial-gradient(circle at 55% 30%, rgba(0,0,0,0.3), rgba(0,0,0,0.9) 70%);
         }
         .v2 .content {
-            position: absolute;
-            bottom: 10%;
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-        }
-        .v2 .name {
-            font-family: 'TagType', cursive; /* Дерзкий шрифт */
-            font-size: 4rem;
-            letter-spacing: 5px;
-            margin: 0 0 15px 0;
-            background: linear-gradient(120deg, #8a6d3b, #fceabb, #8a6d3b);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            -webkit-text-stroke: 1px #d4af37;
-            animation: shine 4s linear infinite;
-        }
-        @keyframes shine { to { background-position: 200% center; } }
-        .v2 .question {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            color: #ccc;
-            text-transform: uppercase;
+            position: absolute; bottom: 8%; z-index: 2;
+            display: flex; flex-direction: column; align-items: center; gap: 1rem;
         }
 
-        /* =========================================
-           ВАРИАНТ 3: Журнальный (Текст слева, фото справа)
-           ========================================= */
-        .v3 .photo-layer {
-            background-position: 80% top; /* Фокус на лицо */
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
-            mask-image: linear-gradient(to right, transparent 0%, black 40%);
+        /* --- ВАРИАНТ 3: "Журнал" (Сдвиг фото вправо, текст слева) --- */
+        .v3 .bg {
+            position: absolute; inset: 0;
+            background: url("img/bg-main-ru.png") 80% 30% / cover no-repeat;
+            z-index: 1;
+        }
+        .v3 .bg::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.4) 70%);
         }
         .v3 .content {
-            position: absolute;
-            bottom: 15%;
-            left: 5%;
-            width: 50%;
-            text-align: left;
-            z-index: 2;
+            position: absolute; left: 10%; bottom: 25%; z-index: 2;
+            display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+            gap: 1rem;
         }
-        .v3 .name {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 5px;
-            margin: 0 0 10px 0;
-            color: #fff;
-        }
-        .v3 .question {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            color: #d4af37;
-        }
+        .v3 .name, .v3 .quote-text { text-align: left; }
 
-        /* =========================================
-           ВАРИАНТ 4: Полное растворение (Без границ)
-           ========================================= */
-        .v4 .photo-layer {
-            background-position: center top;
-            /* Двойная маска: растворяем и низ, и верх */
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 70%, transparent 100%),
-                                linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
-            -webkit-mask-composite: source-in;
-            mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 70%, transparent 100%),
-                        linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
-            mask-composite: intersect;
+        /* --- ВАРИАНТ 4: "Кинематограф" (Мягкий низ, огромная монограмма) --- */
+        .v4 .bg {
+            position: absolute; inset: 0;
+            background: url("img/bg-main-ru.png") 50% 20% / cover no-repeat;
+            z-index: 1;
+        }
+        .v4 .bg::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 80%);
         }
         .v4 .content {
-            position: absolute;
-            bottom: 8%;
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        .v4 .name {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            letter-spacing: 15px;
-            color: #d4af37;
-            padding-bottom: 5px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.5);
-        }
-        .v4 .question {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.3rem;
-            color: #fff;
-            opacity: 0.8;
+            position: relative; z-index: 2;
+            margin-top: 10vh;
+            display: flex; flex-direction: column; align-items: center; gap: 1rem;
         }
 
-        /* Адаптив для телефонов, чтобы текст не был гигантским */
+        /* Адаптив */
         @media (max-width: 768px) {
-            .v1 .name { font-size: 2rem; }
-            .v2 .name { font-size: 2.5rem; }
-            .v3 .content { width: 80%; left: 10%; }
-            .v3 .name { font-size: 2rem; }
-            .v4 .name { font-size: 1.5rem; letter-spacing: 8px; }
-            .question { font-size: 1.1rem !important; padding: 0 10px; }
+            .v3 .content { left: 5%; bottom: 15%; }
+            .v3 .name { font-size: 3.5rem; }
+            .name { font-size: clamp(3.5rem, 18vw, 6rem); }
         }
     </style>
 </head>
 <body>
 
     <!-- ВАРИАНТ 1 -->
-    <div class="test-section v1">
-        <div class="label">Вариант 1: Плавный переход в темноту (Cinzel)</div>
-        <div class="photo-layer"></div>
+    <div class="section v1">
+        <div class="label">Вариант 1: Глубокий черный бархат</div>
+        <div class="bg"></div>
+        <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
+        <div class="monogram">A</div>
         <div class="content">
-            <h1 class="name">ALEKSA</h1>
-            <div class="question">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+            <p class="quote-text">Хм.. Ты здесь.</p>
+            <h1 class="name">Aleksa</h1>
+            <p class="quote-text">Это обо мне или... о тебе?</p>
         </div>
     </div>
 
     <!-- ВАРИАНТ 2 -->
-    <div class="test-section v2">
-        <div class="label">Вариант 2: Виньетка / Софит (TagType)</div>
-        <div class="photo-layer"></div>
+    <div class="section v2">
+        <div class="label">Вариант 2: Акцент на свечении фото (снизу)</div>
+        <div class="bg"></div>
+        <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
         <div class="content">
-            <h1 class="name">ALEKSA</h1>
-            <div class="question">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+            <h1 class="name">Aleksa</h1>
+            <p class="quote-text">Хм.. Ты здесь. Это обо мне или... о тебе?</p>
         </div>
     </div>
 
     <!-- ВАРИАНТ 3 -->
-    <div class="test-section v3">
-        <div class="label">Вариант 3: Журнальная верстка (Слева)</div>
-        <div class="photo-layer"></div>
+    <div class="section v3">
+        <div class="label">Вариант 3: Журнальная верстка (текст слева)</div>
+        <div class="bg"></div>
+        <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
         <div class="content">
-            <h1 class="name">ALEKSA</h1>
-            <div class="question">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+            <h1 class="name">Aleksa</h1>
+            <p class="quote-text">Хм.. Ты здесь.<br>Это обо мне или... о тебе?</p>
         </div>
     </div>
 
     <!-- ВАРИАНТ 4 -->
-    <div class="test-section v4">
-        <div class="label">Вариант 4: Растворение со всех сторон</div>
-        <div class="photo-layer"></div>
+    <div class="section v4">
+        <div class="label">Вариант 4: Мягкий переход в темноту внизу</div>
+        <div class="bg"></div>
+        <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
+        <div class="monogram">A</div>
         <div class="content">
-            <h1 class="name">ALEKSA</h1>
-            <div class="question">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+            <p class="quote-text">Хм.. Ты здесь.</p>
+            <h1 class="name">Aleksa</h1>
+            <p class="quote-text">Это обо мне или... о тебе?</p>
         </div>
     </div>
 
