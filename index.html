@@ -16,8 +16,8 @@
             margin: 0;
             padding: 0;
             background-color: #000;
-            /* Фон: Черный мрамор с золотыми прожилками */
-            background-image: url('https://images.unsplash.com/photo-1512413914633-b5043f4041ea?q=80&w=2000&auto=format&fit=crop');
+            /* ТВОЙ мрамор из папки img */
+            background-image: url('img/bg-marble.jpg');
             background-size: cover;
             background-position: center;
             color: #fff;
@@ -30,12 +30,12 @@
             align-items: center;
         }
 
-        /* Легкое затемнение фона, чтобы мрамор не перебивал текст */
+        /* Легкое затемнение, чтобы текст читался, но мрамор было видно */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.3); 
             z-index: -1;
         }
 
@@ -68,15 +68,13 @@
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            /* Усиливаем свечение при появлении */
             text-shadow: 0 0 25px rgba(212, 175, 55, 0.8), 0 0 10px rgba(255, 255, 255, 0.5); 
         }
 
-        /* --- РАСТВОРЕНИЕ (Золотая пыль) --- */
+        /* Растворение в золотой пыли */
         .word.explode {
             opacity: 0;
             transform: scale(1.1); 
-            /* При исчезновении текст становится тусклым золотом и размывается */
             color: rgba(212, 175, 55, 0.3); 
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
             filter: blur(20px) drop-shadow(0 0 40px rgba(255, 215, 0, 1));
@@ -90,7 +88,7 @@
     <div id="intro-container"></div>
 
     <script>
-        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя..";
+        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя";
         const container = document.getElementById('intro-container');
         const words = text.split(' ');
 
@@ -106,7 +104,6 @@
         function startAnimation() {
             const wordDelay = 600; 
 
-            // Появление слов
             wordElements.forEach((word, index) => {
                 const delay = index * wordDelay; 
                 setTimeout(() => {
@@ -114,7 +111,6 @@
                 }, delay);
             });
 
-            // Пауза и растворение
             const explodeDelay = (wordElements.length * wordDelay) + 4000; 
             
             setTimeout(() => {
