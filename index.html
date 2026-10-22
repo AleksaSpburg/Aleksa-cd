@@ -16,6 +16,7 @@
             margin: 0;
             padding: 0;
             background-color: #000;
+            /* НОВОЕ ИМЯ ФАЙЛА */
             background-image: url('img/bg-marble2.jpg'); 
             background-size: cover; 
             background-position: center;
@@ -52,7 +53,6 @@
             padding: 20px;
             position: relative;
             z-index: 1;
-            /* Плавный сдвиг для мобильных устройств */
             transition: transform 0.5s ease;
         }
 
@@ -84,13 +84,12 @@
             text-shadow: none; 
         }
 
-        /* --- ПРАВИЛО ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
+        /* --- ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
             #intro-container {
-                /* Сдвигаем блок с текстом вверх */
                 transform: translateY(-12vh); 
-                font-size: clamp(2rem, 8vw, 3rem); /* Чуть крупнее для телефона */
-                line-height: 1.8; /* Чуть плотнее строки */
+                font-size: clamp(2rem, 8vw, 3rem); 
+                line-height: 1.8; 
             }
         }
     </style>
@@ -100,7 +99,8 @@
     <div id="intro-container"></div>
 
     <script>
-        const text = "слышать, как тот, кто рядом дышит чаще - единственная музыка, под которую мы готовы терять себя...";
+        /* ТУТ ТИРЕ (—) */
+        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя...";
         const container = document.getElementById('intro-container');
         const words = text.split(' ');
 
@@ -123,3 +123,16 @@
                 }, delay);
             });
 
+            const explodeDelay = (wordElements.length * wordDelay) + 4000; 
+            
+            setTimeout(() => {
+                wordElements.forEach(word => {
+                    word.classList.add('explode');
+                });
+            }, explodeDelay); 
+        }
+
+        window.onload = startAnimation;
+    </script>
+</body>
+</html>
