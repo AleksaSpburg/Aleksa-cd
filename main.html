@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Liquid Marble</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <title>ALEKSA | Official Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'TagType';
@@ -18,19 +19,12 @@
             padding: 0;
             background-color: #000;
             color: #fff;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .test-section {
-            position: relative;
-            width: 100vw;
             height: 100vh;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* --- ТВОЙ ФОН ИЗ GITHUB --- */
@@ -49,7 +43,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4); 
+            background: rgba(0, 0, 0, 0.5); 
         }
 
         .content-overlay {
@@ -59,45 +53,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 10vh;
         }
 
-        /* --- ВАРИАНТ 1: LIQUID CHROME (Серебряный хром, шрифт Cinzel) --- */
-        .name-chrome {
-            font-family: 'Cinzel', serif;
-            font-size: 5rem;
-            font-weight: 800;
-            letter-spacing: 10px;
-            margin: 0 0 30px 0;
-            
-            background: linear-gradient(to bottom, #ffffff 0%, #a3a3a3 45%, #171717 50%, #737373 55%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.9));
-            transition: all 0.5s ease;
-        }
-
-        .name-chrome:hover {
-            letter-spacing: 15px;
-            transform: scale(1.05);
-        }
-
-        /* --- ВАРИАНТ 2: LIQUID GOLD MARBLE (Жидкое золото + твой шрифт) --- */
+        /* --- ФИНАЛЬНОЕ ИМЯ: LIQUID MARBLE + GOLD OUTLINE --- */
         .name-liquid-marble {
             font-family: 'TagType', cursive;
             font-size: 5rem;
             letter-spacing: 8px;
             margin: 0 0 30px 0;
             
-            background: linear-gradient(135deg, #111 0%, #d4af37 25%, #111 50%, #fceabb 75%, #8a6d3b 100%);
-            background-size: 200% auto;
+            /* Берем текстуру мрамора внутрь букв */
+            background-image: url('img/bg-marble2.jpg');
+            background-size: 300% auto; /* Растягиваем, чтобы прожилки были крупнее */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
-            animation: shine 4s linear infinite;
+            
+            /* Золотой контур, чтобы буквы не сливались с фоном */
+            -webkit-text-stroke: 2px #d4af37;
+            
+            /* Тень для объема и свечения */
+            filter: drop-shadow(0px 0px 15px rgba(212, 175, 55, 0.6)) drop-shadow(0px 5px 10px rgba(0,0,0,0.9));
+            
+            /* Анимация переливания */
+            animation: marble-shine 6s linear infinite;
         }
 
-        @keyframes shine {
-            to { background-position: 200% center; }
+        @keyframes marble-shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         /* Вопрос */
@@ -106,49 +90,41 @@
             font-style: italic;
             font-size: 2rem;
             color: #d4af37;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.4);
+            
+            /* Плавное появление вопроса */
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            animation-delay: 1s;
         }
 
-        .label {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 10px;
-            font-size: 0.8rem;
-            color: #888;
-            z-index: 10;
-            border: 1px solid #333;
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
+        /* --- ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
-            .name-chrome, .name-liquid-marble {
-                font-size: 3rem;
+            .name-liquid-marble {
+                font-size: 3.5rem;
+                -webkit-text-stroke: 1.5px #d4af37;
             }
-            .q-1 { font-size: 1.5rem; padding: 0 20px; }
+            .q-1 { 
+                font-size: 1.4rem; 
+                padding: 0 20px; 
+            }
+            .content-overlay {
+                margin-top: 0; /* На телефоне лучше по центру */
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ВАРИАНТ 1: Серебряный хром -->
-    <div class="test-section">
-        <div class="label">Имя: Liquid Chrome (Серебро)</div>
-        <div class="bg-main"></div>
-        <div class="content-overlay">
-            <h1 class="name-chrome">ALEKSA</h1>
-            <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
-        </div>
-    </div>
+    <div class="bg-main"></div>
 
-    <!-- ВАРИАНТ 2: Жидкое золото с черным мрамором -->
-    <div class="test-section">
-        <div class="label">Имя: Liquid Marble (Золото + Камень)</div>
-        <div class="bg-main"></div>
-        <div class="content-overlay">
-            <h1 class="name-liquid-marble">ALEKSA</h1>
-            <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
-        </div>
+    <div class="content-overlay">
+        <h1 class="name-liquid-marble">ALEKSA</h1>
+        <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
     </div>
 
 </body>
