@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Сравнение вариантов</title>
+    <title>ALEKSA | Тест золота</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
@@ -22,27 +22,31 @@
             overflow-x: hidden;
         }
 
-        /* Общие настройки для секций */
-        .section {
+        .hero {
             position: relative;
-            width: 100vw;
             height: 100svh;
-            overflow: hidden;
+            background: url("img/bg-main-ru.png") 70% 40% / cover no-repeat;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 2px solid #222;
+            align-items: center; 
+            overflow: hidden;
+            border-bottom: 1px solid #222;
         }
 
-        /* Ярлыки для ориентира */
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 40%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 50%, rgba(0,0,0,0.98) 100%);
+            z-index: 1;
+        }
+
         .label {
             position: absolute;
             top: 20px; left: 20px;
             background: rgba(0,0,0,0.8);
             padding: 8px 15px;
             font-size: 0.8rem;
-            color: #d4af37;
+            color: #ccc;
             z-index: 10;
             border: 1px solid #444;
             border-radius: 4px;
@@ -51,182 +55,132 @@
             letter-spacing: 1px;
         }
 
-        /* Верхняя навигация */
         .top-nav {
             position: absolute;
-            top: 30px;
-            width: 100%;
-            text-align: center;
+            top: 40px;
+            left: 10vw;
             z-index: 5;
         }
+
         .nav-name {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: #d4af37;
-            opacity: 0.7;
+            color: #888;
         }
 
-        /* Текстовые стили */
+        .content {
+            position: relative;
+            z-index: 2;
+            margin-left: 10vw; 
+            width: 40%; 
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; 
+            gap: 2rem; 
+        }
+
         .name {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-weight: 300;
-            font-size: clamp(4rem, 15vw, 9rem);
-            line-height: 1;
+            font-size: clamp(5rem, 10vw, 9rem);
+            line-height: 0.9;
             letter-spacing: 0.01em;
-            background: linear-gradient(180deg, #f3e2a9 0%, #d4af37 48%, #8c6b22 100%);
+            
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-align: center;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.9));
         }
 
         .quote-text {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            color: #cbb98a;
-            text-align: center;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
             text-shadow: 0 2px 10px rgba(0,0,0,1);
-            opacity: 0.9;
+            text-align: left;
         }
 
-        .monogram {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(20rem, 50vw, 35rem);
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(212, 175, 55, 0.08);
-            pointer-events: none;
-            z-index: 0;
-            user-select: none;
+        /* --- ВАРИАНТ 1: Классический металл (Шампань + Бронза) --- */
+        .g1-name {
+            background: linear-gradient(180deg, #f6e6b6 0%, #cba14b 45%, #7a5c1a 100%);
         }
+        .g1-text { color: #c2b29a; }
 
-        /* --- ВАРИАНТ 1: "Черный бархат" (Сильное затемнение, текст разделен) --- */
-        .v1 .bg {
-            position: absolute; inset: 0;
-            background: url("img/bg-main-ru.png") 50% 30% / cover no-repeat;
-            z-index: 1;
+        /* --- ВАРИАНТ 2: Бледное золото (Слоновая кость + Титан) --- */
+        .g2-name {
+            background: linear-gradient(180deg, #fffcf2 0%, #e3d5b8 40%, #a89776 100%);
         }
-        .v1 .bg::after {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)); /* Максимально гасим красный */
-        }
-        .v1 .content {
-            position: relative; z-index: 2;
-            display: flex; flex-direction: column; align-items: center;
-            gap: 1rem;
-        }
+        .g2-text { color: #d1c8b8; }
 
-        /* --- ВАРИАНТ 2: "Свечение" (Меньше затемнения, фото играет) --- */
-        .v2 .bg {
-            position: absolute; inset: 0;
-            background: url("img/bg-main-ru.png") 55% 30% / cover no-repeat;
-            z-index: 1;
+        /* --- ВАРИАНТ 3: Старинная бронза (Темный антиквариат) --- */
+        .g3-name {
+            background: linear-gradient(180deg, #d4af37 0%, #8c6b22 40%, #3d2c06 100%);
         }
-        .v2 .bg::after {
-            content: ""; position: absolute; inset: 0;
-            background: radial-gradient(circle at 55% 30%, rgba(0,0,0,0.3), rgba(0,0,0,0.9) 70%);
-        }
-        .v2 .content {
-            position: absolute; bottom: 8%; z-index: 2;
-            display: flex; flex-direction: column; align-items: center; gap: 1rem;
-        }
+        .g3-text { color: #9c8a6c; }
 
-        /* --- ВАРИАНТ 3: "Журнал" (Сдвиг фото вправо, текст слева) --- */
-        .v3 .bg {
-            position: absolute; inset: 0;
-            background: url("img/bg-main-ru.png") 80% 30% / cover no-repeat;
-            z-index: 1;
+        /* --- ВАРИАНТ 4: Розовое золото (Теплый оттенок) --- */
+        .g4-name {
+            background: linear-gradient(180deg, #f9e0d9 0%, #d4a373 45%, #8c5a35 100%);
         }
-        .v3 .bg::after {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.4) 70%);
-        }
-        .v3 .content {
-            position: absolute; left: 10%; bottom: 25%; z-index: 2;
-            display: flex; flex-direction: column; align-items: flex-start; text-align: left;
-            gap: 1rem;
-        }
-        .v3 .name, .v3 .quote-text { text-align: left; }
+        .g4-text { color: #d4b5a5; }
 
-        /* --- ВАРИАНТ 4: "Кинематограф" (Мягкий низ, огромная монограмма) --- */
-        .v4 .bg {
-            position: absolute; inset: 0;
-            background: url("img/bg-main-ru.png") 50% 20% / cover no-repeat;
-            z-index: 1;
-        }
-        .v4 .bg::after {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 80%);
-        }
-        .v4 .content {
-            position: relative; z-index: 2;
-            margin-top: 10vh;
-            display: flex; flex-direction: column; align-items: center; gap: 1rem;
-        }
 
-        /* Адаптив */
         @media (max-width: 768px) {
-            .v3 .content { left: 5%; bottom: 15%; }
-            .v3 .name { font-size: 3.5rem; }
-            .name { font-size: clamp(3.5rem, 18vw, 6rem); }
+            .hero { background-position: 60% 40%; align-items: flex-start; padding-top: 25vh; }
+            .hero::before { background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.95) 100%); }
+            .top-nav { left: 50%; transform: translateX(-50%); }
+            .content { margin-left: 8vw; width: 85%; align-items: center; gap: 1.5rem; }
+            .quote-text { text-align: center; }
         }
     </style>
 </head>
 <body>
 
     <!-- ВАРИАНТ 1 -->
-    <div class="section v1">
-        <div class="label">Вариант 1: Глубокий черный бархат</div>
-        <div class="bg"></div>
+    <section class="hero">
+        <div class="label">Вариант 1: Классический металл (Шампань + Бронза)</div>
         <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
-        <div class="monogram">A</div>
         <div class="content">
-            <p class="quote-text">Хм.. Ты здесь.</p>
-            <h1 class="name">Aleksa</h1>
-            <p class="quote-text">Это обо мне или... о тебе?</p>
+            <p class="quote-text g1-text">Хм.. Ты здесь.</p>
+            <h1 class="name g1-name">Aleksa</h1>
+            <p class="quote-text g1-text">Это обо мне или... о тебе?</p>
         </div>
-    </div>
+    </section>
 
     <!-- ВАРИАНТ 2 -->
-    <div class="section v2">
-        <div class="label">Вариант 2: Акцент на свечении фото (снизу)</div>
-        <div class="bg"></div>
+    <section class="hero">
+        <div class="label">Вариант 2: Бледное золото (Слоновая кость)</div>
         <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
         <div class="content">
-            <h1 class="name">Aleksa</h1>
-            <p class="quote-text">Хм.. Ты здесь. Это обо мне или... о тебе?</p>
+            <p class="quote-text g2-text">Хм.. Ты здесь.</p>
+            <h1 class="name g2-name">Aleksa</h1>
+            <p class="quote-text g2-text">Это обо мне или... о тебе?</p>
         </div>
-    </div>
+    </section>
 
     <!-- ВАРИАНТ 3 -->
-    <div class="section v3">
-        <div class="label">Вариант 3: Журнальная верстка (текст слева)</div>
-        <div class="bg"></div>
+    <section class="hero">
+        <div class="label">Вариант 3: Старинная бронза (Темный антиквариат)</div>
         <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
         <div class="content">
-            <h1 class="name">Aleksa</h1>
-            <p class="quote-text">Хм.. Ты здесь.<br>Это обо мне или... о тебе?</p>
+            <p class="quote-text g3-text">Хм.. Ты здесь.</p>
+            <h1 class="name g3-name">Aleksa</h1>
+            <p class="quote-text g3-text">Это обо мне или... о тебе?</p>
         </div>
-    </div>
+    </section>
 
     <!-- ВАРИАНТ 4 -->
-    <div class="section v4">
-        <div class="label">Вариант 4: Мягкий переход в темноту внизу</div>
-        <div class="bg"></div>
+    <section class="hero">
+        <div class="label">Вариант 4: Розовое золото (Теплый оттенок)</div>
         <div class="top-nav"><div class="nav-name">ALEKSA</div></div>
-        <div class="monogram">A</div>
         <div class="content">
-            <p class="quote-text">Хм.. Ты здесь.</p>
-            <h1 class="name">Aleksa</h1>
-            <p class="quote-text">Это обо мне или... о тебе?</p>
+            <p class="quote-text g4-text">Хм.. Ты здесь.</p>
+            <h1 class="name g4-name">Aleksa</h1>
+            <p class="quote-text g4-text">Это обо мне или... о тебе?</p>
         </div>
-    </div>
+    </section>
 
 </body>
 </html>
