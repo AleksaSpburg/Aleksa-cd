@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALEKSA | Интро</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Подключаем элегантный тонкий шрифт Cormorant Garamond -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
+        /* Подключаем ваш шрифт из папки fonts */
+        @font-face {
+            font-family: 'TagType';
+            src: url('fonts/TagType-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
-            /* Тонкий, элегантный шрифт */
-            font-family: 'Cormorant Garamond', serif; 
-            font-weight: 300;
+            /* Используем ваш шрифт, с запасным рукописным из системы */
+            font-family: 'TagType', 'Caveat', cursive; 
             overflow: hidden; 
             width: 100vw;
             height: 100vh;
@@ -29,12 +32,13 @@
             width: 90%;
             max-width: 1200px;
             text-align: center;
-            font-size: clamp(2rem, 5vw, 4rem); 
-            line-height: 1.4; 
+            /* Размер шрифта, возможно, придётся подкорректировать после просмотра */
+            font-size: clamp(2.5rem, 7vw, 5rem); 
+            line-height: 1.3; 
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.3em;
+            gap: 0.2em;
             padding: 20px;
         }
 
@@ -42,24 +46,21 @@
             opacity: 0;
             display: inline-block;
             transform: translateY(15px);
-            /* Плавное проявление (2 секунды) */
-            transition: opacity 2s ease, transform 2s ease;
+            transition: opacity 1.5s ease, transform 1.5s ease;
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); 
         }
 
-        /* Разлет с красной вспышкой */
         .word.explode {
             opacity: 0;
-            transform: translate(var(--x), var(--y)) scale(1.1) rotate(var(--r));
+            transform: translate(var(--x), var(--y)) scale(1.2) rotate(var(--r));
             color: #ff003c; 
             text-shadow: 0 0 30px #ff003c, 0 0 60px #ff003c;
             filter: blur(10px); 
-            /* Более медленный и плавный разлет (3 секунды) */
             transition: all 3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -98,7 +99,6 @@
 
         function startAnimation() {
             // Слова появляются по порядку. 500 мс = полсекунды между словами.
-            // Если нужно еще медленнее, поменяй 500 на 700 или 800.
             const wordDelay = 500; 
 
             wordElements.forEach((word, index) => {
@@ -125,7 +125,6 @@
                 });
             }, explodeDelay); 
 
-            // Конец
             setTimeout(() => {
                 document.getElementById('end-message').style.opacity = '1';
             }, explodeDelay + 3000);
