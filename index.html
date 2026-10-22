@@ -6,15 +6,18 @@
     <title>ALEKSA | Интро</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Новый шрифт: Playfair Display (для текста) и Montserrat (для мелких надписей) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
-            font-family: 'Cormorant Garamond', serif;
-            overflow: hidden; /* Запрещаем скролл на время интро */
+            font-family: 'Playfair Display', serif;
+            overflow: hidden; 
+            /* Растягиваем на весь экран */
+            width: 100vw;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,47 +25,55 @@
         }
 
         #intro-container {
-            position: relative;
             width: 90%;
-            max-width: 900px;
+            max-width: 1200px;
             text-align: center;
-            font-size: clamp(1.5rem, 4vw, 3rem);
-            line-height: 1.5;
+            /* Размер шрифта теперь крупнее и адаптивный */
+            font-size: clamp(2rem, 5vw, 4.5rem); 
+            line-height: 1.4;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.3em;
+            gap: 0.4em;
+            padding: 20px;
         }
 
         .word {
             opacity: 0;
             display: inline-block;
-            transform: translateY(20px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            transform: translateY(30px);
+            /* Появление стало медленнее */
+            transition: opacity 2s ease, transform 2s ease;
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Легкое свечение */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); 
         }
 
-        /* Эффект разлета */
+        /* НОВЫЙ ЭФФЕКТ РАЗЛЕТА (Сгорание / Дымка) */
         .word.explode {
             opacity: 0;
-            transform: translate(var(--x), var(--y)) scale(0.5) rotate(var(--r));
-            transition: all 1.2s cubic-bezier(0.5, 0, 0.2, 1);
-            filter: blur(8px); /* Размытие при разлете */
+            /* Увеличиваем размер, улетаем и вращаем */
+            transform: translate(var(--x), var(--y)) scale(2) rotate(var(--r));
+            /* Вспышка красным и сильное размытие */
+            color: #ff003c; 
+            text-shadow: 0 0 40px #ff003c, 0 0 80px #ff003c;
+            filter: blur(20px); 
+            /* Длительность разлета */
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #end-message {
             position: absolute;
             opacity: 0;
             font-size: 1rem;
-            font-family: sans-serif;
+            font-family: 'Montserrat', sans-serif;
             color: gray;
-            transition: opacity 1s ease;
+            transition: opacity 2s ease;
             pointer-events: none;
+            bottom: 50px;
         }
     </style>
 </head>
@@ -76,7 +87,6 @@
         const container = document.getElementById('intro-container');
         const words = text.split(' ');
 
-        // Создаем элементы для каждого слова
         words.forEach(word => {
             const span = document.createElement('span');
             span.className = 'word';
@@ -86,24 +96,21 @@
 
         const wordElements = document.querySelectorAll('.word');
 
-        // Запускаем анимацию
         function startAnimation() {
-            // 1. Появление слов (рандомно)
+            // 1. Появление слов (дольше, до 4 секунд)
             wordElements.forEach(word => {
-                // Случайная задержка от 0 до 2.5 секунд
-                const delay = Math.random() * 2500; 
+                const delay = Math.random() * 4000; 
                 setTimeout(() => {
                     word.classList.add('show');
                 }, delay);
             });
 
-            // 2. Пауза и разлет (через 4 секунды после старта)
+            // 2. Пауза и разлет (через 6 секунд после старта)
             setTimeout(() => {
                 wordElements.forEach(word => {
-                    // Случайное направление разлета
-                    const x = (Math.random() - 0.5) * 600 + 'px'; // Влево/вправо
-                    const y = (Math.random() - 0.5) * 600 + 'px'; // Вверх/вниз
-                    const r = (Math.random() - 0.5) * 90 + 'deg'; // Вращение
+                    const x = (Math.random() - 0.5) * 800 + 'px'; 
+                    const y = (Math.random() - 0.5) * 800 + 'px'; 
+                    const r = (Math.random() - 0.5) * 120 + 'deg'; 
                     
                     word.style.setProperty('--x', x);
                     word.style.setProperty('--y', y);
@@ -111,15 +118,14 @@
                     
                     word.classList.add('explode');
                 });
-            }, 4000);
+            }, 6000); // Ждем 6 секунд
 
-            // 3. Конец (через 5.5 секунд)
+            // 3. Конец (появление серой надписи через 8 секунд)
             setTimeout(() => {
                 document.getElementById('end-message').style.opacity = '1';
-            }, 5500);
+            }, 8000);
         }
 
-        // Запуск после загрузки страницы
         window.onload = startAnimation;
     </script>
 </body>
