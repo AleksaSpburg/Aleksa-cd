@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALEKSA | Интро</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Возвращаем Caveat, он самый читаемый из рукописных -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Подключаем ваш шрифт из папки fonts с правильным названием */
-        @font-face {
-            font-family: 'TagType';
-            src: url('fonts/TagType.ttf') format('truetype'); /* ТУТ ИСПРАВЛЕНО */
-            font-weight: normal;
-            font-style: normal;
-        }
-
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
-            font-family: 'TagType', 'Caveat', cursive; 
+            font-family: 'Caveat', cursive; 
+            font-weight: 400; /* Убрали лишнюю жирность для изящества */
             overflow: hidden; 
             width: 100vw;
             height: 100vh;
@@ -29,15 +26,15 @@
 
         #intro-container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1000px;
             text-align: center;
-            /* Размер шрифта - если будет мелко или крупно, мы потом подкорректируем */
-            font-size: clamp(2.5rem, 7vw, 5rem); 
-            line-height: 1.3; 
+            /* Уменьшили размер, чтобы текст дышал и помещался в 2-3 строки */
+            font-size: clamp(2.2rem, 5vw, 4rem); 
+            line-height: 1.4; /* Увеличили расстояние между строками */
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.2em;
+            gap: 0.15em; /* Отступы между словами */
             padding: 20px;
         }
 
@@ -46,12 +43,14 @@
             display: inline-block;
             transform: translateY(15px);
             transition: opacity 1.5s ease, transform 1.5s ease;
+            /* Немного разряжаем буквы внутри слов */
+            letter-spacing: 1px; 
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); 
         }
 
         .word.explode {
