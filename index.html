@@ -16,13 +16,14 @@
             margin: 0;
             padding: 0;
             background-color: #000;
-            /* Твой файл из папки img */
-            background-image: url('img/bg-marble.jpg'); 
             
-            /* --- НАСТРОЙКИ ШТАМПА (БЕЗ РАСТЯГИВАНИЯ) --- */
-            background-repeat: repeat; /* Копирует картинку */
-            background-size: auto; /* Оставляет оригинальный маленький размер */
-            background-position: top left; 
+            /* Ссылка на КАЧЕСТВЕННЫЙ черный мрамор с золотом */
+            background-image: url('https://images.unsplash.com/photo-1550537687-c91072c4792d?q=80&w=2560&auto=format&fit=crop'); 
+            
+            /* Настройки единого полотна */
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
             
             color: #fff;
             font-family: 'TagType', cursive; 
@@ -34,12 +35,12 @@
             align-items: center;
         }
 
-        /* Затемнение 50%, чтобы мелкая плитка не рябила и текст читался */
+        /* Затемнение, чтобы мрамор не перебивал текст */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.5); 
+            background: rgba(0, 0, 0, 0.4); 
             z-index: -1;
             pointer-events: none;
         }
@@ -56,7 +57,7 @@
             gap: 0.5em; 
             padding: 20px;
             position: relative;
-            z-index: 1; /* Текст поверх затемнения */
+            z-index: 1; 
         }
 
         .word {
@@ -85,7 +86,6 @@
             filter: blur(20px) drop-shadow(0 0 40px rgba(255, 215, 0, 1));
             transition: all 4s ease-in-out; 
         }
-
     </style>
 </head>
 <body>
@@ -109,7 +109,6 @@
         function startAnimation() {
             const wordDelay = 600; 
 
-            // Появление
             wordElements.forEach((word, index) => {
                 const delay = index * wordDelay; 
                 setTimeout(() => {
@@ -117,7 +116,6 @@
                 }, delay);
             });
 
-            // Растворение
             const explodeDelay = (wordElements.length * wordDelay) + 4000; 
             
             setTimeout(() => {
