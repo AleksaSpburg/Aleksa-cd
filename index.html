@@ -6,16 +6,17 @@
     <title>ALEKSA | Интро</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Подключаем рукописный шрифт Great Vibes и Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <!-- Подключаем элегантный тонкий шрифт Cormorant Garamond -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
-            /* Рукописный шрифт */
-            font-family: 'Great Vibes', cursive; 
+            /* Тонкий, элегантный шрифт */
+            font-family: 'Cormorant Garamond', serif; 
+            font-weight: 300;
             overflow: hidden; 
             width: 100vw;
             height: 100vh;
@@ -28,9 +29,8 @@
             width: 90%;
             max-width: 1200px;
             text-align: center;
-            /* Для рукописных шрифтов размер нужен больше, так как они визуально мельче */
-            font-size: clamp(2.5rem, 6vw, 5rem); 
-            line-height: 1.5; 
+            font-size: clamp(2rem, 5vw, 4rem); 
+            line-height: 1.4; 
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -41,25 +41,26 @@
         .word {
             opacity: 0;
             display: inline-block;
-            /* Немного смещаем вниз для эффекта проявления */
             transform: translateY(15px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            /* Плавное проявление (2 секунды) */
+            transition: opacity 2s ease, transform 2s ease;
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); 
         }
 
         /* Разлет с красной вспышкой */
         .word.explode {
             opacity: 0;
-            transform: translate(var(--x), var(--y)) scale(1.2) rotate(var(--r));
+            transform: translate(var(--x), var(--y)) scale(1.1) rotate(var(--r));
             color: #ff003c; 
             text-shadow: 0 0 30px #ff003c, 0 0 60px #ff003c;
             filter: blur(10px); 
-            transition: all 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Более медленный и плавный разлет (3 секунды) */
+            transition: all 3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #end-message {
@@ -96,18 +97,19 @@
         const wordElements = document.querySelectorAll('.word');
 
         function startAnimation() {
-            // Слова появляются ПО ПОРЯДКУ, а не рандомно
+            // Слова появляются по порядку. 500 мс = полсекунды между словами.
+            // Если нужно еще медленнее, поменяй 500 на 700 или 800.
+            const wordDelay = 500; 
+
             wordElements.forEach((word, index) => {
-                // Каждое следующее слово ждет 250 миллисекунд (0.25 сек) после предыдущего
-                const delay = index * 250; 
+                const delay = index * wordDelay; 
                 setTimeout(() => {
                     word.classList.add('show');
                 }, delay);
             });
 
-            // Пауза после того, как все слова появились (например, 3 секунды) и разлет
-            // Общее время появления = 11 слов * 250мс = 2750мс. Добавляем паузу 3000мс.
-            const explodeDelay = (wordElements.length * 250) + 3000; 
+            // Пауза после того, как все слова появились (4 секунды) и разлет
+            const explodeDelay = (wordElements.length * wordDelay) + 4000; 
             
             setTimeout(() => {
                 wordElements.forEach(word => {
@@ -126,7 +128,7 @@
             // Конец
             setTimeout(() => {
                 document.getElementById('end-message').style.opacity = '1';
-            }, explodeDelay + 2000);
+            }, explodeDelay + 3000);
         }
 
         window.onload = startAnimation;
