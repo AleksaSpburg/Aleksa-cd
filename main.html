@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Official Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <title>ALEKSA | Сравнение</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Cormorant+Garamond:ital,wght@1,300&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'TagType';
@@ -18,26 +18,32 @@
             padding: 0;
             background-color: #000;
             color: #fff;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* --- ТВОЙ ФОН ИЗ GITHUB --- */
+        .test-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* --- ТВОЙ ФОН --- */
         .bg-main {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('img/bg-main-ru.png'); /* Твой файл */
+            background-image: url('img/bg-main-ru.png'); 
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
         }
 
-        /* Легкое затемнение, чтобы текст читался */
         .bg-main::after {
             content: '';
             position: absolute;
@@ -52,35 +58,45 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 10vh;
         }
 
-        /* --- ФИНАЛЬНОЕ ИМЯ: LIQUID MARBLE + GOLD OUTLINE --- */
-        .name-liquid-marble {
-            font-family: 'TagType', cursive;
+        /* --- ОБЩИЕ НАСТРОЙКИ ДЛЯ ОБОИХ ИМЕН (Мрамор + Золото) --- */
+        .name-base {
             font-size: 5rem;
-            letter-spacing: 8px;
             margin: 0 0 30px 0;
             
-            /* Берем текстуру мрамора внутрь букв */
+            /* Мрамор внутри букв */
             background-image: url('img/bg-marble2.jpg');
-            background-size: 300% auto; /* Растягиваем, чтобы прожилки были крупнее */
+            background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* Золотой контур, чтобы буквы не сливались с фоном */
+            /* Золотой контур */
             -webkit-text-stroke: 2px #d4af37;
             
-            /* Тень для объема и свечения */
+            /* Тень */
             filter: drop-shadow(0px 0px 15px rgba(212, 175, 55, 0.6)) drop-shadow(0px 5px 10px rgba(0,0,0,0.9));
             
-            /* Анимация переливания */
+            /* Анимация */
             animation: marble-shine 6s linear infinite;
         }
 
         @keyframes marble-shine {
             0% { background-position: 0% center; }
             100% { background-position: 200% center; }
+        }
+
+        /* --- ПЕРВОЕ НАПИСАНИЕ (Cinzel) --- */
+        .name-1 {
+            font-family: 'Cinzel', serif;
+            font-weight: 800;
+            letter-spacing: 10px;
+        }
+
+        /* --- ВТОРОЕ НАПИСАНИЕ (TagType) --- */
+        .name-2 {
+            font-family: 'TagType', cursive;
+            letter-spacing: 8px;
         }
 
         /* Вопрос */
@@ -90,40 +106,50 @@
             font-size: 2rem;
             color: #d4af37;
             text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.4);
-            
-            /* Плавное появление вопроса */
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-            animation-delay: 1s;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        .label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            color: #d4af37;
+            z-index: 10;
+            border: 1px solid #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* --- ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
-            .name-liquid-marble {
-                font-size: 3.5rem;
-                -webkit-text-stroke: 1.5px #d4af37;
-            }
-            .q-1 { 
-                font-size: 1.4rem; 
-                padding: 0 20px; 
-            }
-            .content-overlay {
-                margin-top: 0; /* На телефоне лучше по центру */
-            }
+            .name-base { font-size: 3rem; -webkit-text-stroke: 1.5px #d4af37; }
+            .name-1 { letter-spacing: 5px; }
+            .name-2 { letter-spacing: 4px; }
+            .q-1 { font-size: 1.5rem; padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-main"></div>
+    <!-- ПЕРВОЕ НАПИСАНИЕ -->
+    <div class="test-section">
+        <div class="label">Первое написание (Cinzel)</div>
+        <div class="bg-main"></div>
+        <div class="content-overlay">
+            <h1 class="name-base name-1">ALEKSA</h1>
+            <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+        </div>
+    </div>
 
-    <div class="content-overlay">
-        <h1 class="name-liquid-marble">ALEKSA</h1>
-        <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+    <!-- ВТОРОЕ НАПИСАНИЕ -->
+    <div class="test-section">
+        <div class="label">Второе написание (TagType)</div>
+        <div class="bg-main"></div>
+        <div class="content-overlay">
+            <h1 class="name-base name-2">ALEKSA</h1>
+            <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+        </div>
     </div>
 
 </body>
