@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             background-color: #000;
-            background-image: url('img/bg-marble2.jpg'); 
+            background-image: url('img/bg-marble.jpg'); 
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
@@ -30,12 +30,12 @@
             align-items: center;
         }
 
-        /* Немного увеличили затемнение фона, чтобы текст выделялся сильнее */
+        /* Затемнение фона */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.65); /* Было 0.5, стало 0.65 */
+            background: rgba(0, 0, 0, 0.65); 
             z-index: -1;
         }
 
@@ -52,6 +52,8 @@
             padding: 20px;
             position: relative;
             z-index: 1;
+            /* Плавный сдвиг для мобильных устройств */
+            transition: transform 0.5s ease;
         }
 
         .word {
@@ -61,17 +63,14 @@
             transition: opacity 1.5s ease, transform 1.5s ease;
             letter-spacing: 5px; 
             
-            /* --- НОВЫЕ НАСТРОЙКИ КОНТРАСТА --- */
             color: #ffffff;
-            -webkit-text-stroke: 1.5px #b8860b; /* Темное золото для обводки */
-            /* Мощная черная тень по кругу, чтобы отделить от мрамора */
+            -webkit-text-stroke: 1.5px #b8860b;
             text-shadow: 2px 2px 5px #000, -2px -2px 5px #000, 2px -2px 5px #000, -2px 2px 5px #000; 
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            /* При появлении добавляем легкое свечение, но оставляем черную тень */
             text-shadow: 2px 2px 5px #000, -2px -2px 5px #000, 0 0 15px rgba(255, 215, 0, 0.6); 
         }
 
@@ -82,9 +81,18 @@
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
             filter: blur(20px) drop-shadow(0 0 40px rgba(255, 215, 0, 1));
             transition: all 4s ease-in-out; 
-            text-shadow: none; /* Убираем тени при размытии */
+            text-shadow: none; 
         }
 
+        /* --- ПРАВИЛО ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
+        @media (max-width: 768px) {
+            #intro-container {
+                /* Сдвигаем блок с текстом вверх */
+                transform: translateY(-12vh); 
+                font-size: clamp(2rem, 8vw, 3rem); /* Чуть крупнее для телефона */
+                line-height: 1.8; /* Чуть плотнее строки */
+            }
+        }
     </style>
 </head>
 <body>
@@ -92,9 +100,7 @@
     <div id="intro-container"></div>
 
     <script>
-        /* ДОБАВИЛИ МНОГОТОЧИЕ В КОНЕЦ */
         const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя...";
-        
         const container = document.getElementById('intro-container');
         const words = text.split(' ');
 
