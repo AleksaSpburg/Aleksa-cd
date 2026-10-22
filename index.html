@@ -16,15 +16,10 @@
             margin: 0;
             padding: 0;
             background-color: #000;
-            
-            /* Твой новый, обрезанный, качественный мрамор */
             background-image: url('img/bg-marble2.jpg'); 
-            
-            /* Настройки, чтобы мрамор лег ровно на весь экран без повторений */
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
-            
             color: #fff;
             font-family: 'TagType', cursive; 
             overflow: hidden; 
@@ -35,12 +30,12 @@
             align-items: center;
         }
 
-        /* Легкое затемнение, чтобы текст читался на золотых прожилках */
+        /* Немного увеличили затемнение фона, чтобы текст выделялся сильнее */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.5); 
+            background: rgba(0, 0, 0, 0.65); /* Было 0.5, стало 0.65 */
             z-index: -1;
         }
 
@@ -66,15 +61,18 @@
             transition: opacity 1.5s ease, transform 1.5s ease;
             letter-spacing: 5px; 
             
+            /* --- НОВЫЕ НАСТРОЙКИ КОНТРАСТА --- */
             color: #ffffff;
-            -webkit-text-stroke: 1px #d4af37; /* Золотой контур */
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            -webkit-text-stroke: 1.5px #b8860b; /* Темное золото для обводки */
+            /* Мощная черная тень по кругу, чтобы отделить от мрамора */
+            text-shadow: 2px 2px 5px #000, -2px -2px 5px #000, 2px -2px 5px #000, -2px 2px 5px #000; 
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 0 0 25px rgba(212, 175, 55, 0.8), 0 0 10px rgba(255, 255, 255, 0.5); 
+            /* При появлении добавляем легкое свечение, но оставляем черную тень */
+            text-shadow: 2px 2px 5px #000, -2px -2px 5px #000, 0 0 15px rgba(255, 215, 0, 0.6); 
         }
 
         .word.explode {
@@ -84,6 +82,7 @@
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
             filter: blur(20px) drop-shadow(0 0 40px rgba(255, 215, 0, 1));
             transition: all 4s ease-in-out; 
+            text-shadow: none; /* Убираем тени при размытии */
         }
 
     </style>
@@ -93,7 +92,9 @@
     <div id="intro-container"></div>
 
     <script>
-        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя";
+        /* ДОБАВИЛИ МНОГОТОЧИЕ В КОНЕЦ */
+        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя...";
+        
         const container = document.getElementById('intro-container');
         const words = text.split(' ');
 
