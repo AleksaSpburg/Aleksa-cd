@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Главная - Тест</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Montserrat:wght@300;400&family=Playfair+Display:wght@400;700&family=Caveat:wght@400&display=swap" rel="stylesheet">
+    <title>ALEKSA | Liquid Marble</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'TagType';
@@ -23,7 +22,6 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* Каждый блок занимает весь экран */
         .test-section {
             position: relative;
             width: 100vw;
@@ -35,35 +33,23 @@
             overflow: hidden;
         }
 
-        /* Фон: Мрамор */
-        .marble-bg {
+        /* --- ТВОЙ ФОН ИЗ GITHUB --- */
+        .bg-main {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('img/bg-marble2.jpg'); 
+            background-image: url('img/bg-main-ru.png'); /* Твой файл */
             background-size: cover; 
             background-position: center;
+            background-repeat: no-repeat;
             z-index: 1;
         }
 
-        .marble-bg::after {
+        /* Легкое затемнение, чтобы текст читался */
+        .bg-main::after {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        /* Фото на весь экран с растворенными краями */
-        .photo-fullscreen {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            /* ВРЕМЕННАЯ ЗАГЛУШКА. Потом поменяем на твою картинку */
-            background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
-            z-index: 2;
-            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
-            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
-            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.4); 
         }
 
         .content-overlay {
@@ -73,62 +59,48 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 10vh;
         }
 
-        /* --- ВАРИАНТЫ ИМЕНИ --- */
-        
-        /* 1. Высокая мода (Vogue) */
-        .name-1 {
-            font-family: 'Cormorant Garamond', serif;
+        /* --- ВАРИАНТ 1: LIQUID CHROME (Серебряный хром, шрифт Cinzel) --- */
+        .name-chrome {
+            font-family: 'Cinzel', serif;
             font-size: 5rem;
-            font-weight: 300;
-            letter-spacing: 20px;
-            text-transform: uppercase;
-            margin: 0 0 30px 0;
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
-        }
-
-        /* 2. Твой шрифт (Кибер-нуар) */
-        .name-2 {
-            font-family: 'TagType', cursive;
-            font-size: 4rem;
+            font-weight: 800;
             letter-spacing: 10px;
             margin: 0 0 30px 0;
-            color: #fff;
-            -webkit-text-stroke: 2px #d4af37;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            
+            background: linear-gradient(to bottom, #ffffff 0%, #a3a3a3 45%, #171717 50%, #737373 55%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.9));
+            transition: all 0.5s ease;
         }
 
-        /* 3. Классическая роскошь (Playfair) */
-        .name-3 {
-            font-family: 'Playfair Display', serif;
+        .name-chrome:hover {
+            letter-spacing: 15px;
+            transform: scale(1.05);
+        }
+
+        /* --- ВАРИАНТ 2: LIQUID GOLD MARBLE (Жидкое золото + твой шрифт) --- */
+        .name-liquid-marble {
+            font-family: 'TagType', cursive;
             font-size: 5rem;
-            font-weight: 700;
-            letter-spacing: 5px;
-            text-transform: uppercase;
+            letter-spacing: 8px;
             margin: 0 0 30px 0;
-            color: #d4af37;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            
+            background: linear-gradient(135deg, #111 0%, #d4af37 25%, #111 50%, #fceabb 75%, #8a6d3b 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+            animation: shine 4s linear infinite;
         }
 
-        /* 4. Минимализм (Широкий) */
-        .name-4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: 30px;
-            text-transform: uppercase;
-            margin: 0 0 30px 0;
-            color: #fff;
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
 
-        /* --- ВАРИАНТЫ ВОПРОСА --- */
-        
-        /* 1. Элегантный */
+        /* Вопрос */
         .q-1 {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
@@ -137,35 +109,6 @@
             text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
-        /* 2. Кибер-нуар */
-        .q-2 {
-            font-family: 'TagType', cursive;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            color: #fff;
-            -webkit-text-stroke: 1px #d4af37;
-            text-shadow: 0 0 15px rgba(0,0,0,0.8);
-        }
-
-        /* 3. Минимализм */
-        .q-3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            color: #eee;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-        }
-
-        /* 4. Рукописный */
-        .q-4 {
-            font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
-            color: #d4af37;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-        }
-
-        /* Надписи-подсказки */
         .label {
             position: absolute;
             top: 20px;
@@ -175,65 +118,36 @@
             font-size: 0.8rem;
             color: #888;
             z-index: 10;
+            border: 1px solid #333;
         }
 
-        /* --- ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
-            .name-1 { font-size: 2.5rem; letter-spacing: 10px; }
-            .name-2 { font-size: 2.5rem; letter-spacing: 5px; }
-            .name-3 { font-size: 3rem; letter-spacing: 2px; }
-            .name-4 { font-size: 1.8rem; letter-spacing: 15px; }
-            
+            .name-chrome, .name-liquid-marble {
+                font-size: 3rem;
+            }
             .q-1 { font-size: 1.5rem; padding: 0 20px; }
-            .q-2 { font-size: 1.3rem; padding: 0 20px; }
-            .q-3 { font-size: 0.8rem; letter-spacing: 5px; padding: 0 20px;}
-            .q-4 { font-size: 2rem; padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ВАРИАНТ 1: Высокая мода -->
+    <!-- ВАРИАНТ 1: Серебряный хром -->
     <div class="test-section">
-        <div class="label">Имя 1 (Vogue) + Вопрос 1 (Элегантный)</div>
-        <div class="marble-bg"></div>
-        <div class="photo-fullscreen"></div>
+        <div class="label">Имя: Liquid Chrome (Серебро)</div>
+        <div class="bg-main"></div>
         <div class="content-overlay">
-            <h1 class="name-1">ALEKSA</h1>
+            <h1 class="name-chrome">ALEKSA</h1>
             <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
         </div>
     </div>
 
-    <!-- ВАРИАНТ 2: Кибер-нуар -->
+    <!-- ВАРИАНТ 2: Жидкое золото с черным мрамором -->
     <div class="test-section">
-        <div class="label">Имя 2 (TagType) + Вопрос 2 (Кибер)</div>
-        <div class="marble-bg"></div>
-        <div class="photo-fullscreen"></div>
+        <div class="label">Имя: Liquid Marble (Золото + Камень)</div>
+        <div class="bg-main"></div>
         <div class="content-overlay">
-            <h1 class="name-2">ALEKSA</h1>
-            <div class="q-2">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
-        </div>
-    </div>
-
-    <!-- ВАРИАНТ 3: Классическая роскошь -->
-    <div class="test-section">
-        <div class="label">Имя 3 (Playfair) + Вопрос 3 (Минимализм)</div>
-        <div class="marble-bg"></div>
-        <div class="photo-fullscreen"></div>
-        <div class="content-overlay">
-            <h1 class="name-3">ALEKSA</h1>
-            <div class="q-3">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
-        </div>
-    </div>
-
-    <!-- ВАРИАНТ 4: Минимализм и рукописный -->
-    <div class="test-section">
-        <div class="label">Имя 4 (Минимализм) + Вопрос 4 (Рукописный)</div>
-        <div class="marble-bg"></div>
-        <div class="photo-fullscreen"></div>
-        <div class="content-overlay">
-            <h1 class="name-4">ALEKSA</h1>
-            <div class="q-4">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
+            <h1 class="name-liquid-marble">ALEKSA</h1>
+            <div class="q-1">Хм.. Ты здесь. Это обо мне или... о тебе?</div>
         </div>
     </div>
 
