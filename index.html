@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALEKSA | Интро</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Возвращаем Caveat, он самый читаемый из рукописных -->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        /* Возвращаем твой граффити-шрифт */
+        @font-face {
+            font-family: 'TagType';
+            src: url('fonts/TagType.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
-            font-family: 'Caveat', cursive; 
-            font-weight: 400; /* Убрали лишнюю жирность для изящества */
+            font-family: 'TagType', cursive; 
             overflow: hidden; 
             width: 100vw;
             height: 100vh;
@@ -25,16 +28,15 @@
         }
 
         #intro-container {
-            width: 90%;
-            max-width: 1000px;
+            width: 95%; /* Чуть шире, чтобы текст дышал */
+            max-width: 1100px;
             text-align: center;
-            /* Уменьшили размер, чтобы текст дышал и помещался в 2-3 строки */
-            font-size: clamp(2.2rem, 5vw, 4rem); 
-            line-height: 1.4; /* Увеличили расстояние между строками */
+            font-size: clamp(1.8rem, 4.5vw, 3.5rem); /* Размер подогнан под TagType */
+            line-height: 1.8; /* ОГРОМНОЕ расстояние между строками, чтобы не слипалось */
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.15em; /* Отступы между словами */
+            gap: 0.4em; /* Расстояние между словами */
             padding: 20px;
         }
 
@@ -43,14 +45,14 @@
             display: inline-block;
             transform: translateY(15px);
             transition: opacity 1.5s ease, transform 1.5s ease;
-            /* Немного разряжаем буквы внутри слов */
-            letter-spacing: 1px; 
+            letter-spacing: 3px; /* РАЗДВИГАЕМ БУКВЫ внутри слова */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Тень для объема */
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); 
         }
 
         .word.explode {
@@ -96,7 +98,8 @@
         const wordElements = document.querySelectorAll('.word');
 
         function startAnimation() {
-            const wordDelay = 500; 
+            // Сделал появление чуть медленнее (600мс), чтобы соответствовало стилю
+            const wordDelay = 600; 
 
             wordElements.forEach((word, index) => {
                 const delay = index * wordDelay; 
