@@ -15,7 +15,8 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #000;
+            /* Имитация черного мрамора на фоне (радиальный градиент) */
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
             color: #fff;
             font-family: 'TagType', cursive; 
             overflow: hidden; 
@@ -30,7 +31,7 @@
             width: 95%; 
             max-width: 1100px;
             text-align: center;
-            font-size: clamp(1.6rem, 4vw, 3.2rem); 
+            font-size: clamp(1.8rem, 4.5vw, 3.5rem); 
             line-height: 2; 
             display: flex;
             flex-wrap: wrap;
@@ -45,27 +46,34 @@
             transform: translateY(15px);
             transition: opacity 1.5s ease, transform 1.5s ease;
             letter-spacing: 5px; 
-            color: #ffffff; 
-            -webkit-text-stroke: 1px rgba(255, 0, 60, 0.8); 
-            text-shadow: 0 0 10px rgba(255, 0, 60, 0.2), 2px 2px 4px rgba(0,0,0,0.8); 
+            
+            /* --- ЭФФЕКТ ЗОЛОТОГО МРАМОРА --- */
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Добавляем золотую тень, чтобы текст выделялся на черном */
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 0 0 20px rgba(255, 0, 60, 0.5), 0 0 5px rgba(255, 0, 60, 0.8); 
+            /* Усиливаем золотое свечение при появлении */
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.7));
         }
 
-        /* --- НОВЫЙ ЭФФЕКТ ИСЧЕЗНОВЕНИЯ (Растворение) --- */
+        /* --- РАСТВОРЕНИЕ (Золотая пыль) --- */
         .word.explode {
             opacity: 0;
-            /* Слова не улетают, а чуть увеличиваются, теряют цвет и размываются */
             transform: scale(1.3); 
+            
+            /* Убираем градиент, чтобы текст мог исчезнуть */
+            background: none;
+            -webkit-text-fill-color: rgba(212, 175, 55, 0.2);
             color: transparent; 
-            -webkit-text-stroke: 1px rgba(255, 0, 60, 0.3); /* Обводка тоже бледнеет */
-            text-shadow: none;
-            filter: blur(20px); /* Сильное размытие */
-            /* Долгое, плавное растворение (4 секунды) */
+            
+            /* Эффект мощной вспышки и размытия */
+            filter: blur(25px) drop-shadow(0 0 50px rgba(212, 175, 55, 1));
             transition: all 4s ease-in-out; 
         }
 
@@ -112,17 +120,14 @@
                 }, delay);
             });
 
-            // Пауза после появления всех слов (4 секунды)
             const explodeDelay = (wordElements.length * wordDelay) + 4000; 
             
             setTimeout(() => {
-                // Убираем рандомный разлет, просто добавляем класс
                 wordElements.forEach(word => {
                     word.classList.add('explode');
                 });
             }, explodeDelay); 
 
-            // Текст исчезает полностью через 4 секунды после начала растворения
             setTimeout(() => {
                 document.getElementById('end-message').style.opacity = '1';
             }, explodeDelay + 4000);
