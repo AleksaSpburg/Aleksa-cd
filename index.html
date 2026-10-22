@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Интро</title>
+    <title>ALEKSA | Выбор стиля</title>
     <style>
         @font-face {
             font-family: 'TagType';
@@ -15,126 +14,136 @@
 
         body {
             margin: 0;
-            padding: 0;
-            background: #000; /* Абсолютно черный фон */
+            padding: 40px 20px;
+            background: #000;
             color: #fff;
             font-family: 'TagType', cursive; 
-            overflow: hidden; 
-            width: 100vw;
-            height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 60px; 
         }
 
-        #intro-container {
-            width: 95%; 
-            max-width: 1100px;
+        .variant {
+            width: 100%;
+            max-width: 900px;
             text-align: center;
-            font-size: clamp(1.8rem, 4.5vw, 3.5rem); 
-            line-height: 2; 
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5em; 
-            padding: 20px;
         }
 
-        .word {
-            opacity: 0;
-            display: inline-block;
-            transform: translateY(15px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
-            letter-spacing: 5px; 
-            
-            /* --- ТЕКСТУРА ЗОЛОТОГО МРАМОРА --- */
-            /* Берем картинку с золотым мрамором и вставляем её внутрь текста */
-            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop');
+        .variant-title {
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .text-content {
+            font-size: clamp(1.5rem, 4vw, 2.5rem); 
+            line-height: 1.8; 
+            letter-spacing: 5px;
+        }
+
+        /* --- ВАРИАНТ 1: Чистое белое золото (с обводкой) --- */
+        .style-1 {
+            color: #fff;
+            -webkit-text-stroke: 1px rgba(212, 175, 55, 0.8);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* --- ВАРИАНТ 2: Золотой мрамор (текстура) --- */
+        .style-2 {
+            background-image: url('https://images.unsplash.com/photo-1550537687-c91072c4792d?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));
+        }
+
+        /* --- ВАРИАНТ 3: Металлический градиент --- */
+        .style-3 {
+            background: linear-gradient(120deg, #8a6d3b 0%, #fceabb 30%, #8a6d3b 50%, #fceabb 70%, #8a6d3b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.8));
+        }
+
+        /* --- ВАРИАНТ 4: Кровавый контур --- */
+        .style-4 {
+            color: #fff;
+            -webkit-text-stroke: 1px rgba(255, 0, 60, 0.8);
+            text-shadow: 0 0 20px rgba(255, 0, 60, 0.6);
+        }
+
+        /* --- ВАРИАНТ 5: Кибер-неон (бирюза/фиолет) --- */
+        .style-5 {
+            color: #fff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+        }
+
+        /* --- ВАРИАНТ 6: Серебряный лед --- */
+        .style-6 {
+            color: #e0e0e0;
+            text-shadow: 0 0 15px rgba(150, 200, 255, 0.8);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- ВАРИАНТ 7: ЧЕРНЫЙ МРАМОР + ЗОЛОТОЙ КОНТУР (новый) --- */
+        .style-7 {
+            /* Черный мрамор с золотыми прожилками внутри букв */
+            background-image: url('https://images.unsplash.com/photo-1512413914633-b5043f4041ea?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* Тень, чтобы текст выделялся на черном фоне (без свечения) */
-            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.9));
-        }
-
-        .word.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- РАСТВОРЕНИЕ (Золотая пыль) --- */
-        .word.explode {
-            opacity: 0;
-            transform: scale(1.1); 
-            
-            /* Убираем картинку, чтобы текст исчез */
-            background-image: none;
-            -webkit-text-fill-color: rgba(212, 175, 55, 0.5); /* Тусклое золото */
-            
-            /* При исчезновении добавляем вспышку */
-            filter: blur(15px) drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
-            transition: all 4s ease-in-out; 
-        }
-
-        #end-message {
-            position: absolute;
-            opacity: 0;
-            font-size: 0.8rem;
-            font-family: sans-serif;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #555;
-            transition: opacity 2s ease;
-            pointer-events: none;
-            bottom: 40px;
+            /* Яркая золотая обводка и мощное свечение по контуру */
+            -webkit-text-stroke: 1px #d4af37; 
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
         }
     </style>
 </head>
 <body>
 
-    <div id="intro-container"></div>
-    <div id="end-message">Интро завершено</div>
+    <div class="variant">
+        <div class="variant-title">Вариант 1: Белое с золотой обводкой</div>
+        <div class="text-content style-1">слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя</div>
+    </div>
 
-    <script>
-        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя";
-        const container = document.getElementById('intro-container');
-        const words = text.split(' ');
+    <div class="variant">
+        <div class="variant-title">Вариант 2: Золотой мрамор</div>
+        <div class="text-content style-2">слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя</div>
+    </div>
 
-        words.forEach(word => {
-            const span = document.createElement('span');
-            span.className = 'word';
-            span.innerText = word;
-            container.appendChild(span);
-        });
+    <div class="variant">
+        <div class="variant-title">Вариант 3: Переливающееся золото</div>
+        <div class="text-content style-3">слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя</div>
+    </div>
 
-        const wordElements = document.querySelectorAll('.word');
+    <div class="variant">
+        <div class="variant-title">Вариант 4: Кроваво-красный контур</div>
+        <div class="text-content style-4">слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя</div>
+    </div>
 
-        function startAnimation() {
-            const wordDelay = 600; 
+    <div class="variant">
+        <div class="variant-title">Вариант 5: Кибер-неон</div>
+        <div class="text-content style-5">слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя</div>
+    </div>
 
-            wordElements.forEach((word, index) => {
-                const delay = index * wordDelay; 
-                setTimeout(() => {
-                    word.classList.add('show');
-                }, delay);
-            });
+    <div class="variant">
+        <div class="variant-title">Вариант 6: Серебряный лед</div>
+        <div class="text-content style-6">слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя</div>
+    </div>
 
-            const explodeDelay = (wordElements.length * wordDelay) + 4000; 
-            
-            setTimeout(() => {
-                wordElements.forEach(word => {
-                    word.classList.add('explode');
-                });
-            }, explodeDelay); 
+    <div class="variant">
+        <div class="variant-title">Вариант 7: Черный мрамор с золотым свечением</div>
+        <div class="text-content style-7">слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя</div>
+    </div>
 
-            setTimeout(() => {
-                document.getElementById('end-message').style.opacity = '1';
-            }, explodeDelay + 4000);
-        }
-
-        window.onload = startAnimation;
-    </script>
 </body>
 </html>
