@@ -100,7 +100,7 @@
     <div id="intro-container"></div>
 
     <script>
-        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя...";
+        const text = "слышать, как тот, кто рядом дышит чаще - единственная музыка, под которую мы готовы терять себя...";
         const container = document.getElementById('intro-container');
         const words = text.split(' ');
 
@@ -123,16 +123,3 @@
                 }, delay);
             });
 
-            const explodeDelay = (wordElements.length * wordDelay) + 4000; 
-            
-            setTimeout(() => {
-                wordElements.forEach(word => {
-                    word.classList.add('explode');
-                });
-            }, explodeDelay); 
-        }
-
-        window.onload = startAnimation;
-    </script>
-</body>
-</html>
