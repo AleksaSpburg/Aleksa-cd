@@ -16,7 +16,6 @@
             margin: 0;
             padding: 0;
             background-color: #000;
-            /* НОВОЕ ИМЯ ФАЙЛА */
             background-image: url('img/bg-marble2.jpg'); 
             background-size: cover; 
             background-position: center;
@@ -31,7 +30,6 @@
             align-items: center;
         }
 
-        /* Затемнение фона */
         body::before {
             content: '';
             position: absolute;
@@ -53,7 +51,6 @@
             padding: 20px;
             position: relative;
             z-index: 1;
-            transition: transform 0.5s ease;
         }
 
         .word {
@@ -84,7 +81,6 @@
             text-shadow: none; 
         }
 
-        /* --- ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
             #intro-container {
                 transform: translateY(-12vh); 
@@ -99,7 +95,6 @@
     <div id="intro-container"></div>
 
     <script>
-        /* ТУТ ТИРЕ (—) */
         const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя...";
         const container = document.getElementById('intro-container');
         const words = text.split(' ');
@@ -123,12 +118,20 @@
                 }, delay);
             });
 
+            // Время начала исчезновения
             const explodeDelay = (wordElements.length * wordDelay) + 4000; 
             
             setTimeout(() => {
                 wordElements.forEach(word => {
                     word.classList.add('explode');
                 });
+
+                // ПЕРЕХОД НА ГЛАВНУЮ СТРАНИЦУ
+                // Ждем 3 секунды (пока текст растворяется), чтобы это выглядело плавно
+                setTimeout(() => {
+                    window.location.href = 'main.html';
+                }, 3000); 
+
             }, explodeDelay); 
         }
 
