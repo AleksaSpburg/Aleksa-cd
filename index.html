@@ -3,170 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aleksa | System</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>ALEKSA | Интро</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #050505;
-            --accent-glow: rgba(192, 132, 252, 0.4);
-            --border-line: rgba(255, 255, 255, 0.05);
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            overflow: hidden; /* Запрещаем скролл на время интро */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html {
-            height: 100%; background-color: var(--bg-dark);
-            font-family: 'Inter', sans-serif; color: #e4e4e7; overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+
+        #intro-container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            line-height: 1.5;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.3em;
         }
-        .fullscreen-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('image_XCPqU1.png');
-            background-size: cover; background-position: center center;
-            z-index: 1; filter: contrast(1.05) saturate(1.1);
+
+        .word {
+            opacity: 0;
+            display: inline-block;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
         }
-        .bg-overlay {
-            position: absolute; inset: 0;
-            background: 
-                radial-gradient(circle at 50% 40%, transparent 20%, var(--bg-dark) 85%),
-                linear-gradient(to bottom, transparent 60%, var(--bg-dark) 100%),
-                linear-gradient(to top, rgba(5,5,5,0.5) 0%, transparent 30%);
-            z-index: 2;
+
+        .word.show {
+            opacity: 1;
+            transform: translateY(0);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Легкое свечение */
         }
-        .interface-layer {
-            position: relative; z-index: 3; min-height: 100vh;
-            display: flex; flex-direction: column; justify-content: space-between; padding: 40px;
+
+        /* Эффект разлета */
+        .word.explode {
+            opacity: 0;
+            transform: translate(var(--x), var(--y)) scale(0.5) rotate(var(--r));
+            transition: all 1.2s cubic-bezier(0.5, 0, 0.2, 1);
+            filter: blur(8px); /* Размытие при разлете */
         }
-        .top-nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .system-title {
-            font-family: 'Cinzel', serif; font-size: 1.8em; font-weight: 900; letter-spacing: 8px;
-            background: linear-gradient(to bottom, #ffffff, #71717a);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+
+        #end-message {
+            position: absolute;
+            opacity: 0;
+            font-size: 1rem;
+            font-family: sans-serif;
+            color: gray;
+            transition: opacity 1s ease;
+            pointer-events: none;
         }
-        .lang-switcher {
-            display: flex; gap: 4px; background: rgba(10, 10, 10, 0.6);
-            padding: 3px; border-radius: 8px; border: 1px solid var(--border-line); backdrop-filter: blur(10px);
-        }
-        .lang-btn {
-            background: transparent; border: none; color: #52525b; font-size: 0.75em;
-            font-weight: 600; cursor: pointer; padding: 6px 12px; border-radius: 6px; transition: all 0.3s;
-        }
-        .lang-btn.active { color: #f4f4f5; background: rgba(255,255,255,0.08); }
-        .main-content { display: flex; flex-direction: column; gap: 40px; margin: auto 0; width: 100%; }
-        .quote-terminal { max-width: 500px; text-align: left; }
-        .dripping-text { font-size: 0.95em; font-style: italic; font-weight: 300; line-height: 1.6; color: #a1a1aa; letter-spacing: 0.5px; min-height: 50px; }
-        .char { opacity: 0; animation: fadeInChar 1.5s forwards; }
-        .links-terminal { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 380px; }
-        .terminal-link {
-            position: relative; display: flex; justify-content: space-between; align-items: center;
-            padding: 18px 20px; text-decoration: none; color: #d4d4d8; background: rgba(10, 10, 10, 0.4);
-            border: 1px solid var(--border-line); border-radius: 12px; backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); overflow: hidden; transition: all 0.4s ease;
-        }
-        .terminal-link:hover { border-color: rgba(255,255,255,0.2); transform: translateX(4px); background: rgba(15, 15, 15, 0.6); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .link-text-block { text-align: left; }
-        .link-layer-id { font-size: 0.55em; color: #52525b; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
-        .link-title { font-size: 1.05em; font-weight: 600; color: #f4f4f5; margin-top: 2px; display: block; }
-        .link-quote { font-size: 0.7em; font-style: italic; color: #3f3f46; display: block; margin-top: 6px; transition: color 0.4s; }
-        .terminal-link:hover .link-quote { color: #a1a1aa; }
-        .link-arrow { font-size: 0.9em; color: #3f3f46; transition: transform 0.4s; }
-        .terminal-link:hover .link-arrow { color: #fff; transform: translate(2px, -2px); }
-        .terminal-link.deep-gate { border: 1px dashed rgba(192, 132, 252, 0.2); background: rgba(20, 10, 25, 0.2); }
-        .terminal-link.deep-gate:hover { border-color: rgba(192, 132, 252, 0.6); box-shadow: 0 0 20px rgba(192, 132, 252, 0.15); }
-        .terminal-link.deep-gate .link-layer-id { color: #c084fc; }
-        .terminal-link.deep-gate:hover .link-quote { color: #e9d5ff; }
-        .system-footer { display: flex; justify-content: space-between; align-items: center; width: 100%; font-size: 0.55em; color: #3f3f46; letter-spacing: 3px; text-transform: uppercase; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.02); }
-        @keyframes fadeInChar { to { opacity: 1; } }
-        @media (min-width: 900px) {
-            .main-content { flex-direction: row; justify-content: space-between; align-items: flex-end; }
-            .links-terminal { margin-left: auto; }
-        }
-        [data-lang="en"] { display: none; }
     </style>
 </head>
 <body>
-    <div id="dynamic-bg" class="fullscreen-bg">
-        <div class="bg-overlay"></div>
-    </div>
-    <div class="interface-layer">
-        <div class="top-nav">
-            <div class="system-title">ALEKSA</div>
-            <div class="lang-switcher">
-                <button class="lang-btn active" onclick="setLang('ru')">RU</button>
-                <button class="lang-btn" onclick="setLang('en')">EN</button>
-            </div>
-        </div>
-        <div class="main-content">
-            <div class="quote-terminal">
-                <div id="quote-box" class="dripping-text"></div>
-            </div>
-            <div class="links-terminal">
-                <a href="ВСТАВЬ_ССЫЛКУ_НА_TONPLACE" target="_blank" class="terminal-link">
-                    <div class="link-text-block">
-                        <span class="link-layer-id">[ LAYER_01 // PREMIUM ARCHIVE ]</span>
-                        <span data-lang="ru" class="link-title">TonPlace Feed</span>
-                        <span data-lang="en" class="link-title">TonPlace Premium</span>
-                        <span data-lang="ru" class="link-quote">«Желание — это не голод. Это медленное таяние...»</span>
-                        <span data-lang="en" class="link-quote">“Desire is not hunger. It is a slow melting...”</span>
-                    </div>
-                    <div class="link-arrow">↗</div>
-                </a>
-                <a href="ВСТАВЬ_ССЫЛКУ_НА_ТЕЛЕГРАМ_КАНАЛ" target="_blank" class="terminal-link">
-                    <div class="link-text-block">
-                        <span class="link-layer-id">[ LAYER_02 // LIVE STREAM ]</span>
-                        <span data-lang="ru" class="link-title">Telegram Backstage</span>
-                        <span data-lang="en" class="link-title">Telegram Live</span>
-                        <span data-lang="ru" class="link-quote">«Твоя кожа пахнет так, будто её писали на языке...»</span>
-                        <span data-lang="en" class="link-quote">“Your skin smells as if it were written...”</span>
-                    </div>
-                    <div class="link-arrow">↗</div>
-                </a>
-                <a href="ВСТАВЬ_ССЫЛКУ_НА_ВТОРОЙ_ТЕЛЕГРАМ" target="_blank" class="terminal-link deep-gate">
-                    <div class="link-text-block">
-                        <span class="link-layer-id">[ NODE // DEEP ACCESS ]</span>
-                        <span data-lang="ru" class="link-title">Приватный Терминал</span>
-                        <span data-lang="en" class="link-title">Private Terminal</span>
-                        <span data-lang="ru" class="link-quote">«Температура, при которой молчание становится влажным...»</span>
-                        <span data-lang="en" class="link-quote">“The temperature at which silence turns wet...”</span>
-                    </div>
-                    <div class="link-arrow">🔒</div>
-                </a>
-            </div>
-        </div>
-        <div class="system-footer">
-            <div>STATUS: ACTIVE</div>
-            <div>© 2026 ALEKSA // ADULTS ONLY</div>
-        </div>
-    </div>
+
+    <div id="intro-container"></div>
+    <div id="end-message">Интро завершено. Нажмите F5, чтобы перезагрузить.</div>
+
     <script>
-        const quotes = {
-            ru: "«Ты — не ночь. Ты — то, что ночь делает с телом, когда никто не видит.»",
-            en: "“You are not the night. You are what the night does to a body when no one is watching.”"
-        };
-        function typeQuote(text) {
-            const box = document.getElementById('quote-box');
-            box.innerHTML = '';
-            text.split('').forEach((char, index) => {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.className = 'char';
-                span.style.animationDelay = (index * 0.03) + 's';
-                box.appendChild(span);
+        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя";
+        const container = document.getElementById('intro-container');
+        const words = text.split(' ');
+
+        // Создаем элементы для каждого слова
+        words.forEach(word => {
+            const span = document.createElement('span');
+            span.className = 'word';
+            span.innerText = word;
+            container.appendChild(span);
+        });
+
+        const wordElements = document.querySelectorAll('.word');
+
+        // Запускаем анимацию
+        function startAnimation() {
+            // 1. Появление слов (рандомно)
+            wordElements.forEach(word => {
+                // Случайная задержка от 0 до 2.5 секунд
+                const delay = Math.random() * 2500; 
+                setTimeout(() => {
+                    word.classList.add('show');
+                }, delay);
             });
+
+            // 2. Пауза и разлет (через 4 секунды после старта)
+            setTimeout(() => {
+                wordElements.forEach(word => {
+                    // Случайное направление разлета
+                    const x = (Math.random() - 0.5) * 600 + 'px'; // Влево/вправо
+                    const y = (Math.random() - 0.5) * 600 + 'px'; // Вверх/вниз
+                    const r = (Math.random() - 0.5) * 90 + 'deg'; // Вращение
+                    
+                    word.style.setProperty('--x', x);
+                    word.style.setProperty('--y', y);
+                    word.style.setProperty('--r', r);
+                    
+                    word.classList.add('explode');
+                });
+            }, 4000);
+
+            // 3. Конец (через 5.5 секунд)
+            setTimeout(() => {
+                document.getElementById('end-message').style.opacity = '1';
+            }, 5500);
         }
-        function setLang(lang) {
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
-            });
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                el.style.display = (el.getAttribute('data-lang') === lang) ? 'block' : 'none';
-            });
-            typeQuote(quotes[lang]);
-            const bg = document.getElementById('dynamic-bg');
-            if (lang === 'ru') {
-                bg.style.backgroundImage = "url('image_XCPqU1.png')";
-            } else {
-                bg.style.backgroundImage = "url('image_N4TNPl.png')";
-            }
-        }
-        window.onload = () => { typeQuote(quotes.ru); };
+
+        // Запуск после загрузки страницы
+        window.onload = startAnimation;
+    </script>
+</body>
+</html>
