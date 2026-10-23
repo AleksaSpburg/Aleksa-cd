@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALEKSA | Интро</title>
     <style>
+        /* --- МАГИЯ ПЛАВНОГО ПЕРЕХОДА --- */
+        @view-transition {
+            navigation: auto;
+        }
+
         @font-face {
             font-family: 'TagType';
             src: url('fonts/TagType.ttf') format('truetype');
@@ -28,6 +33,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: opacity 1s ease; /* Для плавного затухания */
+        }
+
+        /* Класс, который мы добавим перед переходом */
+        body.fade-out {
+            opacity: 0;
         }
 
         body::before {
@@ -51,6 +62,7 @@
             padding: 20px;
             position: relative;
             z-index: 1;
+            transition: transform 0.5s ease;
         }
 
         .word {
@@ -59,7 +71,6 @@
             transform: translateY(15px);
             transition: opacity 1.5s ease, transform 1.5s ease;
             letter-spacing: 5px; 
-            
             color: #ffffff;
             -webkit-text-stroke: 1.5px #b8860b;
             text-shadow: 2px 2px 5px #000, -2px -2px 5px #000, 2px -2px 5px #000, -2px 2px 5px #000; 
@@ -118,7 +129,6 @@
                 }, delay);
             });
 
-            // Время начала исчезновения
             const explodeDelay = (wordElements.length * wordDelay) + 4000; 
             
             setTimeout(() => {
@@ -126,11 +136,15 @@
                     word.classList.add('explode');
                 });
 
-                // ПЕРЕХОД НА ГЛАВНУЮ СТРАНИЦУ
-                // Ждем 3 секунды (пока текст растворяется), чтобы это выглядело плавно
+                // За 1 секунду до перехода начинаем плавно гасить экран (затухание)
+                setTimeout(() => {
+                    document.body.classList.add('fade-out');
+                }, 2500); 
+
+                // Сам переход (когда экран уже черный)
                 setTimeout(() => {
                     window.location.href = 'main.html';
-                }, 3000); 
+                }, 3500); 
 
             }, explodeDelay); 
         }
