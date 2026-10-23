@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -9,6 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* --- МАГИЯ ПЛАВНОГО ПЕРЕХОДА --- */
+        @view-transition {
+            navigation: auto;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -25,12 +31,18 @@
         .hero {
             position: relative;
             height: 100svh;
-            /* Фон по центру, голова будет ровно под именем */
             background: url("img/bg-main-ru.png") center 35% / cover no-repeat;
             overflow: hidden;
+            
+            /* Плавное появление страницы при загрузке */
+            animation: pageFadeIn 1.5s ease forwards;
+            opacity: 0; 
         }
 
-        /* ГЛУБОКОЕ ЗАТЕМНЕНИЕ (Черный бархат сверху и снизу) */
+        @keyframes pageFadeIn {
+            to { opacity: 1; }
+        }
+
         .hero::before {
             content: "";
             position: absolute;
@@ -39,7 +51,6 @@
             z-index: 1;
         }
 
-        /* --- ВЕРХНИЙ ВОПРОС --- */
         .top-text {
             position: absolute;
             top: 8vh;
@@ -48,18 +59,17 @@
             z-index: 2;
             font-size: clamp(1.2rem, 3vw, 1.6rem);
             font-style: italic;
-            color: #c2b29a; /* Благородный песочный */
+            color: #c2b29a;
             letter-spacing: 2px;
             text-shadow: 0 2px 10px rgba(0,0,0,1);
             
             opacity: 0;
-            animation: fadeIn 2s ease 0.5s forwards;
+            animation: fadeIn 2s ease 1s forwards;
         }
 
-        /* --- ИМЯ --- */
         .name {
             position: absolute;
-            top: 18vh; /* Расположение над головой */
+            top: 18vh; 
             width: 100%;
             text-align: center;
             z-index: 2;
@@ -71,7 +81,6 @@
             line-height: 0.9;
             letter-spacing: 0.01em;
             
-            /* Премиальный металл (Шампань -> Бронза) */
             background: linear-gradient(180deg, #f6e6b6 0%, #cba14b 45%, #7a5c1a 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -80,10 +89,9 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.9));
             
             clip-path: inset(0 100% 0 0);
-            animation: reveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+            animation: reveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
         }
 
-        /* --- НИЖНИЙ ВОПРОС --- */
         .bottom-text {
             position: absolute;
             bottom: 8vh;
@@ -97,7 +105,7 @@
             text-shadow: 0 2px 10px rgba(0,0,0,1);
             
             opacity: 0;
-            animation: fadeIn 2s ease 1.5s forwards;
+            animation: fadeIn 2s ease 2s forwards;
         }
 
         @keyframes reveal {
@@ -108,7 +116,6 @@
             to { opacity: 1; }
         }
 
-        /* --- ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
             .hero {
                 background-position: center 30%;
@@ -126,13 +133,8 @@
 <body>
 
     <section class="hero">
-        <!-- Верхний вопрос -->
         <div class="top-text">Хм... ты здесь..</div>
-
-        <!-- Имя (строгий элегантный шрифт) -->
         <h1 class="name">Aleksa</h1>
-
-        <!-- Нижний вопрос -->
         <div class="bottom-text">это обо мне... или о тебе?</div>
     </section>
 
