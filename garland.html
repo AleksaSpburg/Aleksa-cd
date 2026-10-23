@@ -1,1 +1,98 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALEKSA | Breathe</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: pointer; /* Курсор в виде руки, чтобы было понятно, что можно нажать */
+        }
+
+        /* Сама гирлянда */
+        .garland {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* Твоя картинка с гирляндой */
+            background-image: url('img/garland-01.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Начальная прозрачность */
+            opacity: 0.3;
+            
+            /* Анимация "дыхания" */
+            animation: breathe 5s infinite ease-in-out;
+        }
+
+        /* Эффект дыхания: меняем яркость и прозрачность */
+        @keyframes breathe {
+            0%, 100% { 
+                opacity: 0.2; 
+                filter: brightness(0.5); 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.8; 
+                filter: brightness(1.5); 
+                transform: scale(1.02); /* Легкое приближение для объема */
+            }
+        }
+
+        /* Подсказка для перехода */
+        .hint {
+            position: relative;
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: sans-serif;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            animation: pulseHint 3s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Плавное затухание перед переходом */
+        body.fade-out {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+    </style>
+</head>
+<body onclick="goToMain()">
+
+    <!-- Слой с гирляндой -->
+    <div class="garland"></div>
+    
+    <!-- Текст-подсказка -->
+    <div class="hint">Коснись, чтобы войти</div>
+
+    <script>
+        // Функция перехода на главную
+        function goToMain() {
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 1000); // Ждем 1 секунду, пока экран гаснет
+        }
+
+        // Автоматический переход через 8 секунд (если человек не нажал)
+        setTimeout(goToMain, 8000);
+    </script>
+</body>
+</html>
