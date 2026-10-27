@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест шрифтов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Подключаем все 5 шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400&family=Raleway:wght@300;400&family=Forum&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            background-image: url('img/bg-marble2.jpg'); /* Мрамор для атмосферы */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+        }
 
+        /* Затемнение фона */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: -1;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .label {
+            position: absolute;
+            top: 20px;
+            background: #111;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 5px 15px;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        .name {
+            font-size: clamp(4rem, 15vw, 8rem);
+            background: linear-gradient(180deg, #f6e6b6 0%, #cba14b 45%, #7a5c1a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: #c2b29a;
+            max-width: 80%;
+        }
+
+        /* --- ВАРИАНТ 1: Playfair Display --- */
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-playfair-italic { font-family: 'Playfair Display', serif; font-style: italic; }
+
+        /* --- ВАРИАНТ 2: Montserrat --- */
+        .font-montserrat { font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
+        .font-montserrat-text { font-family: 'Montserrat', sans-serif; font-weight: 300; }
+
+        /* --- ВАРИАНТ 3: Raleway --- */
+        .font-raleway { font-family: 'Raleway', sans-serif; font-weight: 300; letter-spacing: 8px; }
+        .font-raleway-text { font-family: 'Raleway', sans-serif; font-weight: 300; }
+
+        /* --- ВАРИАНТ 4: Forum --- */
+        .font-forum { font-family: 'Forum', serif; letter-spacing: 2px; }
+        .font-forum-text { font-family: 'Forum', serif; }
+
+        /* --- ВАРИАНТ 5: Lora --- */
+        .font-lora { font-family: 'Lora', serif; font-style: italic; }
+        .font-lora-text { font-family: 'Lora', serif; }
+    </style>
+</head>
+<body>
+
+    <!-- ВАРИАНТ 1: Playfair Display (Современная классика) -->
+    <div class="section">
+        <div class="label">Вариант 1: Playfair Display (Журнальный, четкий)</div>
+        <div class="name font-playfair">Aleksa</div>
+        <div class="quote font-playfair-italic">Хм... ты здесь. Это обо мне или о тебе?</div>
+    </div>
+
+    <!-- ВАРИАНТ 2: Montserrat (Минимализм, геометрия) -->
+    <div class="section">
+        <div class="label">Вариант 2: Montserrat (Строгий, современный)</div>
+        <div class="name font-montserrat">Aleksa</div>
+        <div class="quote font-montserrat-text">Хм... ты здесь. Это обо мне или о тебе?</div>
+    </div>
+
+    <!-- ВАРИАНТ 3: Raleway (Утонченный, легкий) -->
+    <div class="section">
+        <div class="label">Вариант 3: Raleway (Воздушный, элегантный)</div>
+        <div class="name font-raleway">Aleksa</div>
+        <div class="quote font-raleway-text">Хм... ты здесь. Это обо мне или о тебе?</div>
+    </div>
+
+    <!-- ВАРИАНТ 4: Forum (Античный, с характером) -->
+    <div class="section">
+        <div class="label">Вариант 4: Forum (Дорогой, с засечками)</div>
+        <div class="name font-forum">Aleksa</div>
+        <div class="quote font-forum-text">Хм... ты здесь. Это обо мне или о тебе?</div>
+    </div>
+
+    <!-- ВАРИАНТ 5: Lora (Мягкий, чувственный) -->
+    <div class="section">
+        <div class="label">Вариант 5: Lora (Мягкий курсив, не пафосный)</div>
+        <div class="name font-lora">Aleksa</div>
+        <div class="quote font-lora-text">Хм... ты здесь. Это обо мне или о тебе?</div>
+    </div>
+
+</body>
+</html>
