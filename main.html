@@ -1,142 +1,111 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Official Hub</title>
+    <title>ALEKSA | Тест цвета</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- МАГИЯ ПЛАВНОГО ПЕРЕХОДА --- */
-        @view-transition {
-            navigation: auto;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #000; color: #fff; overflow-x: hidden; font-family: 'Montserrat', sans-serif; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Cormorant Garamond', serif;
-            overflow: hidden;
-        }
-
-        .hero {
+        .section {
             position: relative;
             height: 100svh;
             background: url("img/bg-main-ru.png") center 35% / cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8vh 0;
             overflow: hidden;
-            
-            /* Плавное появление страницы при загрузке */
-            animation: pageFadeIn 1.5s ease forwards;
-            opacity: 0; 
+            border-bottom: 1px solid #333;
         }
 
-        @keyframes pageFadeIn {
-            to { opacity: 1; }
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
+        .section::before {
+            content: ""; position: absolute; inset: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.95) 100%);
             z-index: 1;
         }
 
-        .top-text {
-            position: absolute;
-            top: 8vh;
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
-            font-style: italic;
-            color: #c2b29a;
-            letter-spacing: 2px;
+        .label {
+            position: absolute; top: 15px; left: 15px; z-index: 10;
+            background: #000; border: 1px solid #555; padding: 5px 10px;
+            font-size: 0.8rem; color: #ccc; border-radius: 4px;
+        }
+
+        .top-text, .bottom-text {
+            position: relative; z-index: 2;
+            font-family: 'Montserrat', sans-serif; font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-weight: 300; letter-spacing: 2px; text-transform: uppercase;
             text-shadow: 0 2px 10px rgba(0,0,0,1);
-            
-            opacity: 0;
-            animation: fadeIn 2s ease 1s forwards;
         }
 
         .name {
-            position: absolute;
-            top: 18vh; 
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-            
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-weight: 300;
-            font-size: clamp(5rem, 18vw, 11rem);
-            line-height: 0.9;
-            letter-spacing: 0.01em;
-            
-            background: linear-gradient(180deg, #f6e6b6 0%, #cba14b 45%, #7a5c1a 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            
+            position: absolute; top: 18vh; width: 100%; text-align: center; z-index: 2;
+            font-family: 'Raleway', sans-serif; font-size: clamp(5rem, 18vw, 11rem);
+            font-weight: 300; line-height: 0.9; letter-spacing: 0.02em;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.9));
-            
-            clip-path: inset(0 100% 0 0);
-            animation: reveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
         }
 
-        .bottom-text {
-            position: absolute;
-            bottom: 8vh;
-            width: 100%;
-            text-align: center;
-            z-index: 2;
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
-            font-style: italic;
-            color: #c2b29a;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 10px rgba(0,0,0,1);
-            
-            opacity: 0;
-            animation: fadeIn 2s ease 2s forwards;
-        }
+        /* --- ВАРИАНТ 1: Серебряный хром (Кибер-нуар) --- */
+        .v1 .name { background: linear-gradient(180deg, #ffffff 0%, #a3a3a3 45%, #444 50%, #e5e5e5 100%); -webkit-background-clip: text; color: transparent; }
+        .v1 .top-text, .v1 .bottom-text { color: #e5e5e5; }
 
-        @keyframes reveal {
-            to { clip-path: inset(0 0 0 0); }
-        }
+        /* --- ВАРИАНТ 2: Бледно-розовое золото (Романтика) --- */
+        .v2 .name { background: linear-gradient(180deg, #f9e0d9 0%, #d4a373 45%, #8c5a35 100%); -webkit-background-clip: text; color: transparent; }
+        .v2 .top-text, .v2 .bottom-text { color: #f9e0d9; }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+        /* --- ВАРИАНТ 3: Чистый белый (Минимализм) --- */
+        .v3 .name { color: #ffffff; }
+        .v3 .top-text, .v3 .bottom-text { color: #ffffff; opacity: 0.8; }
+
+        /* --- ВАРИАНТ 4: Кроваво-красный (Монолит) --- */
+        .v4 .name { background: linear-gradient(180deg, #ff4d4d 0%, #990000 50%, #330000 100%); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 20px rgba(255,0,0,0.4); }
+        .v4 .top-text, .v4 .bottom-text { color: #ff4d4d; }
 
         @media (max-width: 768px) {
-            .hero {
-                background-position: center 30%;
-            }
-            .name {
-                top: 16vh;
-                font-size: 6rem;
-            }
-            .top-text, .bottom-text {
-                font-size: 1.1rem;
-            }
+            .name { top: 16vh; font-size: 6rem; }
+            .top-text, .bottom-text { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero">
+    <!-- ВАРИАНТ 1: Серебро -->
+    <div class="section v1">
+        <div class="label">Вариант 1: Серебряный хром (под красный неон)</div>
         <div class="top-text">Хм... ты здесь..</div>
         <h1 class="name">Aleksa</h1>
         <div class="bottom-text">это обо мне... или о тебе?</div>
-    </section>
+    </div>
+
+    <!-- ВАРИАНТ 2: Розовое золото -->
+    <div class="section v2">
+        <div class="label">Вариант 2: Бледно-розовое золото</div>
+        <div class="top-text">Хм... ты здесь..</div>
+        <h1 class="name">Aleksa</h1>
+        <div class="bottom-text">это обо мне... или о тебе?</div>
+    </div>
+
+    <!-- ВАРИАНТ 3: Белый -->
+    <div class="section v3">
+        <div class="label">Вариант 3: Чистый белый (максимальный контраст)</div>
+        <div class="top-text">Хм... ты здесь..</div>
+        <h1 class="name">Aleksa</h1>
+        <div class="bottom-text">это обо мне... или о тебе?</div>
+    </div>
+
+    <!-- ВАРИАНТ 4: Красный -->
+    <div class="section v4">
+        <div class="label">Вариант 4: Тот же красный (монохром)</div>
+        <div class="top-text">Хм... ты здесь..</div>
+        <h1 class="name">Aleksa</h1>
+        <div class="bottom-text">это обо мне... или о тебе?</div>
+    </div>
 
 </body>
 </html>
