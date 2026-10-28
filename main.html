@@ -3,109 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Тест цвета</title>
+    <title>ALEKSA | Official Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Подключаем Raleway (от самого тонкого до обычного) -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400&display=swap" rel="stylesheet">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #000; color: #fff; overflow-x: hidden; font-family: 'Montserrat', sans-serif; }
-
-        .section {
-            position: relative;
-            height: 100svh;
-            background: url("img/bg-main-ru.png") center 35% / cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8vh 0;
-            overflow: hidden;
-            border-bottom: 1px solid #333;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .section::before {
-            content: ""; position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.95) 100%);
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
+        }
+
+        .hero {
+            position: relative;
+            height: 100svh;
+            /* Оставляем фото, но фокус на лицо */
+            background: url("img/bg-main-ru.png") center 35% / cover no-repeat;
+            overflow: hidden;
+        }
+
+        /* Убираем мутный туман, делаем глубокий черный нуар с легким ореолом у лица */
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: 
+                /* Ореол вокруг неона (чтобы он не потерялся) */
+                radial-gradient(circle at center 35%, rgba(255, 0, 60, 0.15) 0%, transparent 50%),
+                /* Плотный черный бархат */
+                linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.8) 65%, rgba(0,0,0,0.98) 100%);
             z-index: 1;
         }
 
-        .label {
-            position: absolute; top: 15px; left: 15px; z-index: 10;
-            background: #000; border: 1px solid #555; padding: 5px 10px;
-            font-size: 0.8rem; color: #ccc; border-radius: 4px;
+        /* Добавляем кинематографичное зерно (Film Grain) */
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            z-index: 2;
+            pointer-events: none;
+            mix-blend-mode: overlay;
         }
 
+        /* --- ТЕКСТ --- */
         .top-text, .bottom-text {
-            position: relative; z-index: 2;
-            font-family: 'Montserrat', sans-serif; font-size: clamp(1.1rem, 3vw, 1.4rem);
-            font-weight: 300; letter-spacing: 2px; text-transform: uppercase;
-            text-shadow: 0 2px 10px rgba(0,0,0,1);
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            font-weight: 300; /* Тонкий */
+            color: rgba(255, 255, 255, 0.6); /* Полупрозрачный белый */
+            letter-spacing: 5px; /* Широкий трекинг */
+            text-transform: uppercase;
         }
 
+        .top-text {
+            top: 8vh;
+        }
+
+        .bottom-text {
+            bottom: 8vh;
+        }
+
+        /* --- ИМЯ (Жемчужный White, Тонкий, Широкий) --- */
         .name {
-            position: absolute; top: 18vh; width: 100%; text-align: center; z-index: 2;
-            font-family: 'Raleway', sans-serif; font-size: clamp(5rem, 18vw, 11rem);
-            font-weight: 300; line-height: 0.9; letter-spacing: 0.02em;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.9));
+            position: absolute;
+            top: 18vh; 
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+            
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200; /* ExtraLight - секрет роскоши */
+            font-size: clamp(4.5rem, 16vw, 10rem);
+            line-height: 1;
+            letter-spacing: 0.15em; /* Огромное расстояние между буквами */
+            padding-left: 0.15em; /* Компенсация сдвига из-за трекинга */
+            
+            /* Жемчужный / Ледяной белый */
+            color: #f0f4f8; 
+            text-shadow: 0 0 20px rgba(255,255,255,0.1), 0 10px 30px rgba(0,0,0,0.8);
+            
+            /* Анимация */
+            clip-path: inset(0 100% 0 0);
+            animation: reveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
         }
 
-        /* --- ВАРИАНТ 1: Серебряный хром (Кибер-нуар) --- */
-        .v1 .name { background: linear-gradient(180deg, #ffffff 0%, #a3a3a3 45%, #444 50%, #e5e5e5 100%); -webkit-background-clip: text; color: transparent; }
-        .v1 .top-text, .v1 .bottom-text { color: #e5e5e5; }
-
-        /* --- ВАРИАНТ 2: Бледно-розовое золото (Романтика) --- */
-        .v2 .name { background: linear-gradient(180deg, #f9e0d9 0%, #d4a373 45%, #8c5a35 100%); -webkit-background-clip: text; color: transparent; }
-        .v2 .top-text, .v2 .bottom-text { color: #f9e0d9; }
-
-        /* --- ВАРИАНТ 3: Чистый белый (Минимализм) --- */
-        .v3 .name { color: #ffffff; }
-        .v3 .top-text, .v3 .bottom-text { color: #ffffff; opacity: 0.8; }
-
-        /* --- ВАРИАНТ 4: Кроваво-красный (Монолит) --- */
-        .v4 .name { background: linear-gradient(180deg, #ff4d4d 0%, #990000 50%, #330000 100%); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 20px rgba(255,0,0,0.4); }
-        .v4 .top-text, .v4 .bottom-text { color: #ff4d4d; }
+        @keyframes reveal {
+            to { clip-path: inset(0 0 0 0); }
+        }
 
         @media (max-width: 768px) {
-            .name { top: 16vh; font-size: 6rem; }
-            .top-text, .bottom-text { font-size: 0.9rem; }
+            .hero {
+                background-position: center 30%;
+            }
+            .name {
+                top: 16vh;
+                font-size: 4.5rem;
+                letter-spacing: 0.1em;
+                padding-left: 0.1em;
+            }
+            .top-text, .bottom-text {
+                letter-spacing: 3px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ВАРИАНТ 1: Серебро -->
-    <div class="section v1">
-        <div class="label">Вариант 1: Серебряный хром (под красный неон)</div>
+    <section class="hero">
         <div class="top-text">Хм... ты здесь..</div>
         <h1 class="name">Aleksa</h1>
         <div class="bottom-text">это обо мне... или о тебе?</div>
-    </div>
-
-    <!-- ВАРИАНТ 2: Розовое золото -->
-    <div class="section v2">
-        <div class="label">Вариант 2: Бледно-розовое золото</div>
-        <div class="top-text">Хм... ты здесь..</div>
-        <h1 class="name">Aleksa</h1>
-        <div class="bottom-text">это обо мне... или о тебе?</div>
-    </div>
-
-    <!-- ВАРИАНТ 3: Белый -->
-    <div class="section v3">
-        <div class="label">Вариант 3: Чистый белый (максимальный контраст)</div>
-        <div class="top-text">Хм... ты здесь..</div>
-        <h1 class="name">Aleksa</h1>
-        <div class="bottom-text">это обо мне... или о тебе?</div>
-    </div>
-
-    <!-- ВАРИАНТ 4: Красный -->
-    <div class="section v4">
-        <div class="label">Вариант 4: Тот же красный (монохром)</div>
-        <div class="top-text">Хм... ты здесь..</div>
-        <h1 class="name">Aleksa</h1>
-        <div class="bottom-text">это обо мне... или о тебе?</div>
-    </div>
+    </section>
 
 </body>
 </html>
