@@ -1,21 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALEKSA | Интро</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- МАГИЯ ПЛАВНОГО ПЕРЕХОДА --- */
-        @view-transition {
-            navigation: auto;
-        }
-
-        @font-face {
-            font-family: 'TagType';
-            src: url('fonts/TagType.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
+        @view-transition { navigation: auto; }
 
         body {
             margin: 0;
@@ -26,26 +21,23 @@
             background-position: center;
             background-repeat: no-repeat;
             color: #fff;
-            font-family: 'TagType', cursive; 
+            font-family: 'Raleway', sans-serif; /* Единый шрифт */
             overflow: hidden; 
             width: 100vw;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s ease; /* Для плавного затухания */
+            transition: opacity 1s ease;
         }
 
-        /* Класс, который мы добавим перед переходом */
-        body.fade-out {
-            opacity: 0;
-        }
+        body.fade-out { opacity: 0; }
 
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.65); 
+            background: rgba(0, 0, 0, 0.75); /* Чуть темнее, чтобы белый текст читался */
             z-index: -1;
         }
 
@@ -53,8 +45,10 @@
             width: 95%; 
             max-width: 1100px;
             text-align: center;
-            font-size: clamp(1.8rem, 4.5vw, 3.5rem); 
-            line-height: 2; 
+            font-size: clamp(1.2rem, 3.5vw, 2.2rem); 
+            font-weight: 200; /* Тонкий */
+            line-height: 1.8; 
+            letter-spacing: 0.1em; /* Разрядка */
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -62,7 +56,6 @@
             padding: 20px;
             position: relative;
             z-index: 1;
-            transition: transform 0.5s ease;
         }
 
         .word {
@@ -70,33 +63,29 @@
             display: inline-block;
             transform: translateY(15px);
             transition: opacity 1.5s ease, transform 1.5s ease;
-            letter-spacing: 5px; 
-            color: #ffffff;
-            -webkit-text-stroke: 1.5px #b8860b;
-            text-shadow: 2px 2px 5px #000, -2px -2px 5px #000, 2px -2px 5px #000, -2px 2px 5px #000; 
+            color: #e5e5e5; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
         }
 
         .word.show {
             opacity: 1;
             transform: translateY(0);
-            text-shadow: 2px 2px 5px #000, -2px -2px 5px #000, 0 0 15px rgba(255, 215, 0, 0.6); 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); 
         }
 
         .word.explode {
             opacity: 0;
             transform: scale(1.1); 
-            color: rgba(212, 175, 55, 0.3); 
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-            filter: blur(20px) drop-shadow(0 0 40px rgba(255, 215, 0, 1));
+            filter: blur(20px);
             transition: all 4s ease-in-out; 
             text-shadow: none; 
         }
 
         @media (max-width: 768px) {
             #intro-container {
-                transform: translateY(-12vh); 
-                font-size: clamp(2rem, 8vw, 3rem); 
-                line-height: 1.8; 
+                transform: translateY(-10vh); 
+                font-size: clamp(1.5rem, 6vw, 2rem); 
+                line-height: 1.6; 
             }
         }
     </style>
@@ -120,7 +109,7 @@
         const wordElements = document.querySelectorAll('.word');
 
         function startAnimation() {
-            const wordDelay = 600; 
+            const wordDelay = 500; 
 
             wordElements.forEach((word, index) => {
                 const delay = index * wordDelay; 
@@ -129,21 +118,19 @@
                 }, delay);
             });
 
-            const explodeDelay = (wordElements.length * wordDelay) + 4000; 
+            const explodeDelay = (wordElements.length * wordDelay) + 3500; 
             
             setTimeout(() => {
                 wordElements.forEach(word => {
                     word.classList.add('explode');
                 });
 
-                // За 1 секунду до перехода начинаем плавно гасить экран (затухание)
                 setTimeout(() => {
                     document.body.classList.add('fade-out');
                 }, 2500); 
 
-                // Сам переход (когда экран уже черный)
                 setTimeout(() => {
-                    window.location.href = 'main.html';
+                    window.location.href = 'garland.html'; /* Ведем на гирлянду */
                 }, 3500); 
 
             }, explodeDelay); 
