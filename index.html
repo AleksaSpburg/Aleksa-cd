@@ -1,142 +1,182 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Интро</title>
+    <title>ALEKSA</title>
+    <!-- Подключаем шрифты из вашего концепта -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Raleway:wght@200;300&display=swap" rel="stylesheet">
     <style>
-        @view-transition { navigation: auto; }
+        /* ЦВЕТОВАЯ ПАЛИТРА (Синхронизирована с Telegram) */
+        :root {
+            --bg-obsidian: #050505;   /* Абсолютный черный */
+            --bg-marble: #0A0A0A;     /* Фон мрамора */
+            --gold-champagne: #E6C87A; /* Шампань (как в теме) */
+            --text-pearl: #F0F4F8;    /* Жемчужный белый (ваш выбор) */
+            --neon-blood: #FF0033;    /* Кроваво-красный неон */
+            
+            --font-name: 'Raleway', sans-serif;
+            --font-text: 'Montserrat', sans-serif;
+        }
 
-        body {
+        /* БАЗОВЫЕ НАСТРОЙКИ */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #000;
-            background-image: url('img/bg-marble2.jpg'); 
-            background-size: cover; 
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #fff;
-            font-family: 'Raleway', sans-serif; /* Единый шрифт */
-            overflow: hidden; 
-            width: 100vw;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-pearl);
+            font-family: var(--font-text);
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Плавный скролл */
+        }
+
+        /* ЭКРАН 1: ИНТРО (Мрамор и Золото) */
+        .screen-intro {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s ease;
-        }
-
-        body.fade-out { opacity: 0; }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.75); /* Чуть темнее, чтобы белый текст читался */
-            z-index: -1;
-        }
-
-        #intro-container {
-            width: 95%; 
-            max-width: 1100px;
-            text-align: center;
-            font-size: clamp(1.2rem, 3.5vw, 2.2rem); 
-            font-weight: 200; /* Тонкий */
-            line-height: 1.8; 
-            letter-spacing: 0.1em; /* Разрядка */
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5em; 
-            padding: 20px;
+            /* Имитация мрамора с помощью CSS градиента */
+            background: radial-gradient(circle at top left, #1A1A1A 0%, var(--bg-obsidian) 70%);
             position: relative;
-            z-index: 1;
         }
 
-        .word {
-            opacity: 0;
-            display: inline-block;
-            transform: translateY(15px);
-            transition: opacity 1.5s ease, transform 1.5s ease;
-            color: #e5e5e5; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+        .intro-text {
+            font-family: var(--font-name);
+            font-weight: 200;
+            font-size: 2rem;
+            letter-spacing: 0.3em;
+            color: var(--gold-champagne);
+            text-transform: uppercase;
+            animation: fadeInOut 4s ease-in-out forwards;
         }
 
-        .word.show {
-            opacity: 1;
-            transform: translateY(0);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); 
+        /* Анимация растворения текста */
+        @keyframes fadeInOut {
+            0% { opacity: 0; filter: blur(10px); transform: scale(0.95); }
+            30% { opacity: 1; filter: blur(0); transform: scale(1); }
+            70% { opacity: 1; filter: blur(0); transform: scale(1); }
+            100% { opacity: 0; filter: blur(5px); transform: scale(1.05); }
         }
 
-        .word.explode {
-            opacity: 0;
-            transform: scale(1.1); 
-            filter: blur(20px);
-            transition: all 4s ease-in-out; 
-            text-shadow: none; 
+        /* ЭКРАН 2: ПЕРЕХОДНИК (Гирлянда) */
+        .screen-garland {
+            height: 50vh;
+            background-color: var(--bg-obsidian);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        @media (max-width: 768px) {
-            #intro-container {
-                transform: translateY(-10vh); 
-                font-size: clamp(1.5rem, 6vw, 2rem); 
-                line-height: 1.6; 
-            }
+        /* Имитация красной неоновой нити */
+        .neon-thread {
+            width: 80%;
+            height: 2px;
+            background-color: var(--neon-blood);
+            box-shadow: 0 0 15px var(--neon-blood), 0 0 30px var(--neon-blood);
+            border-radius: 50%;
+            animation: breathe 3s infinite alternate ease-in-out;
         }
+
+        /* Пульсация неона */
+        @keyframes breathe {
+            0% { opacity: 0.7; filter: brightness(100%); transform: scaleX(0.9); }
+            100% { opacity: 1; filter: brightness(130%); transform: scaleX(1); }
+        }
+
+        /* ЭКРАН 3: ГЛАВНАЯ (Твой силуэт) */
+        .screen-main {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-obsidian);
+            position: relative;
+        }
+
+        /* Плейсхолдер для твоего фото */
+        .photo-placeholder {
+            width: 300px;
+            height: 400px;
+            background-color: var(--bg-marble);
+            border: 1px solid rgba(230, 200, 122, 0.2);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #555;
+            font-size: 0.8rem;
+            /* Как только добавишь фото, раскомментируй и вставь ссылку: */
+            /* background-image: url('твое-фото.jpg'); */
+            /* background-size: cover; */
+            /* background-position: center; */
+            /* filter: grayscale(100%) contrast(150%) brightness(50%); */
+        }
+
+        .main-title {
+            font-family: var(--font-name);
+            font-weight: 200;
+            font-size: 3rem;
+            letter-spacing: 0.2em;
+            color: var(--text-pearl);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .main-subtitle {
+            font-family: var(--font-text);
+            font-weight: 300;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-champagne);
+            text-transform: uppercase;
+        }
+
+        /* Кастомный скроллбар в стиле Kintsugi */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-obsidian);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-champagne);
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
 
-    <div id="intro-container"></div>
+    <!-- ЭКРАН 1: ИНТРО -->
+    <section class="screen-intro">
+        <div class="intro-text">Aleksa</div>
+    </section>
 
-    <script>
-        const text = "слышать, как тот, кто рядом дышит чаще — единственная музыка, под которую мы готовы терять себя...";
-        const container = document.getElementById('intro-container');
-        const words = text.split(' ');
+    <!-- ЭКРАН 2: ГИРЛЯНДА (Переходник) -->
+    <section class="screen-garland">
+        <!-- Если захочешь заменить CSS-нить на реальное фото, просто добавь <img> сюда -->
+        <div class="neon-thread"></div>
+    </section>
 
-        words.forEach(word => {
-            const span = document.createElement('span');
-            span.className = 'word';
-            span.innerText = word;
-            container.appendChild(span);
-        });
+    <!-- ЭКРАН 3: ГЛАВНАЯ (Силуэт) -->
+    <section class="screen-main">
+        <div class="photo-placeholder">
+            <!-- Здесь будет твое фото на корточках -->
+            [ ТВОЕ ФОТО ]
+        </div>
+        <h1 class="main-title">Aleksa</h1>
+        <p class="main-subtitle">Quiet Luxury</p>
+    </section>
 
-        const wordElements = document.querySelectorAll('.word');
-
-        function startAnimation() {
-            const wordDelay = 500; 
-
-            wordElements.forEach((word, index) => {
-                const delay = index * wordDelay; 
-                setTimeout(() => {
-                    word.classList.add('show');
-                }, delay);
-            });
-
-            const explodeDelay = (wordElements.length * wordDelay) + 3500; 
-            
-            setTimeout(() => {
-                wordElements.forEach(word => {
-                    word.classList.add('explode');
-                });
-
-                setTimeout(() => {
-                    document.body.classList.add('fade-out');
-                }, 2500); 
-
-                setTimeout(() => {
-                    window.location.href = 'garland.html'; /* Ведем на гирлянду */
-                }, 3500); 
-
-            }, explodeDelay); 
-        }
-
-        window.onload = startAnimation;
-    </script>
 </body>
 </html>
