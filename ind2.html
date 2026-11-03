@@ -1,1 +1,183 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALEKSA</title>
+    <!-- Подключаем шрифты из вашего концепта -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Raleway:wght@200;300&display=swap" rel="stylesheet">
+    <style>
+        /* ЦВЕТОВАЯ ПАЛИТРА (Синхронизирована с Telegram) */
+        :root {
+            --bg-obsidian: #050505;   /* Абсолютный черный */
+            --bg-marble: #0A0A0A;     /* Фон мрамора */
+            --gold-champagne: #E6C87A; /* Шампань (как в теме) */
+            --text-pearl: #F0F4F8;    /* Жемчужный белый (ваш выбор) */
+            --neon-blood: #FF0033;    /* Кроваво-красный неон */
+            
+            --font-name: 'Raleway', sans-serif;
+            --font-text: 'Montserrat', sans-serif;
+        }
+
+        /* БАЗОВЫЕ НАСТРОЙКИ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-pearl);
+            font-family: var(--font-text);
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Плавный скролл */
+        }
+
+        /* ЭКРАН 1: ИНТРО (Мрамор и Золото) */
+        .screen-intro {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Имитация мрамора с помощью CSS градиента */
+            background: radial-gradient(circle at top left, #1A1A1A 0%, var(--bg-obsidian) 70%);
+            position: relative;
+        }
+
+        .intro-text {
+            font-family: var(--font-name);
+            font-weight: 200;
+            font-size: 2rem;
+            letter-spacing: 0.3em;
+            color: var(--gold-champagne);
+            text-transform: uppercase;
+            animation: fadeInOut 4s ease-in-out forwards;
+        }
+
+        /* Анимация растворения текста */
+        @keyframes fadeInOut {
+            0% { opacity: 0; filter: blur(10px); transform: scale(0.95); }
+            30% { opacity: 1; filter: blur(0); transform: scale(1); }
+            70% { opacity: 1; filter: blur(0); transform: scale(1); }
+            100% { opacity: 0; filter: blur(5px); transform: scale(1.05); }
+        }
+
+        /* ЭКРАН 2: ПЕРЕХОДНИК (Гирлянда) */
+        .screen-garland {
+            height: 50vh;
+            background-color: var(--bg-obsidian);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Имитация красной неоновой нити */
+        .neon-thread {
+            width: 80%;
+            height: 2px;
+            background-color: var(--neon-blood);
+            box-shadow: 0 0 15px var(--neon-blood), 0 0 30px var(--neon-blood);
+            border-radius: 50%;
+            animation: breathe 3s infinite alternate ease-in-out;
+        }
+
+        /* Пульсация неона */
+        @keyframes breathe {
+            0% { opacity: 0.7; filter: brightness(100%); transform: scaleX(0.9); }
+            100% { opacity: 1; filter: brightness(130%); transform: scaleX(1); }
+        }
+
+        /* ЭКРАН 3: ГЛАВНАЯ (Твой силуэт) */
+        .screen-main {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-obsidian);
+            position: relative;
+        }
+
+        /* Плейсхолдер для твоего фото */
+        .photo-placeholder {
+            width: 300px;
+            height: 400px;
+            background-color: var(--bg-marble);
+            border: 1px solid rgba(230, 200, 122, 0.2);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #555;
+            font-size: 0.8rem;
+            /* Как только добавишь фото, раскомментируй и вставь ссылку: */
+            /* background-image: url('твое-фото.jpg'); */
+            /* background-size: cover; */
+            /* background-position: center; */
+            /* filter: grayscale(100%) contrast(150%) brightness(50%); */
+        }
+
+        .main-title {
+            font-family: var(--font-name);
+            font-weight: 200;
+            font-size: 3rem;
+            letter-spacing: 0.2em;
+            color: var(--text-pearl);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .main-subtitle {
+            font-family: var(--font-text);
+            font-weight: 300;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-champagne);
+            text-transform: uppercase;
+        }
+
+        /* Кастомный скроллбар в стиле Kintsugi */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-obsidian);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-champagne);
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ЭКРАН 1: ИНТРО -->
+    <section class="screen-intro">
+        <div class="intro-text">Aleksa</div>
+    </section>
+
+    <!-- ЭКРАН 2: ГИРЛЯНДА (Переходник) -->
+    <section class="screen-garland">
+        <!-- Если захочешь заменить CSS-нить на реальное фото, просто добавь <img> сюда -->
+        <div class="neon-thread"></div>
+    </section>
+
+    <!-- ЭКРАН 3: ГЛАВНАЯ (Силуэт) -->
+    <section class="screen-main">
+        <div class="photo-placeholder">
+            <!-- Здесь будет твое фото на корточках -->
+            [ ТВОЕ ФОТО ]
+        </div>
+        <h1 class="main-title">Aleksa</h1>
+        <p class="main-subtitle">Quiet Luxury</p>
+    </section>
+
+</body>
+</html>
