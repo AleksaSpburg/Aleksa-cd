@@ -13,7 +13,89 @@
         html { scroll-behavior: smooth; }
         body { background-color: #000; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        /* 1. ГЛАВНЫЙ ЭКРАН */
+        /* =========================================
+           1. ЦИТАТА (Мрамор)
+           ========================================= */
+        .section-quote {
+            position: relative;
+            height: 100svh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('img/bg-marble2.jpg') center/cover no-repeat;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .section-quote::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8); 
+        }
+
+        .quote-text {
+            position: relative;
+            z-index: 2;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            line-height: 2;
+            color: #d4d4d4;
+            max-width: 900px;
+            letter-spacing: 0.1em;
+            font-style: italic;
+        }
+
+        /* =========================================
+           2. КРАСНАЯ НИТЬ (Переходник)
+           ========================================= */
+        .section-thread {
+            position: relative;
+            height: 30vh;
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* Сама линия */
+        .thread-line {
+            position: absolute;
+            top: 0;
+            right: 15%; /* Смещена вправо */
+            width: 1px; /* Тонкая, как нить */
+            height: 100%;
+            background: #ff003c;
+            
+            /* Пульсация: меняется яркость и свечение (box-shadow) */
+            animation: pulse-thread 3s ease-in-out infinite alternate;
+            transform-origin: top;
+        }
+
+        /* Дополнительный градиент, чтобы нить "втекала" в экран и уходила вниз */
+        .thread-line::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -5px;
+            width: 11px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255,0,60,0.2), transparent);
+            filter: blur(5px);
+        }
+
+        @keyframes pulse-thread {
+            0% { 
+                opacity: 0.4; 
+                box-shadow: 0 0 5px #ff003c, 0 0 10px #ff003c; 
+            }
+            100% { 
+                opacity: 1; 
+                box-shadow: 0 0 15px #ff003c, 0 0 30px #ff003c, 0 0 50px #ff003c; 
+            }
+        }
+
+        /* =========================================
+           3. ГЛАВНЫЙ ЭКРАН (Взгляд)
+           ========================================= */
         .section-hero {
             position: relative;
             height: 100svh;
@@ -24,30 +106,24 @@
             background-color: #000;
         }
 
+        /* Используем bg-gal6 (отражение), сильно затемняем и растворяем */
         .hero-bg {
             position: absolute;
             top: 0;
-            right: 0;
-            width: 65%;
+            right: -5%;
+            width: 60%;
             height: 100%;
-            background: url('img/bg-main-ru.png') center top/cover no-repeat;
+            background: url('img/bg-gal6.jpg') center/cover no-repeat;
             z-index: 1;
-            mask-image: linear-gradient(to left, black 40%, transparent 95%);
-            -webkit-mask-image: linear-gradient(to left, black 40%, transparent 95%);
-            opacity: 0.8;
-        }
-
-        .hero-bg::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, #000 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            opacity: 0.6;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 500px;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -72,64 +148,12 @@
             text-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
 
-        /* 2. ИНТРО */
-        .section-intro {
-            position: relative;
-            min-height: 50vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: url('img/bg-marble2.jpg') center/cover no-repeat;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .section-intro::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85); 
-        }
-
-        .intro-text {
-            position: relative;
-            z-index: 2;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 300;
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            line-height: 2;
-            color: #ccc;
-            max-width: 800px;
-            letter-spacing: 0.1em;
-            font-style: italic;
-        }
-
         /* =========================================
-           ПЕРЕХОДНИК: КРАСНАЯ ПУЛЬСИРУЮЩАЯ НИТЬ
+           4. BENTO-ГАЛЕРЕЯ (Только избранные фото)
            ========================================= */
-        .section-transition {
-            position: relative;
-            height: 40vh; /* Высота переходника */
-            width: 100%;
-            background: url('img/redcable.jpg') center/cover no-repeat;
-            /* Маска, чтобы края растворялись в черном, а не обрывались */
-            mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
-            
-            /* Анимация дыхания */
-            animation: pulse-cable 4s ease-in-out infinite alternate;
-        }
-
-        /* Само свечение/пульсация */
-        @keyframes pulse-cable {
-            0% { filter: brightness(0.6) contrast(1.2) drop-shadow(0 0 5px rgba(255,0,0,0.2)); }
-            100% { filter: brightness(1.2) contrast(1.4) drop-shadow(0 0 20px rgba(255,0,0,0.8)); }
-        }
-
-        /* 3. BENTO-ГАЛЕРЕЯ */
         .section-gallery {
             padding: 80px 20px;
-            background: #000;
+            background: #050505;
             display: flex;
             justify-content: center;
         }
@@ -146,9 +170,8 @@
         .bento-card {
             position: relative;
             overflow: hidden;
-            background-color: #050505;
-            border: 1px solid #111;
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background-color: #111;
+            border: 1px solid #222;
         }
 
         .bento-bg {
@@ -156,12 +179,13 @@
             inset: 0;
             background-size: cover;
             background-position: center;
-            filter: grayscale(1) contrast(1.2) brightness(0.4); 
+            /* Жесткая обработка: черно-белое, контрастное, без белых вспышек */
+            filter: grayscale(1) contrast(1.5) brightness(0.4); 
             transition: all 0.6s ease;
         }
 
         .bento-card:hover .bento-bg {
-            filter: grayscale(0.3) contrast(1.1) brightness(0.7);
+            filter: grayscale(0.8) contrast(1.2) brightness(0.6);
             transform: scale(1.05);
         }
 
@@ -169,10 +193,12 @@
         .card-wide { grid-column: span 2; grid-row: span 1; }
         .card-small { grid-column: span 1; grid-row: span 1; }
 
-        /* 4. МАНИФЕСТ */
+        /* =========================================
+           5. МАНИФЕСТ
+           ========================================= */
         .section-manifesto {
             padding: 140px 20px;
-            background: #020202;
+            background: #000;
             text-align: center;
             border-top: 1px solid #111;
         }
@@ -191,29 +217,47 @@
         .manifesto-text p { margin-bottom: 40px; }
         .manifesto-text strong { color: #e5e5e5; font-weight: 400; }
 
-        /* 5. ССЫЛКИ */
+        /* =========================================
+           6. ССЫЛКИ
+           ========================================= */
         .section-links {
             padding: 60px 20px 100px 20px;
-            background: #000;
+            background: #050505;
             display: flex;
             justify-content: center;
         }
 
         @media (max-width: 900px) {
             .section-hero { padding: 20px; justify-content: center; text-align: center; }
-            .hero-bg { width: 100%; mask-image: linear-gradient(to bottom, black 30%, transparent 80%); -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 80%); }
-            .hero-bg::after { background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, #000 100%); }
-            .hero-content { align-items: center; margin-top: auto; margin-bottom: 12vh; }
+            .hero-bg { width: 100%; right: 0; opacity: 0.4; mask-image: linear-gradient(to bottom, transparent, black 50%, transparent); }
+            .hero-content { align-items: center; margin-top: auto; margin-bottom: 10vh; }
             .hero-name { font-size: 4.5rem; }
-            .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 280px; }
+            
+            .thread-line { right: 50%; } /* На мобилке нить по центру */
+            
+            .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 300px; }
             .card-large, .card-wide, .card-small { grid-column: span 1; grid-row: span 1; }
             .card-large { grid-row: span 2; }
-            .section-transition { height: 30vh; } /* На мобилке переходник чуть ниже */
         }
     </style>
 </head>
 <body>
 
+    <!-- 1. ЦИТАТА -->
+    <section class="section-quote">
+        <div class="quote-text">
+            Слышать, как тот, кто рядом, дышит чаще —<br>
+            единственная музыка,<br>
+            под которую мы готовы терять себя.
+        </div>
+    </section>
+
+    <!-- 2. КРАСНАЯ НИТЬ -->
+    <div class="section-thread">
+        <div class="thread-line"></div>
+    </div>
+
+    <!-- 3. ГЛАВНЫЙ ЭКРАН -->
     <section class="section-hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
@@ -223,29 +267,24 @@
         </div>
     </section>
 
-    <section class="section-intro">
-        <div class="intro-text">
-            Слышать, как тот, кто рядом, дышит чаще —<br>
-            единственная музыка,<br>
-            под которую мы готовы терять себя.
-        </div>
-    </section>
-
-    <!-- ПЕРЕХОДНИК (Пульсирующая гирлянда) -->
-    <div class="section-transition"></div>
-
-    <!-- ГАЛЕРЕЯ -->
+    <!-- 4. ГАЛЕРЕЯ (Используем только фото из нижней части твоего списка) -->
     <section class="section-gallery">
         <div class="bento-grid">
-            <div class="bento-card card-large"><div class="bento-bg" style="background-image: url('img/bg-gal.jpg');"></div></div>
-            <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal4.jpg');"></div></div>
-            <!-- Сюда поставили bg-gal6.jpg вместо redcable -->
+            <!-- Большая: bg-gal5.1 (ты в комнате) -->
+            <div class="bento-card card-large"><div class="bento-bg" style="background-image: url('img/bg-gal5.1.png');"></div></div>
+            
+            <!-- Маленькая: bg-gal5 (зеркало с вспышкой) -->
+            <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal5.png');"></div></div>
+            
+            <!-- Маленькая: bg-gal6 (отражение) -->
             <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal6.jpg');"></div></div>
-            <div class="bento-card card-wide"><div class="bento-bg" style="background-image: url('img/bg-gal5.1.png');"></div></div>
+            
+            <!-- Широкая: bg-gal4 (лицо) -->
+            <div class="bento-card card-wide"><div class="bento-bg" style="background-image: url('img/bg-gal4.jpg');"></div></div>
         </div>
     </section>
 
-    <!-- МАНИФЕСТ -->
+    <!-- 5. МАНИФЕСТ -->
     <section class="section-manifesto">
         <div class="manifesto-text">
             <p><strong>Явиться или остаться тенью — мой выбор.</strong><br>Я решаю, что показать и как близко подпустить.</p>
@@ -254,7 +293,7 @@
         </div>
     </section>
 
-    <!-- ССЫЛКИ -->
+    <!-- 6. ССЫЛКИ -->
     <section class="section-links">
         <div class="bento-grid">
             <a href="#" class="bento-card card-wide">
