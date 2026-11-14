@@ -600,6 +600,42 @@ summary {
         );
     }
 }
+/* Мягкие края фотографии со всех четырёх сторон */
+.hero-bg {
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            black 18%,
+            black 78%,
+            transparent 100%
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 18%,
+            black 75%,
+            transparent 100%
+        );
+    -webkit-mask-composite: source-in;
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            black 18%,
+            black 78%,
+            transparent 100%
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 18%,
+            black 75%,
+            transparent 100%
+        );
+    mask-composite: intersect;
+}
 
 </style>
 </head>
@@ -1089,7 +1125,9 @@ videoButton.addEventListener("click", async () => {
     if (video.ended) video.currentTime = 0;
 
     try {
-        await video.play();
+        video.playbackRate = 0.5;
+await video.play();
+
     } catch {
         updateVideoButton();
     }
