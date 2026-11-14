@@ -13,7 +13,7 @@
         html { scroll-behavior: smooth; background-color: #000; }
         
         body { 
-            background-color: transparent; /* Прозрачный фон, чтобы нить была видна */
+            background-color: transparent; 
             color: #fff; 
             font-family: 'Montserrat', sans-serif; 
             overflow-x: hidden;
@@ -21,63 +21,57 @@
         }
 
         /* =========================================
-           КРАСНАЯ НИТЬ (Извивающаяся, на самом дне)
+           КРАСНАЯ НИТЬ (Сложная извивающаяся линия)
            ========================================= */
         .red-thread-svg {
             position: absolute;
-            top: 70vh; /* Начинается в нижней трети первого экрана */
+            top: 0; 
             left: 0;
             width: 100%;
-            height: calc(100% - 70vh); 
-            z-index: 0; /* На самом дне */
+            height: 100%; /* Растягивается на весь сайт */
+            z-index: 1; /* Лежит под текстами, но над фоном */
             pointer-events: none; 
-            
-            /* Легкая пульсация всей линии */
             animation: pulse-svg 4s ease-in-out infinite alternate;
         }
 
         .red-thread-svg path {
             fill: none;
             stroke: #ff003c;
-            stroke-width: 2px;
-            
-            /* Сохраняет толщину 2px при растягивании */
+            stroke-width: 1.5px;
             vector-effect: non-scaling-stroke; 
-            
-            /* Свечение */
-            filter: drop-shadow(0 0 6px #ff003c) drop-shadow(0 0 15px rgba(255, 0, 60, 0.6));
+            filter: drop-shadow(0 0 5px #ff003c) drop-shadow(0 0 15px rgba(255, 0, 60, 0.6));
         }
 
         @keyframes pulse-svg {
-            0% { opacity: 0.3; filter: brightness(0.7); }
+            0% { opacity: 0.4; filter: brightness(0.8); }
             100% { opacity: 1; filter: brightness(1.3); }
         }
 
-        /* =========================================
-           ОБЩИЕ НАСТРОЙКИ СЕКЦИЙ (z-index выше нити)
-           ========================================= */
-        section {
-            position: relative;
-            z-index: 1; /* Контент выше нити */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 100px 20px; /* Отступы, через которые будет видна нить */
+        /* Пульсирующая точка в конце цитаты */
+        .pulse-dot {
+            color: #ff003c;
+            text-shadow: 0 0 10px #ff003c, 0 0 20px #ff003c;
+            animation: pulse-dot 2s ease-in-out infinite alternate;
         }
 
-        /* Блоки с глухим фоном, чтобы прятать нить */
-        .solid-bg {
-            background-color: #000;
-            border-radius: 4px;
+        @keyframes pulse-dot {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; text-shadow: 0 0 15px #ff003c, 0 0 30px #ff003c; }
         }
 
         /* =========================================
            ЭКРАН 1. ИНТРО (Цитата)
            ========================================= */
         .section-intro {
+            position: relative;
             height: 100svh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background: url('img/bg-marble2.jpg') center/cover no-repeat;
+            padding: 40px 20px;
             text-align: center;
+            z-index: 2;
         }
 
         .section-intro::before {
@@ -105,9 +99,11 @@
            ЭКРАН 2. ГЛАВНАЯ (Силуэт)
            ========================================= */
         .section-hero {
+            position: relative;
             height: 100svh;
             overflow: hidden;
-            padding: 0; /* Убираем паддинг, чтобы фон был на весь экран */
+            background-color: #000; /* Глухой фон, чтобы скрыть нить */
+            z-index: 2;
         }
 
         .hero-bg {
@@ -116,9 +112,8 @@
             width: 70%; 
             height: 100%;
             background: url('img/bg-main-ru.png') center top/cover no-repeat;
-            z-index: 0;
+            z-index: 1;
             
-            /* Растворение со всех сторон */
             mask-image: linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%), 
                         linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
             -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 80%, transparent 100%), 
@@ -128,52 +123,57 @@
             opacity: 0.85;
         }
 
+        /* УБРАЛИ ЧЕРНЫЕ ПЛАШКИ У ТЕКСТА */
         .hero-text-top {
             position: absolute;
             top: 8vh; left: 10vw;
+            z-index: 3;
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             font-size: clamp(0.9rem, 1.5vw, 1.1rem);
             letter-spacing: 0.3em;
             text-transform: uppercase;
             color: #a0a0a0;
-            background: #000; /* Прячет нить */
-            padding: 10px;
+            text-shadow: 0 0 10px #000, 0 0 20px #000; /* Тень для читаемости */
         }
 
         .hero-text-bottom {
             position: absolute;
             bottom: 8vh; left: 10vw;
+            z-index: 3;
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             font-size: clamp(0.9rem, 1.5vw, 1.1rem);
             letter-spacing: 0.3em;
             text-transform: uppercase;
             color: #a0a0a0;
-            background: #000; /* Прячет нить */
-            padding: 10px;
+            text-shadow: 0 0 10px #000, 0 0 20px #000;
         }
 
         .hero-name {
             position: absolute;
             top: 45%; left: 18vw;
             transform: translateY(-50%);
+            z-index: 3;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
             font-size: clamp(5rem, 10vw, 9rem);
             letter-spacing: 0.1em;
             color: #f0f4f8;
             line-height: 0.9;
-            text-shadow: 0 0 30px rgba(255,255,255,0.1);
-            background: #000; /* Прячет нить */
-            padding: 0 20px;
+            text-shadow: 0 0 20px #000, 0 0 40px #000; /* Убрали плашку, оставили тень */
         }
 
         /* =========================================
-           ЭКРАН 3. ГАЛЕРЕЯ (Скрывает нить)
+           ЭКРАН 3. ГАЛЕРЕЯ
            ========================================= */
         .section-gallery {
-            min-height: 100vh; /* Даем высоту, чтобы нить тянулась */
+            position: relative;
+            padding: 100px 20px;
+            background-color: #000; /* Скрывает нить */
+            display: flex;
+            justify-content: center;
+            z-index: 2;
         }
 
         .bento-grid {
@@ -183,9 +183,6 @@
             gap: 10px;
             max-width: 900px; 
             width: 100%;
-            background: #000; /* Глухой фон, скрывающий нить */
-            padding: 20px;
-            border: 1px solid #111;
         }
 
         .bento-card {
@@ -218,10 +215,16 @@
         .card-small { grid-column: span 1; grid-row: span 1; }
 
         /* =========================================
-           ЭКРАН 4. МАНИФЕСТ (Скрывает нить)
+           ЭКРАН 4. МАНИФЕСТ
            ========================================= */
         .section-manifesto {
-            padding: 150px 20px; 
+            position: relative;
+            padding: 150px 20px;
+            background-color: #000; /* Скрывает нить */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
         }
 
         .manifesto-block {
@@ -231,11 +234,7 @@
             font-size: clamp(1.1rem, 2vw, 1.3rem);
             line-height: 2.2;
             color: #a0a0a0;
-            margin-bottom: 30px;
-            background: #000; /* Глухой фон */
-            padding: 40px;
-            border: 1px solid #111;
-            
+            margin-bottom: 60px;
             opacity: 0;
             transform: translateY(30px);
             transition: all 1s ease;
@@ -259,7 +258,14 @@
         /* =========================================
            ЭКРАН 5. ССЫЛКИ
            ========================================= */
-        .section-links { padding: 80px 20px; }
+        .section-links {
+            position: relative;
+            padding: 80px 20px;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+        }
 
         .link-card {
             position: relative;
@@ -269,7 +275,7 @@
             justify-content: flex-end;
             padding: 30px;
             text-decoration: none;
-            background: #000; /* Скрывает нить */
+            background: #050505;
             transition: all 0.4s ease;
         }
 
@@ -300,9 +306,16 @@
            ЭКРАН 6. ФИНАЛ
            ========================================= */
         .section-final {
+            position: relative;
             height: 80vh;
-            text-align: center;
+            display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
         }
 
         .final-text {
@@ -312,8 +325,6 @@
             color: #e0e0e0;
             margin-bottom: 40px;
             line-height: 1.8;
-            background: #000;
-            padding: 20px;
         }
 
         .btn-top {
@@ -326,7 +337,6 @@
             border: 1px solid #333;
             padding: 15px 30px;
             transition: all 0.3s ease;
-            background: #000;
         }
 
         .btn-top:hover { color: #fff; border-color: #fff; }
@@ -351,20 +361,19 @@
             .card-large, .card-wide, .card-small { grid-column: span 1; grid-row: span 1; }
             .card-large { grid-row: span 2; }
             
-            .manifesto-block { font-size: 1rem; line-height: 1.8; padding: 20px; }
+            .manifesto-block { font-size: 1rem; line-height: 1.8; }
         }
     </style>
 </head>
 <body>
 
-    <!-- КРАСНАЯ НИТЬ (В самом низу) -->
+    <!-- КРАСНАЯ НИТЬ -->
     <svg class="red-thread-svg" viewBox="0 0 100 1000" preserveAspectRatio="none">
-        <!-- Извивающийся путь -->
-        <path d="M 20,0 
-                 C 80,100 20,200 50,300 
-                 C 80,400 20,500 50,600 
-                 C 80,700 20,800 50,900 
-                 L 50,1000" />
+        <path d="M 50,52 
+                 C 70,55 85,60 85,70 
+                 C 85,80 20,90 15,110 
+                 C 10,130 50,140 85,155 
+                 L 85,1000" />
     </svg>
 
     <!-- ЭКРАН 1. ИНТРО -->
@@ -372,7 +381,7 @@
         <div class="intro-text">
             Слышать, как тот, кто рядом, дышит чаще —<br>
             единственная музыка,<br>
-            под которую мы готовы терять себя.
+            под которую мы готовы терять себя<span class="pulse-dot">.</span>
         </div>
     </section>
 
