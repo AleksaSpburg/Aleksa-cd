@@ -45,7 +45,7 @@
             letter-spacing: 0.15em;
         }
 
-        /* 2. ГЛАВНАЯ (Имя исправлено) */
+        /* 2. ГЛАВНАЯ */
         .section-hero {
             height: 100svh;
             border-bottom: 1px solid #111; 
@@ -70,21 +70,12 @@
             letter-spacing: 0.3em; text-transform: uppercase; color: #888;
             width: 100%; text-align: center; z-index: 3;
         }
-        
         .hero-name {
-            position: absolute; 
-            top: 42%; 
-            left: 12vw; /* Сдвинули правее, чтобы не обрезалось */
-            transform: translateY(-50%);
+            position: absolute; top: 42%; left: 12vw; transform: translateY(-50%);
             font-family: 'Raleway', sans-serif; font-weight: 200;
-            font-size: clamp(3.5rem, 10vw, 9rem);
-            letter-spacing: 0.1em; 
-            color: #f0f4f8; 
-            z-index: 3; 
-            text-shadow: 0 0 20px #000;
-            white-space: nowrap;
+            font-size: clamp(3.5rem, 10vw, 9rem); letter-spacing: 0.1em;
+            color: #f0f4f8; z-index: 3; text-shadow: 0 0 20px #000; white-space: nowrap;
         }
-        
         .hero-text-bottom {
             position: absolute; bottom: 6vh; right: 8vw;
             font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 1rem;
@@ -111,7 +102,7 @@
 
         .gallery-item {
             position: relative;
-            background-color: #000; /* Черный фон для паспарту */
+            background-color: #000; 
             border: 1px solid #222;
             overflow: hidden;
             cursor: pointer;
@@ -123,7 +114,8 @@
         .gallery-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            /* ТЕПЕРЬ ВСЕ ФОТО ВЛЕЗАЮТ ЦЕЛИКОМ */
+            object-fit: contain; 
             filter: grayscale(1) contrast(1.2) brightness(0.8);
             transition: all 0.6s ease;
         }
@@ -132,20 +124,12 @@
         .gallery-item:hover img { filter: grayscale(0.5) contrast(1.1) brightness(1); }
 
         /* DESKTOP СЕТКА */
-        .item-1 { grid-column: span 2; aspect-ratio: 16 / 9; }
+        .item-1 { grid-column: span 2; aspect-ratio: 4 / 3; } /* Сделал чуть менее широкой */
         .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; }
         .item-3 { grid-column: span 1; aspect-ratio: 3 / 4; }
         .item-4 { grid-column: span 1; aspect-ratio: 1 / 1; }
         .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; }
-        .item-6 { grid-column: span 2; aspect-ratio: 16 / 9; }
-
-        /* Фокус на Desktop */
-        .item-1 img { object-position: center 40%; }
-        .item-2 img { object-position: center 20%; }
-        .item-3 img { object-position: center center; }
-        .item-4 img { object-position: center 20%; }
-        .item-5 img { object-position: center 30%; }
-        .item-6 img { object-position: center 30%; }
+        .item-6 { grid-column: span 2; aspect-ratio: 4 / 3; }
 
         /* 4. МАНИФЕСТ */
         .section-manifesto { background-color: #000; align-items: flex-start; }
@@ -182,7 +166,7 @@
         .lightbox img { max-width: 95%; max-height: 90vh; object-fit: contain; box-shadow: 0 0 50px rgba(255, 0, 60, 0.2); transform: scale(0.95); transition: transform 0.4s ease; }
         .lightbox.active img { transform: scale(1); }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ (Исправленная обрезка) */
+        /* МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 768px) {
             section { padding: 60px 15px; }
             .hero-bg { width: 100%; right: 0; mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%); }
@@ -190,7 +174,6 @@
             .hero-text-top { top: 6vh; }
             .hero-text-bottom { right: 8vw; bottom: 6vh; left: auto; transform: none; }
             
-            /* МОБИЛЬНАЯ ГАЛЕРЕЯ */
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
                 grid-template-areas:
@@ -200,22 +183,12 @@
                     "bottom bottom";
             }
 
-            .item-1 { grid-area: heels; aspect-ratio: 1 / 1; }   /* Квадрат, фото влезет целиком */
+            .item-1 { grid-area: heels; aspect-ratio: 1 / 1; }   
             .item-3 { grid-area: lacing; aspect-ratio: 9 / 16; } 
             .item-2 { grid-area: face; aspect-ratio: 9 / 16; }   
             .item-4 { grid-area: selfie; aspect-ratio: 1 / 1; }  
             .item-5 { grid-area: mirror; aspect-ratio: 1 / 1; }  
-            .item-6 { grid-area: bottom; aspect-ratio: 1 / 1; }  /* Квадрат, фото влезет целиком */
-
-            /* ГЛАВНЫЙ ФИКС: CONTAIN ДЛЯ ПЕРВОГО И ПОСЛЕДНЕГО ФОТО */
-            .item-1 img { object-fit: contain; } /* Шпильки целиком */
-            .item-6 img { object-fit: contain; } /* Голова целиком */
-
-            /* Остальные оставляем cover */
-            .item-4 img { object-position: center 20%; }    
-            .item-5 img { object-position: center 30%; }    
-            .item-3 img { object-position: center center; } 
-            .item-2 img { object-position: center top; }    
+            .item-6 { grid-area: bottom; aspect-ratio: 1 / 1; }  
 
             .bento-skeleton { grid-template-columns: 1fr; }
             .link-box.wide { grid-column: span 1; }
