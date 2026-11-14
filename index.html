@@ -45,7 +45,7 @@
             letter-spacing: 0.15em;
         }
 
-        /* 2. ГЛАВНАЯ (Исправленная) */
+        /* 2. ГЛАВНАЯ */
         .section-hero {
             height: 100svh;
             border-bottom: 1px solid #111; 
@@ -54,7 +54,6 @@
             overflow: hidden;
             background-color: #000;
         }
-
         .hero-bg {
             position: absolute;
             top: 0; right: 0;
@@ -62,18 +61,13 @@
             height: 100%;
             background: url('img/bg-main-ru.png') center top/cover no-repeat;
             z-index: 1;
-            
-            /* Растворение краев */
             mask-image: radial-gradient(ellipse 60% 70% at 60% 40%, black 20%, transparent 70%);
             -webkit-mask-image: radial-gradient(ellipse 60% 70% at 60% 40%, black 20%, transparent 70%);
-            
-            /* Убрали размытие, чтобы контур стал четким */
             opacity: 0.85;
         }
-
         .hero-text-top {
             position: absolute;
-            top: 5vh; /* Разнесли выше */
+            top: 6vh;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Raleway', sans-serif;
@@ -86,11 +80,10 @@
             text-align: center;
             z-index: 3;
         }
-        
         .hero-name {
             position: absolute;
-            top: 42%; /* Чуть выше центра */
-            left: 5vw; /* Сдвинули левее */
+            top: 42%;
+            left: 8vw; 
             transform: translateY(-50%);
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
@@ -100,11 +93,10 @@
             z-index: 3;
             text-shadow: 0 0 20px #000;
         }
-        
         .hero-text-bottom {
             position: absolute;
-            bottom: 5vh; /* Разнесли ниже */
-            right: 10vw;
+            bottom: 6vh;
+            right: 8vw;
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             font-size: 1rem;
@@ -114,7 +106,7 @@
             z-index: 3;
         }
 
-        /* 3. ГАЛЕРЕЯ (С умным кропом) */
+        /* 3. ГАЛЕРЕЯ (Исправленная сетка 6 фото) */
         .section-gallery {
             height: 100svh; 
             width: 100%;
@@ -130,8 +122,9 @@
             display: grid;
             width: 100%;
             height: 100%;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 1fr);
+            /* 3 колонки на компьютере */
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
             gap: 10px; 
             max-width: 1200px;
         }
@@ -159,25 +152,18 @@
             transform: scale(1.02);
             z-index: 10;
         }
-
         .gallery-item:hover img {
             filter: grayscale(0.5) contrast(1.1) brightness(1);
             transform: scale(1.05);
         }
 
-        /* --- РАСПОЛОЖЕНИЕ --- */
-        .item-1 { grid-column: 1 / 3; grid-row: 1 / 4; }
-        .item-2 { grid-column: 3 / 5; grid-row: 1 / 3; }
-        .item-3 { grid-column: 3 / 4; grid-row: 3 / 4; }
-        .item-4 { grid-column: 4 / 5; grid-row: 3 / 5; }
-        .item-5 { grid-column: 1 / 4; grid-row: 4 / 5; }
-
-        /* УМНЫЙ КРОП (Object Position) */
-        .item-1 img { object-position: center bottom; } /* Чтобы были видны шпильки */
-        .item-2 img { object-position: center center; } /* Центр */
-        .item-3 img { object-position: center center; } /* Центр */
-        .item-4 img { object-position: center top; }    /* Чтобы было видно лицо */
-        .item-5 img { object-position: center top; }    /* Чтобы было видно лицо */
+        /* --- DESKTOP СЕТКА --- */
+        .item-1 { grid-column: 1 / 3; grid-row: 1 / 2; } /* Широкое (сидя) */
+        .item-2 { grid-column: 3 / 4; grid-row: 1 / 3; } /* Вертикальное (лицо) */
+        .item-3 { grid-column: 1 / 2; grid-row: 2 / 3; } /* Квадрат (селфи) */
+        .item-4 { grid-column: 2 / 3; grid-row: 2 / 3; } /* Квадрат (лицо) */
+        .item-5 { grid-column: 1 / 3; grid-row: 3 / 4; } /* Широкое (отражение) */
+        .item-6 { grid-column: 3 / 4; grid-row: 3 / 4; } /* Квадрат (шнуровка) */
 
         /* 4. МАНИФЕСТ */
         .section-manifesto {
@@ -244,10 +230,7 @@
             transition: opacity 0.4s ease;
             backdrop-filter: blur(8px);
         }
-        .lightbox.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .lightbox.active { opacity: 1; pointer-events: auto; }
         .lightbox img {
             max-width: 95%;
             max-height: 90vh;
@@ -256,35 +239,43 @@
             transform: scale(0.95);
             transition: transform 0.4s ease;
         }
-        .lightbox.active img {
-            transform: scale(1);
-        }
+        .lightbox.active img { transform: scale(1); }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ */
+        /* МОБИЛЬНАЯ ВЕРСИЯ (Сетка как в твоем коллаже) */
         @media (max-width: 768px) {
             section { padding: 80px 15px; }
             
-            /* Главная на мобилке */
+            /* Главная */
             .hero-bg { 
                 width: 100%; right: 0; 
                 mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
                 -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
             }
-            /* Оставляем на мобилке имя слева, как ты просила */
-            .hero-name { left: 10vw; transform: translateY(-50%); text-align: left; width: 100%; top: 45%; }
-            .hero-text-top { top: 8vh; }
-            .hero-text-bottom { right: 10vw; bottom: 8vh; left: auto; transform: none; text-align: right; }
+            .hero-name { left: 8vw; top: 45%; }
+            .hero-text-top { top: 5vh; }
+            .hero-text-bottom { right: 8vw; bottom: 5vh; left: auto; transform: none; }
             
-            /* Галерея на мобилке */
+            /* ГАЛЕРЕЯ - МОБИЛЬНАЯ СЕТКА (2 колонки, 5 рядов) */
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(6, 1fr);
+                grid-template-rows: repeat(5, 1fr);
             }
-            .item-1 { grid-column: 1 / 3; grid-row: 1 / 3; } 
-            .item-2 { grid-column: 1 / 2; grid-row: 3 / 4; } 
-            .item-3 { grid-column: 2 / 3; grid-row: 3 / 5; } 
-            .item-4 { grid-column: 1 / 2; grid-row: 4 / 6; } 
-            .item-5 { grid-column: 1 / 3; grid-row: 6 / 7; } 
+            
+            /* Твой коллаж на мобилке */
+            .item-1 { grid-column: 1 / 3; grid-row: 1 / 2; } /* Сверху широкая */
+            .item-2 { grid-column: 2 / 3; grid-row: 2 / 4; } /* Правая вертикальная */
+            .item-3 { grid-column: 1 / 2; grid-row: 2 / 3; } /* Левая квадрат */
+            .item-4 { grid-column: 1 / 2; grid-row: 3 / 5; } /* Левая вертикальная */
+            .item-5 { grid-column: 2 / 3; grid-row: 4 / 5; } /* Правая квадрат */
+            .item-6 { grid-column: 1 / 3; grid-row: 5 / 6; } /* Снизу широкая */
+
+            /* УМНЫЙ КРОП ДЛЯ МОБИЛКИ (Чтобы все было видно) */
+            .item-1 img { object-position: center center; } /* Шпильки */
+            .item-2 img { object-position: center top; }    /* Лицо */
+            .item-3 img { object-position: center top; }    /* Лицо */
+            .item-4 img { object-position: center top; }    /* Лицо */
+            .item-5 img { object-position: center center; } /* Отражение */
+            .item-6 img { object-position: center center; } /* Шнуровка */
 
             .bento-skeleton { grid-template-columns: 1fr; }
             .link-box.wide { grid-column: span 1; }
@@ -315,29 +306,23 @@
     <!-- ЭКРАН 3. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="gallery-grid">
-            <!-- Карточка 1 (Шпильки) -->
             <div class="gallery-item item-1" onclick="openLightbox('img/bg-gal5.1.png')">
-                <img src="img/bg-gal5.1.png" alt="Model 1">
+                <img src="img/bg-gal5.1.png" alt="Sitting">
             </div>
-            
-            <!-- Карточка 2 -->
             <div class="gallery-item item-2" onclick="openLightbox('img/bg-gal.jpg')">
-                <img src="img/bg-gal.jpg" alt="Model 2">
+                <img src="img/bg-gal.jpg" alt="Face 1">
             </div>
-            
-            <!-- Карточка 3 -->
-            <div class="gallery-item item-3" onclick="openLightbox('img/кожа.png')">
-                <img src="img/кожа.png" alt="Model 3">
+            <div class="gallery-item item-3" onclick="openLightbox('img/bg-gal4.jpg')">
+                <img src="img/bg-gal4.jpg" alt="Selfie">
             </div>
-            
-            <!-- Карточка 4 (Лицо) -->
-            <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal6.jpg')">
-                <img src="img/bg-gal6.jpg" alt="Model 4">
+            <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal2.jpg')">
+                <img src="img/bg-gal2.jpg" alt="Mirror Face">
             </div>
-            
-            <!-- Карточка 5 (Лицо) -->
-            <div class="gallery-item item-5" onclick="openLightbox('img/bg-gal2.jpg')">
-                <img src="img/bg-gal2.jpg" alt="Model 5">
+            <div class="gallery-item item-5" onclick="openLightbox('img/bg-gal6.jpg')">
+                <img src="img/bg-gal6.jpg" alt="Reflection">
+            </div>
+            <div class="gallery-item item-6" onclick="openLightbox('img/кожа.png')">
+                <img src="img/кожа.png" alt="Lacing">
             </div>
         </div>
     </section>
