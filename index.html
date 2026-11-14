@@ -67,7 +67,7 @@
         }
         .hero-text-top {
             position: absolute;
-            top: 5vh;
+            top: 6vh;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Raleway', sans-serif;
@@ -83,7 +83,7 @@
         .hero-name {
             position: absolute;
             top: 42%;
-            left: 5vw; 
+            left: 8vw; 
             transform: translateY(-50%);
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
@@ -95,8 +95,8 @@
         }
         .hero-text-bottom {
             position: absolute;
-            bottom: 5vh;
-            right: 5vw;
+            bottom: 6vh;
+            right: 8vw;
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             font-size: 1rem;
@@ -106,7 +106,7 @@
             z-index: 3;
         }
 
-        /* 3. ГАЛЕРЕЯ (Исправленная сетка) */
+        /* 3. ГАЛЕРЕЯ */
         .section-gallery {
             height: 100svh; 
             width: 100%;
@@ -122,15 +122,21 @@
             display: grid;
             width: 100%;
             height: 100%;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
             gap: 10px; 
             max-width: 1200px;
+            /* DESKTOP СЕТКА (3 колонки) */
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-areas:
+                "wide1 wide1 tall2"
+                "small4 small5 tall2"
+                "tall3 wide6 wide6"
+                "tall3 wide6 wide6";
         }
 
         .gallery-item {
             position: relative;
-            background-color: #000;
+            background-color: #111;
             border: 1px solid #222;
             overflow: hidden;
             cursor: pointer;
@@ -156,21 +162,21 @@
             transform: scale(1.05);
         }
 
-        /* --- DESKTOP СЕТКА (3 колонки) --- */
-        .item-1 { grid-column: 1 / 3; grid-row: 1 / 2; } /* Шпильки */
-        .item-2 { grid-column: 3 / 4; grid-row: 1 / 3; } /* Вертикаль (лицо) */
-        .item-4 { grid-column: 1 / 2; grid-row: 2 / 3; } /* Селфи */
-        .item-5 { grid-column: 2 / 4; grid-row: 2 / 3; } /* Широкое (зеркало) */
-        .item-3 { grid-column: 1 / 2; grid-row: 3 / 4; } /* Шнуровка */
-        .item-6 { grid-column: 2 / 4; grid-row: 3 / 4; } /* Широкое (отражение) */
+        /* РАСПРЕДЕЛЕНИЕ ПО ЗОНАМ */
+        .item-1 { grid-area: wide1; }
+        .item-2 { grid-area: tall2; }
+        .item-3 { grid-area: tall3; }
+        .item-4 { grid-area: small4; }
+        .item-5 { grid-area: small5; }
+        .item-6 { grid-area: wide6; }
 
-        /* Умный кроп для Десктопа */
-        .item-1 img { object-position: center bottom; } /* Низ (шпильки) */
-        .item-2 img { object-position: center top; }    /* Верх (лицо) */
-        .item-4 img { object-position: center top; }    /* Верх (лицо) */
-        .item-5 img { object-fit: contain; }            /* Влезает целиком */
-        .item-3 img { object-position: center center; } /* Центр */
-        .item-6 img { object-fit: contain; }            /* Влезает целиком */
+        /* ТОЧНОЕ ПОЗИЦИОНИРОВАНИЕ (Чтобы ничего не резалось) */
+        .item-1 img { object-position: center bottom; } /* Шпильки */
+        .item-2 img { object-position: center top; }    /* Лицо вертикальное */
+        .item-3 img { object-position: center center; } /* Шнуровка */
+        .item-4 img { object-position: center 25%; }    /* Селфи */
+        .item-5 img { object-position: center top; }    /* Зеркало */
+        .item-6 img { object-position: center center; } /* Широкое зеркало */
 
         /* 4. МАНИФЕСТ */
         .section-manifesto {
@@ -258,31 +264,21 @@
                 mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
                 -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
             }
-            .hero-name { left: 5vw; top: 45%; }
-            .hero-text-top { top: 5vh; }
-            .hero-text-bottom { right: 5vw; bottom: 5vh; left: auto; transform: none; }
+            .hero-name { left: 8vw; top: 45%; }
+            .hero-text-top { top: 6vh; }
+            .hero-text-bottom { right: 8vw; bottom: 6vh; left: auto; transform: none; }
             
-            /* ГАЛЕРЕЯ - МОБИЛЬНАЯ СЕТКА */
+            /* ГАЛЕРЕЯ - МОБИЛЬНАЯ СЕТКА (ТОЧНО ПО ТВОЕМУ РИСУНКУ) */
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(6, 1fr); /* 6 рядов для мобилки */
+                grid-template-rows: repeat(5, 1fr);
+                grid-template-areas:
+                    "wide1 wide1"
+                    "small4 tall2"
+                    "tall3 tall2"
+                    "tall3 small5"
+                    "wide6 wide6";
             }
-            
-            /* Порядок и размеры (строго по твоему рисунку) */
-            .item-1 { grid-column: 1 / 3; grid-row: 1 / 2; } /* Сверху шпильки (на всю ширину) */
-            .item-2 { grid-column: 2 / 3; grid-row: 2 / 4; } /* Вертикальная (лицо) */
-            .item-4 { grid-column: 1 / 2; grid-row: 2 / 3; } /* Селфи квадрат */
-            .item-3 { grid-column: 1 / 2; grid-row: 3 / 5; } /* Шнуровка вертикальная */
-            .item-5 { grid-column: 2 / 3; grid-row: 4 / 5; } /* Зеркало (широкое) */
-            .item-6 { grid-column: 1 / 3; grid-row: 5 / 6; } /* Отражение (широкое) */
-
-            /* ИДЕАЛЬНЫЙ КРОП ДЛЯ МОБИЛКИ */
-            .item-1 img { object-fit: contain; } /* Шпильки целиком */
-            .item-2 img { object-position: center top; }
-            .item-3 img { object-position: center center; }
-            .item-4 img { object-position: center top; }
-            .item-5 img { object-fit: contain; } /* Зеркало целиком */
-            .item-6 img { object-fit: contain; } /* Отражение целиком */
 
             .bento-skeleton { grid-template-columns: 1fr; }
             .link-box.wide { grid-column: span 1; }
@@ -321,15 +317,15 @@
             <div class="gallery-item item-2" onclick="openLightbox('img/bg-gal2.jpg')">
                 <img src="img/bg-gal2.jpg" alt="Face">
             </div>
-            <!-- 4. Селфи -->
-            <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal4.jpg')">
-                <img src="img/bg-gal4.jpg" alt="Selfie">
-            </div>
             <!-- 3. Шнуровка (вертикальная) -->
             <div class="gallery-item item-3" onclick="openLightbox('img/кожа.png')">
                 <img src="img/кожа.png" alt="Lacing">
             </div>
-            <!-- 5. Зеркало (широкое) -->
+            <!-- 4. Селфи -->
+            <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal4.jpg')">
+                <img src="img/bg-gal4.jpg" alt="Selfie">
+            </div>
+            <!-- 5. Зеркало (широкое/квадрат) -->
             <div class="gallery-item item-5" onclick="openLightbox('img/bg-gal6.jpg')">
                 <img src="img/bg-gal6.jpg" alt="Mirror">
             </div>
