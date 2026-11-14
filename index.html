@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" id="top">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALEKSA | Official</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,9 +14,9 @@
         body { background-color: #000; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
         /* =========================================
-           1. ЦИТАТА (Мрамор)
+           ЭКРАН 1. ИНТРО (Порог)
            ========================================= */
-        .section-quote {
+        .section-intro {
             position: relative;
             height: 100svh;
             display: flex;
@@ -27,74 +27,61 @@
             text-align: center;
         }
 
-        .section-quote::before {
+        .section-intro::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8); 
+            /* Затемнение, оставляющее только фрагменты прожилок */
+            background: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.95) 70%); 
         }
 
-        .quote-text {
+        .intro-text {
             position: relative;
             z-index: 2;
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             font-size: clamp(1.2rem, 3vw, 2rem);
-            line-height: 2;
-            color: #d4d4d4;
+            line-height: 1.8;
+            color: #d4af37; /* Приглушенное золото/шампань */
             max-width: 900px;
             letter-spacing: 0.1em;
             font-style: italic;
+            opacity: 0;
+            animation: fadeIn 3s ease 0.5s forwards;
         }
 
         /* =========================================
-           2. КРАСНАЯ НИТЬ (Переходник)
+           ЭКРАН 2. ПЕРЕХОДНИК (Дыхание)
            ========================================= */
         .section-thread {
             position: relative;
-            height: 30vh;
+            height: 40vh;
             background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
         }
 
-        /* Сама линия */
-        .thread-line {
-            position: absolute;
-            top: 0;
-            right: 15%; /* Смещена вправо */
-            width: 1px; /* Тонкая, как нить */
+        .thread-visual {
+            width: 100%;
             height: 100%;
-            background: #ff003c;
+            /* Используем твой кабель, но маскируем края, чтобы это была нить */
+            background: url('img/redcable.jpg') center/cover no-repeat;
+            mask-image: radial-gradient(ellipse at center, black 10%, transparent 60%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 60%);
             
-            /* Пульсация: меняется яркость и свечение (box-shadow) */
-            animation: pulse-thread 3s ease-in-out infinite alternate;
-            transform-origin: top;
+            /* Анимация дыхания */
+            animation: breathe 4s ease-in-out infinite alternate;
         }
 
-        /* Дополнительный градиент, чтобы нить "втекала" в экран и уходила вниз */
-        .thread-line::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -5px;
-            width: 11px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(255,0,60,0.2), transparent);
-            filter: blur(5px);
-        }
-
-        @keyframes pulse-thread {
-            0% { 
-                opacity: 0.4; 
-                box-shadow: 0 0 5px #ff003c, 0 0 10px #ff003c; 
-            }
-            100% { 
-                opacity: 1; 
-                box-shadow: 0 0 15px #ff003c, 0 0 30px #ff003c, 0 0 50px #ff003c; 
-            }
+        @keyframes breathe {
+            0% { filter: brightness(0.4) contrast(1.5) drop-shadow(0 0 10px rgba(255,0,0,0.3)); opacity: 0.7; }
+            100% { filter: brightness(1.2) contrast(1.5) drop-shadow(0 0 30px rgba(255,0,0,0.8)); opacity: 1; }
         }
 
         /* =========================================
-           3. ГЛАВНЫЙ ЭКРАН (Взгляд)
+           ЭКРАН 3. ГЛАВНАЯ (Присутствие)
            ========================================= */
         .section-hero {
             position: relative;
@@ -106,24 +93,23 @@
             background-color: #000;
         }
 
-        /* Используем bg-gal6 (отражение), сильно затемняем и растворяем */
         .hero-bg {
             position: absolute;
             top: 0;
-            right: -5%;
+            right: 0;
             width: 60%;
             height: 100%;
-            background: url('img/bg-gal6.jpg') center/cover no-repeat;
+            /* ВСТАВЬ СЮДА СВОЕ ФОТО С КОЛЕНЯМИ, КОГДА ЗАГРУЗИШЬ */
+            background: url('img/bg-main-ru.png') center top/cover no-repeat;
             z-index: 1;
-            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-            opacity: 0.6;
+            mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 600px;
+            max-width: 500px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -131,11 +117,11 @@
 
         .hero-text {
             font-family: 'Raleway', sans-serif;
-            font-weight: 200;
+            font-weight: 300;
             font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-            letter-spacing: 0.3em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #888;
+            color: #e0e0e0;
         }
 
         .hero-name {
@@ -145,15 +131,14 @@
             letter-spacing: 0.1em;
             color: #f0f4f8;
             line-height: 0.9;
-            text-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
 
         /* =========================================
-           4. BENTO-ГАЛЕРЕЯ (Только избранные фото)
+           ЭКРАН 4. ГАЛЕРЕЯ (Фрагменты)
            ========================================= */
         .section-gallery {
             padding: 80px 20px;
-            background: #050505;
+            background: #000;
             display: flex;
             justify-content: center;
         }
@@ -161,8 +146,8 @@
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 240px;
-            gap: 10px;
+            grid-auto-rows: 250px;
+            gap: 15px;
             max-width: 1200px;
             width: 100%;
         }
@@ -170,8 +155,8 @@
         .bento-card {
             position: relative;
             overflow: hidden;
-            background-color: #111;
-            border: 1px solid #222;
+            background-color: #050505;
+            border: 1px solid #111;
         }
 
         .bento-bg {
@@ -179,13 +164,13 @@
             inset: 0;
             background-size: cover;
             background-position: center;
-            /* Жесткая обработка: черно-белое, контрастное, без белых вспышек */
-            filter: grayscale(1) contrast(1.5) brightness(0.4); 
+            /* Строгий черно-белый */
+            filter: grayscale(1) contrast(1.3) brightness(0.5); 
             transition: all 0.6s ease;
         }
 
         .bento-card:hover .bento-bg {
-            filter: grayscale(0.8) contrast(1.2) brightness(0.6);
+            filter: grayscale(1) contrast(1.1) brightness(0.7);
             transform: scale(1.05);
         }
 
@@ -194,70 +179,208 @@
         .card-small { grid-column: span 1; grid-row: span 1; }
 
         /* =========================================
-           5. МАНИФЕСТ
+           ЭКРАН 5. МАНИФЕСТ (Позиция)
            ========================================= */
         .section-manifesto {
-            padding: 140px 20px;
+            padding: 150px 20px;
             background: #000;
-            text-align: center;
-            border-top: 1px solid #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .manifesto-text {
+        .manifesto-block {
             max-width: 800px;
-            margin: 0 auto;
-            font-family: 'Raleway', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-weight: 300;
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             line-height: 2.2;
-            color: #777;
-            letter-spacing: 0.05em;
+            color: #a0a0a0;
+            margin-bottom: 80px;
+            opacity: 0; /* Эффект появления при скролле */
+            transform: translateY(30px);
+            transition: all 1s ease;
         }
 
-        .manifesto-text p { margin-bottom: 40px; }
-        .manifesto-text strong { color: #e5e5e5; font-weight: 400; }
+        .manifesto-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .manifesto-block p { margin-bottom: 20px; }
+        
+        /* Выделение строк с отступом (>) */
+        .manifesto-block span {
+            display: block;
+            padding-left: 20px;
+            border-left: 1px solid #333;
+            color: #e0e0e0;
+            margin: 10px 0;
+        }
+
+        .manifesto-block strong {
+            color: #fff;
+            font-weight: 400;
+        }
 
         /* =========================================
-           6. ССЫЛКИ
+           ЭКРАН 6. ССЫЛКИ (Bento)
            ========================================= */
         .section-links {
-            padding: 60px 20px 100px 20px;
-            background: #050505;
+            padding: 80px 20px;
+            background: #000;
             display: flex;
             justify-content: center;
         }
 
+        .link-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .link-card:hover {
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .link-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(1) contrast(1.2) brightness(0.4);
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .link-card:hover .link-bg {
+            filter: grayscale(0.5) contrast(1.2) brightness(0.6);
+            transform: scale(1.05);
+        }
+
+        .link-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .link-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+        }
+
+        .link-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: #aaa;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           ЭКРАН 7. ФИНАЛ (Свобода)
+           ========================================= */
+        .section-final {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* Обрыв нити */
+        .final-thread {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255,0,60,0.8), transparent);
+            filter: drop-shadow(0 0 10px #ff003c);
+        }
+
+        .final-text {
+            position: relative;
+            z-index: 2;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: #e0e0e0;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .btn-top {
+            position: relative;
+            z-index: 2;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #888;
+            text-decoration: none;
+            border: 1px solid #333;
+            padding: 15px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-top:hover {
+            color: #fff;
+            border-color: #fff;
+        }
+
+        /* =========================================
+           АНИМАЦИИ И АДАПТИВ
+           ========================================= */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
         @media (max-width: 900px) {
             .section-hero { padding: 20px; justify-content: center; text-align: center; }
-            .hero-bg { width: 100%; right: 0; opacity: 0.4; mask-image: linear-gradient(to bottom, transparent, black 50%, transparent); }
+            .hero-bg { width: 100%; right: 0; mask-image: linear-gradient(to bottom, black 40%, transparent 90%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 90%); }
             .hero-content { align-items: center; margin-top: auto; margin-bottom: 10vh; }
-            .hero-name { font-size: 4.5rem; }
-            
-            .thread-line { right: 50%; } /* На мобилке нить по центру */
             
             .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 300px; }
             .card-large, .card-wide, .card-small { grid-column: span 1; grid-row: span 1; }
             .card-large { grid-row: span 2; }
+            
+            .manifesto-block { font-size: 1rem; line-height: 1.8; margin-bottom: 50px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. ЦИТАТА -->
-    <section class="section-quote">
-        <div class="quote-text">
+    <!-- ЭКРАН 1. ИНТРО -->
+    <section class="section-intro">
+        <div class="intro-text">
             Слышать, как тот, кто рядом, дышит чаще —<br>
             единственная музыка,<br>
             под которую мы готовы терять себя.
         </div>
     </section>
 
-    <!-- 2. КРАСНАЯ НИТЬ -->
+    <!-- ЭКРАН 2. ПЕРЕХОДНИК (Нить) -->
     <div class="section-thread">
-        <div class="thread-line"></div>
+        <div class="thread-visual"></div>
     </div>
 
-    <!-- 3. ГЛАВНЫЙ ЭКРАН -->
+    <!-- ЭКРАН 3. ГЛАВНАЯ -->
     <section class="section-hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
@@ -267,46 +390,115 @@
         </div>
     </section>
 
-    <!-- 4. ГАЛЕРЕЯ (Используем только фото из нижней части твоего списка) -->
+    <!-- ЭКРАН 4. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="bento-grid">
-            <!-- Большая: bg-gal5.1 (ты в комнате) -->
+            <!-- Сюда можешь поставить лучший кадр -->
             <div class="bento-card card-large"><div class="bento-bg" style="background-image: url('img/bg-gal5.1.png');"></div></div>
-            
-            <!-- Маленькая: bg-gal5 (зеркало с вспышкой) -->
             <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal5.png');"></div></div>
-            
-            <!-- Маленькая: bg-gal6 (отражение) -->
             <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal6.jpg');"></div></div>
-            
-            <!-- Широкая: bg-gal4 (лицо) -->
-            <div class="bento-card card-wide"><div class="bento-bg" style="background-image: url('img/bg-gal4.jpg');"></div></div>
+            <div class="bento-card card-wide"><div class="bento-bg" style="background-image: url('img/koxa.png'); background-position: top;"></div></div>
         </div>
     </section>
 
-    <!-- 5. МАНИФЕСТ -->
+    <!-- ЭКРАН 5. МАНИФЕСТ -->
     <section class="section-manifesto">
-        <div class="manifesto-text">
-            <p><strong>Явиться или остаться тенью — мой выбор.</strong><br>Я решаю, что показать и как близко подпустить.</p>
-            <p>Взгляд — не право. Это приглашение.<br>И оно может быть отозвано.</p>
-            <p>Темнота не прячет меня.<br>Она расставляет акценты.<br>Моя роскошь — свобода выбирать дистанцию.</p>
+        <div class="manifesto-block">
+            <p><strong>Явить себя и быть увиденной — или остаться тенью.</strong></p>
+            <span>Мой выбор. Только мой.</span>
+            <span>Всецело.</span>
+            <span>Безраздельно.</span>
+            <p>В нём разница</p>
+            <span>меж той, на кого смотрят,</span>
+            <span>и той, кто открывает:</span>
+            <span>что показать,</span>
+            <span>как близко,</span>
+            <span>под каким углом.</span>
+        </div>
+
+        <div class="manifesto-block">
+            <p>Ведь взгляд — не право.</p>
+            <span>Это приглашение.</span>
+            <span>И может быть отозвано в любой момент.</span>
+            <p>Темнота мне друг и спутник.</p>
+            <span>Но она не прячет,</span>
+            <span>а позволяет видеть в сумраке</span>
+            <span>лишь то, что я решила подсветить.</span>
+        </div>
+
+        <div class="manifesto-block">
+            <p>И роскошь мне — не блеск и не караты.</p>
+            <span>Дистанция. Граница. Дверь. Засов.</span>
+            <p>Могу исчезнуть быстро, без остатка,</p>
+            <span>оставшись послевкусием или царапиной на спине.</span>
+            <p>Я где-то рядом, в полушаге, в касании едва-едва.</p>
+            <span>Но стоит кому-то решить «моя» —</span>
+            <span>я растворюсь без следа.</span>
+            <p>Не потому что я боюсь или не знаю курса.</p>
+            <span>Свобода — то, что на весах окажется последним.</span>
+            <p>Смотри. Исследуй. Чувствуй. Наслаждайся.</p>
+            <span>Но не пытайся приручить ветер.</span>
         </div>
     </section>
 
-    <!-- 6. ССЫЛКИ -->
+    <!-- ЭКРАН 6. ССЫЛКИ -->
     <section class="section-links">
         <div class="bento-grid">
-            <a href="#" class="bento-card card-wide">
-                <div class="bento-bg" style="background-image: url('img/bg-gal2.jpg');"></div>
+            <a href="#" class="link-card card-wide">
+                <div class="link-bg" style="background-image: url('img/bg-gal2.jpg');"></div>
+                <div class="link-content">
+                    <div class="link-title">TELEGRAM</div>
+                    <div class="link-subtitle">Backstage & Private</div>
+                </div>
             </a>
-            <a href="#" class="bento-card card-small">
-                <div class="bento-bg" style="background-image: url('img/bg-gal3.jpg');"></div>
+            <a href="#" class="link-card card-small">
+                <div class="link-bg" style="background-image: url('img/bg-gal3.jpg');"></div>
+                <div class="link-content">
+                    <div class="link-title">TONPLACE</div>
+                    <div class="link-subtitle">Exclusive</div>
+                </div>
             </a>
-            <a href="#" class="bento-card card-small">
-                <div class="bento-bg" style="background-image: url('img/koxa.png'); background-position: top;"></div>
+            <a href="#" class="link-card card-small">
+                <div class="link-bg" style="background-image: url('img/bg-gal4.jpg');"></div>
+                <div class="link-content">
+                    <div class="link-title">BBS</div>
+                    <div class="link-subtitle">Community</div>
+                </div>
+            </a>
+            <a href="#" class="link-card card-wide">
+                <div class="link-bg" style="background-image: url('img/bg-main-ru.png');"></div>
+                <div class="link-content">
+                    <div class="link-title">DEEP ACCESS</div>
+                    <div class="link-subtitle">Private Terminal</div>
+                </div>
             </a>
         </div>
     </section>
+
+    <!-- ЭКРАН 7. ФИНАЛ -->
+    <section class="section-final">
+        <div class="final-thread"></div>
+        <div class="final-text">
+            Красная линия обрывается.<br>
+            Дистанция — это твой выбор.
+        </div>
+        <a href="#top" class="btn-top">Вернуться наверх</a>
+    </section>
+
+    <!-- Скрипт для появления манифеста при скролле -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.manifesto-block').forEach(block => {
+            observer.observe(block);
+        });
+    </script>
 
 </body>
 </html>
