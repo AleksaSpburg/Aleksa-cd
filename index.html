@@ -1125,7 +1125,8 @@ videoButton.addEventListener("click", async () => {
     if (video.ended) video.currentTime = 0;
 
     try {
-        video.playbackRate = 0.5;
+        video.playbackRate = 2 / 3;
+
 await video.play();
 
     } catch {
