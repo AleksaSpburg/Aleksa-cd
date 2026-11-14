@@ -82,9 +82,8 @@
             letter-spacing: 0.3em; text-transform: uppercase; color: #888; z-index: 3;
         }
 
-        /* 3. ГАЛЕРЕЯ (МАГИЯ ASPECT-RATIO) */
+        /* 3. ГАЛЕРЕЯ */
         .section-gallery {
-            min-height: 100svh; /* На мобилке может быть чуть больше экрана, это нормально */
             width: 100%;
             background-color: #000; 
             padding: 15px; 
@@ -98,7 +97,6 @@
             width: 100%;
             max-width: 1200px;
             gap: 10px; 
-            /* Сетка для компьютера (3 колонки) */
             grid-template-columns: repeat(3, 1fr);
         }
 
@@ -109,7 +107,6 @@
             overflow: hidden;
             cursor: pointer;
             border-radius: 2px;
-            /* Убираем фиксированную высоту, теперь её диктует aspect-ratio */
             width: 100%;
             height: 100%;
         }
@@ -125,21 +122,20 @@
         .gallery-item:hover { border-color: #555; transform: scale(1.02); z-index: 10; }
         .gallery-item:hover img { filter: grayscale(0.5) contrast(1.1) brightness(1); }
 
-        /* ФОРМАТЫ ФОТО (Desktop) */
-        .item-1 { grid-column: span 2; aspect-ratio: 16 / 9; } /* Широкая (сидя) */
-        .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; }  /* Высокая (лицо) */
-        .item-3 { grid-column: span 1; aspect-ratio: 3 / 4; }  /* Высокая (шнуровка) */
-        .item-4 { grid-column: span 1; aspect-ratio: 1 / 1; }  /* Квадрат (селфи) */
-        .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; }  /* Квадрат (зеркало) */
-        .item-6 { grid-column: span 2; aspect-ratio: 16 / 9; } /* Широкая (отражение) */
+        /* DESKTOP СЕТКА */
+        .item-1 { grid-column: span 2; aspect-ratio: 16 / 9; }
+        .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; }
+        .item-3 { grid-column: span 1; aspect-ratio: 3 / 4; }
+        .item-4 { grid-column: span 1; aspect-ratio: 1 / 1; }
+        .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; }
+        .item-6 { grid-column: span 2; aspect-ratio: 16 / 9; }
 
-        /* ТОЧНЫЙ ФОКУС (Чтобы не резать главное) */
-        .item-1 img { object-position: center bottom; } /* Фокус на низ (шпильки) */
-        .item-2 img { object-position: center top; }    /* Фокус на верх (лицо) */
-        .item-3 img { object-position: center center; } /* Центр */
-        .item-4 img { object-position: center 20%; }    /* Чуть выше центра (лицо) */
-        .item-5 img { object-position: center center; } /* Центр */
-        .item-6 img { object-position: center center; } /* Центр */
+        .item-1 img { object-position: center bottom; }
+        .item-2 img { object-position: center top; }
+        .item-3 img { object-position: center center; }
+        .item-4 img { object-position: center 20%; }
+        .item-5 img { object-position: center top; }
+        .item-6 img { object-position: center center; }
 
         /* 4. МАНИФЕСТ */
         .section-manifesto { background-color: #000; align-items: flex-start; }
@@ -176,7 +172,7 @@
         .lightbox img { max-width: 95%; max-height: 90vh; object-fit: contain; box-shadow: 0 0 50px rgba(255, 0, 60, 0.2); transform: scale(0.95); transition: transform 0.4s ease; }
         .lightbox.active img { transform: scale(1); }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ (Сетка 2 колонки) */
+        /* МОБИЛЬНАЯ ВЕРСИЯ (Сетка Пазл) */
         @media (max-width: 768px) {
             section { padding: 80px 15px; }
             .hero-bg { width: 100%; right: 0; mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%); }
@@ -184,21 +180,31 @@
             .hero-text-top { top: 6vh; }
             .hero-text-bottom { right: 8vw; bottom: 6vh; left: auto; transform: none; }
             
-            /* ГАЛЕРЕЯ НА МОБИЛКЕ */
+            /* МОБИЛЬНАЯ ГАЛЕРЕЯ (СТРОГО ПО ТВОЕМУ ЗАПРОСУ) */
             .gallery-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-areas:
+                    "heels heels"
+                    "selfie mirror"
+                    "lacing face"
+                    "bottom bottom";
             }
-            
-            /* Переопределяем ширину и пропорции для телефона */
-            .item-1 { grid-column: span 2; aspect-ratio: 4 / 5; } /* Сидя - вертикальный, на всю ширину */
-            .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; } /* Лицо - вертикальный */
-            .item-3 { grid-column: span 1; aspect-ratio: 3 / 4; } /* Шнуровка - вертикальная */
-            .item-4 { grid-column: span 1; aspect-ratio: 1 / 1; } /* Селфи - квадрат */
-            .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; } /* Зеркало - квадрат */
-            .item-6 { grid-column: span 2; aspect-ratio: 16 / 9; } /* Отражение - широкое на всю ширину */
 
-            /* Корректируем фокус для мобилки */
-            .item-1 img { object-position: center 80%; } /* Смещаем фокус на шпильки */
+            /* Настраиваем формы (Aspect Ratio) */
+            .item-1 { grid-area: heels; aspect-ratio: 4 / 5; }   /* Шпильки - вертикальный, влезает всё */
+            .item-4 { grid-area: selfie; aspect-ratio: 1 / 1; }  /* Селфи - квадрат */
+            .item-5 { grid-area: mirror; aspect-ratio: 1 / 1; }  /* Зеркало - квадрат */
+            .item-3 { grid-area: lacing; aspect-ratio: 9 / 16; } /* Шнуровка - вытянутая вертикаль */
+            .item-2 { grid-area: face; aspect-ratio: 9 / 16; }   /* Лицо - вытянутая вертикаль */
+            .item-6 { grid-area: bottom; aspect-ratio: 1 / 1; }  /* Низ - завершаем квадратом! */
+
+            /* Настраиваем фокус (чтобы ничего не резалось) */
+            .item-1 img { object-position: center center; } /* Покажет и голову, и шпильки */
+            .item-4 img { object-position: center 20%; }    /* Фокус на лицо селфи */
+            .item-5 img { object-position: center 30%; }    /* Фокус на лицо в зеркале */
+            .item-3 img { object-position: center center; } /* Центр шнуровки */
+            .item-2 img { object-position: center top; }    /* Лицо */
+            .item-6 img { object-position: center center; } /* Отражение */
 
             .bento-skeleton { grid-template-columns: 1fr; }
             .link-box.wide { grid-column: span 1; }
@@ -229,27 +235,27 @@
     <!-- ЭКРАН 3. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="gallery-grid">
-            <!-- 1. Сидя (Шпильки) -->
+            <!-- 1. Шпильки -->
             <div class="gallery-item item-1" onclick="openLightbox('img/bg-gal5.1.png')">
                 <img src="img/bg-gal5.1.png" alt="Sitting">
             </div>
-            <!-- 2. Лицо вертикальное -->
+            <!-- 2. Лицо (высокое) -->
             <div class="gallery-item item-2" onclick="openLightbox('img/bg-gal2.jpg')">
                 <img src="img/bg-gal2.jpg" alt="Face">
             </div>
-            <!-- 3. Шнуровка -->
+            <!-- 3. Шнуровка (высокая) -->
             <div class="gallery-item item-3" onclick="openLightbox('img/кожа.png')">
                 <img src="img/кожа.png" alt="Lacing">
             </div>
-            <!-- 4. Селфи -->
+            <!-- 4. Селфи (квадрат) -->
             <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal4.jpg')">
                 <img src="img/bg-gal4.jpg" alt="Selfie">
             </div>
-            <!-- 5. Зеркало -->
+            <!-- 5. Зеркало (квадрат) -->
             <div class="gallery-item item-5" onclick="openLightbox('img/bg-gal6.jpg')">
                 <img src="img/bg-gal6.jpg" alt="Mirror">
             </div>
-            <!-- 6. Отражение (Широкое) -->
+            <!-- 6. Отражение (низ, квадрат) -->
             <div class="gallery-item item-6" onclick="openLightbox('img/bg-gal.jpg')">
                 <img src="img/bg-gal.jpg" alt="Reflection">
             </div>
