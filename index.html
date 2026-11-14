@@ -572,6 +572,35 @@ summary {
         transition: none !important;
     }
 }
+   /* Плавное растворение краёв главной фотографии */
+.hero-bg {
+    -webkit-mask-image: radial-gradient(
+        ellipse 70% 75% at 60% 48%,
+        black 30%,
+        transparent 85%
+    );
+    mask-image: radial-gradient(
+        ellipse 70% 75% at 60% 48%,
+        black 30%,
+        transparent 85%
+    );
+}
+
+@media (max-width: 700px) {
+    .hero-bg {
+        -webkit-mask-image: radial-gradient(
+            ellipse 90% 72% at 55% 48%,
+            black 25%,
+            transparent 85%
+        );
+        mask-image: radial-gradient(
+            ellipse 90% 72% at 55% 48%,
+            black 25%,
+            transparent 85%
+        );
+    }
+}
+
 </style>
 </head>
 
