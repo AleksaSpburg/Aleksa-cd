@@ -6,15 +6,42 @@
     <title>ALEKSA | Official</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: #000; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        
+        body { 
+            background-color: #000; 
+            color: #fff; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+            position: relative;
+        }
 
         /* =========================================
-           ЭКРАН 1. ИНТРО (Порог)
+           КРАСНАЯ НИТЬ
+           ========================================= */
+        .red-thread-global {
+            position: absolute;
+            top: 60vh; 
+            bottom: 0;
+            left: 10%; 
+            width: 1px; 
+            background: #ff003c;
+            z-index: 0; 
+            box-shadow: 0 0 4px #ff003c, 0 0 10px #ff003c, 0 0 20px rgba(255, 0, 60, 0.4);
+            animation: pulse-thread 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-thread {
+            0% { opacity: 0.4; box-shadow: 0 0 2px #ff003c, 0 0 5px rgba(255, 0, 60, 0.3); }
+            100% { opacity: 1; box-shadow: 0 0 6px #ff003c, 0 0 15px #ff003c, 0 0 30px rgba(255, 0, 60, 0.6); }
+        }
+
+        /* =========================================
+           ЭКРАН 1. ИНТРО (Цитата)
            ========================================= */
         .section-intro {
             position: relative;
@@ -25,14 +52,14 @@
             background: url('img/bg-marble2.jpg') center/cover no-repeat;
             padding: 40px 20px;
             text-align: center;
+            z-index: 1;
         }
 
         .section-intro::before {
             content: "";
             position: absolute;
             inset: 0;
-            /* Затемнение, оставляющее только фрагменты прожилок */
-            background: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.95) 70%); 
+            background: rgba(0, 0, 0, 0.85);
         }
 
         .intro-text {
@@ -42,105 +69,93 @@
             font-weight: 300;
             font-size: clamp(1.2rem, 3vw, 2rem);
             line-height: 1.8;
-            color: #d4af37; /* Приглушенное золото/шампань */
+            color: #f0f4f8;
             max-width: 900px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             font-style: italic;
             opacity: 0;
             animation: fadeIn 3s ease 0.5s forwards;
         }
 
         /* =========================================
-           ЭКРАН 2. ПЕРЕХОДНИК (Дыхание)
-           ========================================= */
-        .section-thread {
-            position: relative;
-            height: 40vh;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .thread-visual {
-            width: 100%;
-            height: 100%;
-            /* Используем твой кабель, но маскируем края, чтобы это была нить */
-            background: url('img/redcable.jpg') center/cover no-repeat;
-            mask-image: radial-gradient(ellipse at center, black 10%, transparent 60%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 10%, transparent 60%);
-            
-            /* Анимация дыхания */
-            animation: breathe 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes breathe {
-            0% { filter: brightness(0.4) contrast(1.5) drop-shadow(0 0 10px rgba(255,0,0,0.3)); opacity: 0.7; }
-            100% { filter: brightness(1.2) contrast(1.5) drop-shadow(0 0 30px rgba(255,0,0,0.8)); opacity: 1; }
-        }
-
-        /* =========================================
-           ЭКРАН 3. ГЛАВНАЯ (Присутствие)
+           ЭКРАН 2. ГЛАВНАЯ (Силуэт)
            ========================================= */
         .section-hero {
             position: relative;
             height: 100svh;
-            display: flex;
-            align-items: center;
-            padding: 0 10vw;
             overflow: hidden;
             background-color: #000;
+            z-index: 1;
         }
 
         .hero-bg {
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 60%;
+            top: 0; right: 0;
+            width: 70%; /* Чуть шире, чтобы края было куда растворять */
             height: 100%;
-            /* ВСТАВЬ СЮДА СВОЕ ФОТО С КОЛЕНЯМИ, КОГДА ЗАГРУЗИШЬ */
             background: url('img/bg-main-ru.png') center top/cover no-repeat;
             z-index: 1;
-            mask-image: linear-gradient(to left, black 50%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            
+            /* РАСТВОРЯЕМ КРАЯ СО ВСЕХ СТОРОН (круглая маска) */
+            mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+            opacity: 0.85;
         }
 
-        .hero-content {
-            position: relative;
+        /* Верхний текст */
+        .hero-text-top {
+            position: absolute;
+            top: 8vh;
+            left: 10vw;
             z-index: 2;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .hero-text {
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: #e0e0e0;
+            color: #a0a0a0;
         }
 
+        /* Нижний текст */
+        .hero-text-bottom {
+            position: absolute;
+            bottom: 8vh;
+            left: 10vw;
+            z-index: 2;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #a0a0a0;
+        }
+
+        /* Имя (смещено вбок и ближе к центру) */
         .hero-name {
+            position: absolute;
+            top: 45%; /* По центру по вертикали */
+            left: 18vw; /* Смещено от края к центру */
+            transform: translateY(-50%);
+            z-index: 2;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
             font-size: clamp(5rem, 10vw, 9rem);
             letter-spacing: 0.1em;
             color: #f0f4f8;
             line-height: 0.9;
+            text-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
 
         /* =========================================
-           ЭКРАН 4. ГАЛЕРЕЯ (Фрагменты)
+           ЭКРАН 3. ГАЛЕРЕЯ
            ========================================= */
         .section-gallery {
-            padding: 80px 20px;
+            padding: 100px 20px;
             background: #000;
             display: flex;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .bento-grid {
@@ -164,13 +179,12 @@
             inset: 0;
             background-size: cover;
             background-position: center;
-            /* Строгий черно-белый */
             filter: grayscale(1) contrast(1.3) brightness(0.5); 
             transition: all 0.6s ease;
         }
 
         .bento-card:hover .bento-bg {
-            filter: grayscale(1) contrast(1.1) brightness(0.7);
+            filter: grayscale(0.8) contrast(1.1) brightness(0.7);
             transform: scale(1.05);
         }
 
@@ -179,7 +193,7 @@
         .card-small { grid-column: span 1; grid-row: span 1; }
 
         /* =========================================
-           ЭКРАН 5. МАНИФЕСТ (Позиция)
+           ЭКРАН 4. МАНИФЕСТ
            ========================================= */
         .section-manifesto {
             padding: 150px 20px;
@@ -187,6 +201,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .manifesto-block {
@@ -197,7 +213,7 @@
             line-height: 2.2;
             color: #a0a0a0;
             margin-bottom: 80px;
-            opacity: 0; /* Эффект появления при скролле */
+            opacity: 0;
             transform: translateY(30px);
             transition: all 1s ease;
         }
@@ -208,8 +224,6 @@
         }
 
         .manifesto-block p { margin-bottom: 20px; }
-        
-        /* Выделение строк с отступом (>) */
         .manifesto-block span {
             display: block;
             padding-left: 20px;
@@ -217,56 +231,35 @@
             color: #e0e0e0;
             margin: 10px 0;
         }
-
-        .manifesto-block strong {
-            color: #fff;
-            font-weight: 400;
-        }
+        .manifesto-block strong { color: #fff; font-weight: 400; }
 
         /* =========================================
-           ЭКРАН 6. ССЫЛКИ (Bento)
+           ЭКРАН 5. ССЫЛКИ
            ========================================= */
         .section-links {
-            padding: 80px 20px;
+            padding: 100px 20px;
             background: #000;
             display: flex;
             justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .link-card {
             position: relative;
-            overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             padding: 30px;
             text-decoration: none;
+            background: #050505;
             transition: all 0.4s ease;
         }
 
         .link-card:hover {
             border-color: rgba(255,255,255,0.4);
-        }
-
-        .link-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            filter: grayscale(1) contrast(1.2) brightness(0.4);
-            z-index: 1;
-            transition: all 0.4s ease;
-        }
-
-        .link-card:hover .link-bg {
-            filter: grayscale(0.5) contrast(1.2) brightness(0.6);
-            transform: scale(1.05);
-        }
-
-        .link-content {
-            position: relative;
-            z-index: 2;
+            background: #0a0a0a;
         }
 
         .link-title {
@@ -282,13 +275,13 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 0.8rem;
             font-weight: 300;
-            color: #aaa;
+            color: #888;
             letter-spacing: 0.2em;
             text-transform: uppercase;
         }
 
         /* =========================================
-           ЭКРАН 7. ФИНАЛ (Свобода)
+           ЭКРАН 6. ФИНАЛ
            ========================================= */
         .section-final {
             position: relative;
@@ -300,18 +293,18 @@
             background: #000;
             text-align: center;
             padding: 20px;
-            overflow: hidden;
+            z-index: 1;
         }
 
-        /* Обрыв нити */
         .final-thread {
             position: absolute;
             top: 0;
-            left: 50%;
-            width: 2px;
-            height: 50%;
-            background: linear-gradient(to bottom, rgba(255,0,60,0.8), transparent);
-            filter: drop-shadow(0 0 10px #ff003c);
+            left: 10%; 
+            width: 1px; 
+            height: 50%; 
+            background: linear-gradient(to bottom, #ff003c, transparent);
+            box-shadow: 0 0 5px #ff003c, 0 0 10px rgba(255, 0, 60, 0.5);
+            z-index: 0;
         }
 
         .final-text {
@@ -339,22 +332,27 @@
             transition: all 0.3s ease;
         }
 
-        .btn-top:hover {
-            color: #fff;
-            border-color: #fff;
-        }
+        .btn-top:hover { color: #fff; border-color: #fff; }
+
+        @keyframes fadeIn { to { opacity: 1; } }
 
         /* =========================================
-           АНИМАЦИИ И АДАПТИВ
+           МОБИЛЬНАЯ ВЕРСИЯ
            ========================================= */
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
         @media (max-width: 900px) {
-            .section-hero { padding: 20px; justify-content: center; text-align: center; }
-            .hero-bg { width: 100%; right: 0; mask-image: linear-gradient(to bottom, black 40%, transparent 90%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 90%); }
-            .hero-content { align-items: center; margin-top: auto; margin-bottom: 10vh; }
+            .red-thread-global { left: 5%; } 
+            .final-thread { left: 5%; }
+            
+            /* На мобилке центрируем тексты, чтобы они не улетели за край */
+            .hero-bg { 
+                width: 100%; 
+                right: 0; 
+                mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+                -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+            }
+            .hero-text-top { left: 50%; transform: translateX(-50%); width: 100%; text-align: center; top: 5vh; }
+            .hero-text-bottom { left: 50%; transform: translateX(-50%); width: 100%; text-align: center; bottom: 5vh; }
+            .hero-name { left: 50%; transform: translate(-50%, -50%); text-align: center; top: 40%; }
             
             .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 300px; }
             .card-large, .card-wide, .card-small { grid-column: span 1; grid-row: span 1; }
@@ -366,7 +364,8 @@
 </head>
 <body>
 
-    <!-- ЭКРАН 1. ИНТРО -->
+    <div class="red-thread-global"></div>
+
     <section class="section-intro">
         <div class="intro-text">
             Слышать, как тот, кто рядом, дышит чаще —<br>
@@ -375,33 +374,26 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 2. ПЕРЕХОДНИК (Нить) -->
-    <div class="section-thread">
-        <div class="thread-visual"></div>
-    </div>
-
-    <!-- ЭКРАН 3. ГЛАВНАЯ -->
+    <!-- ЭКРАН 2. ГЛАВНАЯ (Исправлен) -->
     <section class="section-hero">
         <div class="hero-bg"></div>
-        <div class="hero-content">
-            <div class="hero-text">Хм... ты здесь..</div>
-            <div class="hero-name">Aleksa</div>
-            <div class="hero-text">это обо мне... или о тебе?</div>
-        </div>
+        
+        <div class="hero-text-top">Хм... ты здесь..</div>
+        
+        <div class="hero-name">Aleksa</div>
+        
+        <div class="hero-text-bottom">это обо мне... или о тебе?</div>
     </section>
 
-    <!-- ЭКРАН 4. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="bento-grid">
-            <!-- Сюда можешь поставить лучший кадр -->
             <div class="bento-card card-large"><div class="bento-bg" style="background-image: url('img/bg-gal5.1.png');"></div></div>
-            <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal5.png');"></div></div>
-            <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal6.jpg');"></div></div>
-            <div class="bento-card card-wide"><div class="bento-bg" style="background-image: url('img/koxa.png'); background-position: top;"></div></div>
+            <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal1.jpg');"></div></div>
+            <div class="bento-card card-small"><div class="bento-bg" style="background-image: url('img/bg-gal2.jpg');"></div></div>
+            <div class="bento-card card-wide"><div class="bento-bg" style="background-image: url('img/bg-gal6.jpg');"></div></div>
         </div>
     </section>
 
-    <!-- ЭКРАН 5. МАНИФЕСТ -->
     <section class="section-manifesto">
         <div class="manifesto-block">
             <p><strong>Явить себя и быть увиденной — или остаться тенью.</strong></p>
@@ -441,41 +433,27 @@
         </div>
     </section>
 
-    <!-- ЭКРАН 6. ССЫЛКИ -->
     <section class="section-links">
         <div class="bento-grid">
             <a href="#" class="link-card card-wide">
-                <div class="link-bg" style="background-image: url('img/bg-gal2.jpg');"></div>
-                <div class="link-content">
-                    <div class="link-title">TELEGRAM</div>
-                    <div class="link-subtitle">Backstage & Private</div>
-                </div>
+                <div class="link-title">TELEGRAM</div>
+                <div class="link-subtitle">Backstage & Private</div>
             </a>
             <a href="#" class="link-card card-small">
-                <div class="link-bg" style="background-image: url('img/bg-gal3.jpg');"></div>
-                <div class="link-content">
-                    <div class="link-title">TONPLACE</div>
-                    <div class="link-subtitle">Exclusive</div>
-                </div>
+                <div class="link-title">TONPLACE</div>
+                <div class="link-subtitle">Exclusive</div>
             </a>
             <a href="#" class="link-card card-small">
-                <div class="link-bg" style="background-image: url('img/bg-gal4.jpg');"></div>
-                <div class="link-content">
-                    <div class="link-title">BBS</div>
-                    <div class="link-subtitle">Community</div>
-                </div>
+                <div class="link-title">BBS</div>
+                <div class="link-subtitle">Community</div>
             </a>
             <a href="#" class="link-card card-wide">
-                <div class="link-bg" style="background-image: url('img/bg-main-ru.png');"></div>
-                <div class="link-content">
-                    <div class="link-title">DEEP ACCESS</div>
-                    <div class="link-subtitle">Private Terminal</div>
-                </div>
+                <div class="link-title">DEEP ACCESS</div>
+                <div class="link-subtitle">Private Terminal</div>
             </a>
         </div>
     </section>
 
-    <!-- ЭКРАН 7. ФИНАЛ -->
     <section class="section-final">
         <div class="final-thread"></div>
         <div class="final-text">
@@ -485,7 +463,6 @@
         <a href="#top" class="btn-top">Вернуться наверх</a>
     </section>
 
-    <!-- Скрипт для появления манифеста при скролле -->
     <script>
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
