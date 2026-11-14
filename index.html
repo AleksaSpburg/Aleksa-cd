@@ -57,8 +57,7 @@
         .hero-bg {
             position: absolute;
             top: 0; right: 0;
-            width: 80%; 
-            height: 100%;
+            width: 80%; height: 100%;
             background: url('img/bg-main-ru.png') center top/cover no-repeat;
             z-index: 1;
             mask-image: radial-gradient(ellipse 60% 70% at 60% 40%, black 20%, transparent 70%);
@@ -66,53 +65,29 @@
             opacity: 0.85;
         }
         .hero-text-top {
-            position: absolute;
-            top: 6vh;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Raleway', sans-serif;
-            font-weight: 300;
-            font-size: 1rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #888;
-            width: 100%;
-            text-align: center;
-            z-index: 3;
+            position: absolute; top: 6vh; left: 50%; transform: translateX(-50%);
+            font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 1rem;
+            letter-spacing: 0.3em; text-transform: uppercase; color: #888;
+            width: 100%; text-align: center; z-index: 3;
         }
         .hero-name {
-            position: absolute;
-            top: 42%;
-            left: 8vw; 
-            transform: translateY(-50%);
-            font-family: 'Raleway', sans-serif;
-            font-weight: 200;
-            font-size: clamp(4rem, 12vw, 9rem);
-            letter-spacing: 0.1em;
-            color: #f0f4f8;
-            z-index: 3;
-            text-shadow: 0 0 20px #000;
+            position: absolute; top: 42%; left: 8vw; transform: translateY(-50%);
+            font-family: 'Raleway', sans-serif; font-weight: 200;
+            font-size: clamp(4rem, 12vw, 9rem); letter-spacing: 0.1em;
+            color: #f0f4f8; z-index: 3; text-shadow: 0 0 20px #000;
         }
         .hero-text-bottom {
-            position: absolute;
-            bottom: 6vh;
-            right: 8vw;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 300;
-            font-size: 1rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #888;
-            z-index: 3;
+            position: absolute; bottom: 6vh; right: 8vw;
+            font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 1rem;
+            letter-spacing: 0.3em; text-transform: uppercase; color: #888; z-index: 3;
         }
 
-        /* 3. ГАЛЕРЕЯ */
+        /* 3. ГАЛЕРЕЯ (МАГИЯ ASPECT-RATIO) */
         .section-gallery {
-            height: 100svh; 
+            min-height: 100svh; /* На мобилке может быть чуть больше экрана, это нормально */
             width: 100%;
             background-color: #000; 
             padding: 15px; 
-            box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -121,17 +96,10 @@
         .gallery-grid {
             display: grid;
             width: 100%;
-            height: 100%;
-            gap: 10px; 
             max-width: 1200px;
-            /* DESKTOP СЕТКА (3 колонки) */
+            gap: 10px; 
+            /* Сетка для компьютера (3 колонки) */
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            grid-template-areas:
-                "wide1 wide1 tall2"
-                "small4 small5 tall2"
-                "tall3 wide6 wide6"
-                "tall3 wide6 wide6";
         }
 
         .gallery-item {
@@ -141,7 +109,9 @@
             overflow: hidden;
             cursor: pointer;
             border-radius: 2px;
-            transition: transform 0.4s ease, border-color 0.4s ease;
+            /* Убираем фиксированную высоту, теперь её диктует aspect-ratio */
+            width: 100%;
+            height: 100%;
         }
 
         .gallery-item img {
@@ -152,133 +122,83 @@
             transition: all 0.6s ease;
         }
 
-        .gallery-item:hover {
-            border-color: #555;
-            transform: scale(1.02);
-            z-index: 10;
-        }
-        .gallery-item:hover img {
-            filter: grayscale(0.5) contrast(1.1) brightness(1);
-            transform: scale(1.05);
-        }
+        .gallery-item:hover { border-color: #555; transform: scale(1.02); z-index: 10; }
+        .gallery-item:hover img { filter: grayscale(0.5) contrast(1.1) brightness(1); }
 
-        /* РАСПРЕДЕЛЕНИЕ ПО ЗОНАМ */
-        .item-1 { grid-area: wide1; }
-        .item-2 { grid-area: tall2; }
-        .item-3 { grid-area: tall3; }
-        .item-4 { grid-area: small4; }
-        .item-5 { grid-area: small5; }
-        .item-6 { grid-area: wide6; }
+        /* ФОРМАТЫ ФОТО (Desktop) */
+        .item-1 { grid-column: span 2; aspect-ratio: 16 / 9; } /* Широкая (сидя) */
+        .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; }  /* Высокая (лицо) */
+        .item-3 { grid-column: span 1; aspect-ratio: 3 / 4; }  /* Высокая (шнуровка) */
+        .item-4 { grid-column: span 1; aspect-ratio: 1 / 1; }  /* Квадрат (селфи) */
+        .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; }  /* Квадрат (зеркало) */
+        .item-6 { grid-column: span 2; aspect-ratio: 16 / 9; } /* Широкая (отражение) */
 
-        /* ТОЧНОЕ ПОЗИЦИОНИРОВАНИЕ (Чтобы ничего не резалось) */
-        .item-1 img { object-position: center bottom; } /* Шпильки */
-        .item-2 img { object-position: center top; }    /* Лицо вертикальное */
-        .item-3 img { object-position: center center; } /* Шнуровка */
-        .item-4 img { object-position: center 25%; }    /* Селфи */
-        .item-5 img { object-position: center top; }    /* Зеркало */
-        .item-6 img { object-position: center center; } /* Широкое зеркало */
+        /* ТОЧНЫЙ ФОКУС (Чтобы не резать главное) */
+        .item-1 img { object-position: center bottom; } /* Фокус на низ (шпильки) */
+        .item-2 img { object-position: center top; }    /* Фокус на верх (лицо) */
+        .item-3 img { object-position: center center; } /* Центр */
+        .item-4 img { object-position: center 20%; }    /* Чуть выше центра (лицо) */
+        .item-5 img { object-position: center center; } /* Центр */
+        .item-6 img { object-position: center center; } /* Центр */
 
         /* 4. МАНИФЕСТ */
-        .section-manifesto {
-            background-color: #000;
-            align-items: flex-start; 
-        }
-        .manifesto-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-        }
+        .section-manifesto { background-color: #000; align-items: flex-start; }
+        .manifesto-container { max-width: 800px; margin: 0 auto; text-align: left; }
         .manifesto-block {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            line-height: 2.2;
-            color: #a0a0a0;
-            margin-bottom: 80px;
+            font-family: 'Montserrat', sans-serif; font-weight: 300;
+            font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 2.2; color: #a0a0a0; margin-bottom: 80px;
         }
         .manifesto-block strong { color: #fff; font-weight: 400; }
         .manifesto-block span { display: block; padding-left: 20px; border-left: 1px solid #333; margin: 10px 0; color: #e0e0e0; }
 
         /* 5. ССЫЛКИ */
         .section-links { background-color: #050505; }
-        .bento-skeleton {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            max-width: 900px;
-            width: 100%;
-        }
+        .bento-skeleton { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 900px; width: 100%; }
         .link-box {
-            background: #0a0a0a;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
-            height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px; height: 150px; display: flex; flex-direction: column; justify-content: flex-end;
         }
         .link-box h3 { font-family: 'Raleway', sans-serif; font-weight: 400; letter-spacing: 0.1em; margin-bottom: 5px;}
         .link-box p { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.2em;}
         .link-box.wide { grid-column: span 2; }
 
         /* 6. ФИНАЛ */
-        .section-final {
-            height: 60vh;
-            background-color: #000;
-            text-align: center;
-        }
+        .section-final { height: 60vh; background-color: #000; text-align: center; }
         .section-final h2 { font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 1.5rem; letter-spacing: 0.1em;}
 
         /* --- ЛАЙТБОКС --- */
         .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-            backdrop-filter: blur(8px);
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(8px);
         }
         .lightbox.active { opacity: 1; pointer-events: auto; }
-        .lightbox img {
-            max-width: 95%;
-            max-height: 90vh;
-            object-fit: contain;
-            box-shadow: 0 0 50px rgba(255, 0, 60, 0.2); 
-            transform: scale(0.95);
-            transition: transform 0.4s ease;
-        }
+        .lightbox img { max-width: 95%; max-height: 90vh; object-fit: contain; box-shadow: 0 0 50px rgba(255, 0, 60, 0.2); transform: scale(0.95); transition: transform 0.4s ease; }
         .lightbox.active img { transform: scale(1); }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ (Сетка как в твоем коллаже) */
+        /* МОБИЛЬНАЯ ВЕРСИЯ (Сетка 2 колонки) */
         @media (max-width: 768px) {
             section { padding: 80px 15px; }
-            
-            /* Главная */
-            .hero-bg { 
-                width: 100%; right: 0; 
-                mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
-                -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
-            }
+            .hero-bg { width: 100%; right: 0; mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%); }
             .hero-name { left: 8vw; top: 45%; }
             .hero-text-top { top: 6vh; }
             .hero-text-bottom { right: 8vw; bottom: 6vh; left: auto; transform: none; }
             
-            /* ГАЛЕРЕЯ - МОБИЛЬНАЯ СЕТКА (ТОЧНО ПО ТВОЕМУ РИСУНКУ) */
+            /* ГАЛЕРЕЯ НА МОБИЛКЕ */
             .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(5, 1fr);
-                grid-template-areas:
-                    "wide1 wide1"
-                    "small4 tall2"
-                    "tall3 tall2"
-                    "tall3 small5"
-                    "wide6 wide6";
+                grid-template-columns: repeat(2, 1fr); /* 2 колонки */
             }
+            
+            /* Переопределяем ширину и пропорции для телефона */
+            .item-1 { grid-column: span 2; aspect-ratio: 4 / 5; } /* Сидя - вертикальный, на всю ширину */
+            .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; } /* Лицо - вертикальный */
+            .item-3 { grid-column: span 1; aspect-ratio: 3 / 4; } /* Шнуровка - вертикальная */
+            .item-4 { grid-column: span 1; aspect-ratio: 1 / 1; } /* Селфи - квадрат */
+            .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; } /* Зеркало - квадрат */
+            .item-6 { grid-column: span 2; aspect-ratio: 16 / 9; } /* Отражение - широкое на всю ширину */
+
+            /* Корректируем фокус для мобилки */
+            .item-1 img { object-position: center 80%; } /* Смещаем фокус на шпильки */
 
             .bento-skeleton { grid-template-columns: 1fr; }
             .link-box.wide { grid-column: span 1; }
@@ -309,7 +229,7 @@
     <!-- ЭКРАН 3. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="gallery-grid">
-            <!-- 1. Шпильки (Верх) -->
+            <!-- 1. Сидя (Шпильки) -->
             <div class="gallery-item item-1" onclick="openLightbox('img/bg-gal5.1.png')">
                 <img src="img/bg-gal5.1.png" alt="Sitting">
             </div>
@@ -317,7 +237,7 @@
             <div class="gallery-item item-2" onclick="openLightbox('img/bg-gal2.jpg')">
                 <img src="img/bg-gal2.jpg" alt="Face">
             </div>
-            <!-- 3. Шнуровка (вертикальная) -->
+            <!-- 3. Шнуровка -->
             <div class="gallery-item item-3" onclick="openLightbox('img/кожа.png')">
                 <img src="img/кожа.png" alt="Lacing">
             </div>
@@ -325,11 +245,11 @@
             <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal4.jpg')">
                 <img src="img/bg-gal4.jpg" alt="Selfie">
             </div>
-            <!-- 5. Зеркало (широкое/квадрат) -->
+            <!-- 5. Зеркало -->
             <div class="gallery-item item-5" onclick="openLightbox('img/bg-gal6.jpg')">
                 <img src="img/bg-gal6.jpg" alt="Mirror">
             </div>
-            <!-- 6. Отражение (широкое) -->
+            <!-- 6. Отражение (Широкое) -->
             <div class="gallery-item item-6" onclick="openLightbox('img/bg-gal.jpg')">
                 <img src="img/bg-gal.jpg" alt="Reflection">
             </div>
