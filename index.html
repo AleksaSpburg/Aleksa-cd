@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEKSA | Skeleton</title>
+    <title>ALEKSA | Official</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
@@ -45,7 +45,7 @@
             letter-spacing: 0.15em;
         }
 
-        /* 2. ГЛАВНАЯ (Асимметрия + Размытый фон) */
+        /* 2. ГЛАВНАЯ (Исправленная) */
         .section-hero {
             height: 100svh;
             border-bottom: 1px solid #111; 
@@ -55,7 +55,6 @@
             background-color: #000;
         }
 
-        /* Твой фон с растворяющимися краями */
         .hero-bg {
             position: absolute;
             top: 0; right: 0;
@@ -64,17 +63,17 @@
             background: url('img/bg-main-ru.png') center top/cover no-repeat;
             z-index: 1;
             
-            /* Радиальная маска для мягкого растворения */
+            /* Растворение краев */
             mask-image: radial-gradient(ellipse 60% 70% at 60% 40%, black 20%, transparent 70%);
             -webkit-mask-image: radial-gradient(ellipse 60% 70% at 60% 40%, black 20%, transparent 70%);
             
-            filter: blur(3px);
+            /* Убрали размытие, чтобы контур стал четким */
             opacity: 0.85;
         }
 
         .hero-text-top {
             position: absolute;
-            top: 10vh;
+            top: 5vh; /* Разнесли выше */
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Raleway', sans-serif;
@@ -87,10 +86,11 @@
             text-align: center;
             z-index: 3;
         }
+        
         .hero-name {
             position: absolute;
-            top: 50%;
-            left: 15vw; 
+            top: 42%; /* Чуть выше центра */
+            left: 5vw; /* Сдвинули левее */
             transform: translateY(-50%);
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
@@ -100,10 +100,11 @@
             z-index: 3;
             text-shadow: 0 0 20px #000;
         }
+        
         .hero-text-bottom {
             position: absolute;
-            bottom: 10vh;
-            right: 15vw;
+            bottom: 5vh; /* Разнесли ниже */
+            right: 10vw;
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             font-size: 1rem;
@@ -113,7 +114,7 @@
             z-index: 3;
         }
 
-        /* 3. ГАЛЕРЕЯ (Живой коллаж на 1 экран) */
+        /* 3. ГАЛЕРЕЯ (С умным кропом) */
         .section-gallery {
             height: 100svh; 
             width: 100%;
@@ -170,6 +171,13 @@
         .item-3 { grid-column: 3 / 4; grid-row: 3 / 4; }
         .item-4 { grid-column: 4 / 5; grid-row: 3 / 5; }
         .item-5 { grid-column: 1 / 4; grid-row: 4 / 5; }
+
+        /* УМНЫЙ КРОП (Object Position) */
+        .item-1 img { object-position: center bottom; } /* Чтобы были видны шпильки */
+        .item-2 img { object-position: center center; } /* Центр */
+        .item-3 img { object-position: center center; } /* Центр */
+        .item-4 img { object-position: center top; }    /* Чтобы было видно лицо */
+        .item-5 img { object-position: center top; }    /* Чтобы было видно лицо */
 
         /* 4. МАНИФЕСТ */
         .section-manifesto {
@@ -262,8 +270,10 @@
                 mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
                 -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 70%);
             }
-            .hero-name { left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; }
-            .hero-text-bottom { right: auto; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; }
+            /* Оставляем на мобилке имя слева, как ты просила */
+            .hero-name { left: 10vw; transform: translateY(-50%); text-align: left; width: 100%; top: 45%; }
+            .hero-text-top { top: 8vh; }
+            .hero-text-bottom { right: 10vw; bottom: 8vh; left: auto; transform: none; text-align: right; }
             
             /* Галерея на мобилке */
             .gallery-grid {
@@ -305,7 +315,7 @@
     <!-- ЭКРАН 3. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="gallery-grid">
-            <!-- Карточка 1 -->
+            <!-- Карточка 1 (Шпильки) -->
             <div class="gallery-item item-1" onclick="openLightbox('img/bg-gal5.1.png')">
                 <img src="img/bg-gal5.1.png" alt="Model 1">
             </div>
@@ -320,12 +330,12 @@
                 <img src="img/кожа.png" alt="Model 3">
             </div>
             
-            <!-- Карточка 4 -->
+            <!-- Карточка 4 (Лицо) -->
             <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal6.jpg')">
                 <img src="img/bg-gal6.jpg" alt="Model 4">
             </div>
             
-            <!-- Карточка 5 -->
+            <!-- Карточка 5 (Лицо) -->
             <div class="gallery-item item-5" onclick="openLightbox('img/bg-gal2.jpg')">
                 <img src="img/bg-gal2.jpg" alt="Model 5">
             </div>
