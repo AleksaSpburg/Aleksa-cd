@@ -669,6 +669,58 @@ a.space-card:focus-visible {
     border-color: #777;
     background-color: #101010;
 }
+/* Компактная галерея на телефоне */
+@media (max-width: 700px) {
+    .gallery-opening,
+    .gallery-details {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        align-items: center;
+    }
+
+    .photo-curtains,
+    .photo-glass {
+        grid-column: 1;
+        margin-top: 0;
+    }
+
+    .photo-arms,
+    .photo-lights {
+        grid-column: 2;
+        margin-top: 0;
+    }
+
+    .breath {
+        margin: 32px 0;
+        gap: 14px;
+    }
+
+    .breath-copy {
+        margin: 0;
+        max-width: none;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .breath-frame {
+        width: min(68%, 280px);
+        margin-inline: auto;
+    }
+
+    .gallery-portrait {
+        width: min(75%, 340px);
+        margin-top: 32px;
+    }
+
+    #fragments {
+        padding-top: 48px;
+        padding-bottom: 40px;
+    }
+
+    #gallery-title {
+        margin-bottom: 28px;
+    }
+}
 
 </style>
 </head>
