@@ -657,6 +657,19 @@ summary {
         );
     mask-composite: intersect;
 }
+    /* Теперь карточки — действующие ссылки */
+a.space-card {
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+a.space-card:hover,
+a.space-card:focus-visible {
+    border-color: #777;
+    background-color: #101010;
+}
+
 </style>
 </head>
 
@@ -905,30 +918,31 @@ summary {
                 data-i18n="spaces">Пространства</h2>
 
             <div class="spaces-grid">
-                <article class="space-card wide">
-                    <span class="space-status" data-i18n="soon">Скоро</span>
-                    <h3>TELEGRAM</h3>
-                    <p data-i18n="spacePlaceholder">
-                        Пространство формируется.
-                    </p>
-                </article>
+    <a class="space-card wide"
+       href="https://t.me/RazvodnayaAleksa"
+       target="_blank"
+       rel="noopener noreferrer">
+        <h3>TELEGRAM ↗</h3>
+        <p>@RazvodnayaAleksa</p>
+    </a>
 
-                <article class="space-card">
-                    <span class="space-status" data-i18n="soon">Скоро</span>
-                    <h3>TONPLACE</h3>
-                    <p data-i18n="spacePlaceholder">
-                        Пространство формируется.
-                    </p>
-                </article>
+    <a class="space-card"
+       href="https://ton.place/id3858841"
+       target="_blank"
+       rel="noopener noreferrer">
+        <h3>TONPLACE ↗</h3>
+        <p>Aleksa</p>
+    </a>
 
-                <article class="space-card">
-                    <span class="space-status" data-i18n="soon">Скоро</span>
-                    <h3>BBS</h3>
-                    <p data-i18n="spacePlaceholder">
-                        Пространство формируется.
-                    </p>
-                </article>
-            </div>
+    <a class="space-card"
+       href="https://bbsgayru.net/user/Aleksa"
+       target="_blank"
+       rel="noopener noreferrer">
+        <h3>BBS ↗</h3>
+        <p>Aleksa</p>
+    </a>
+</div>
+
         </div>
     </section>
 
