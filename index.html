@@ -7,9 +7,6 @@
 <title>ALEKSA | Official</title>
 
 <style>
-/* СКЕЛЕТ: структура, пропорции, навигация.
-   Фактуру, обработку фотографий и эффекты уточняем позже. */
-
 :root {
     --bg: #050505;
     --text: #f0f4f8;
@@ -24,8 +21,8 @@
 
 html {
     scroll-behavior: smooth;
-    background: var(--bg);
     scroll-padding-top: 90px;
+    background: var(--bg);
 }
 
 body {
@@ -39,21 +36,14 @@ body {
 body.modal-open { overflow: hidden; }
 
 button, a { -webkit-tap-highlight-color: transparent; }
-button { font: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
 a { color: inherit; }
-button { color: inherit; }
+img, video { display: block; max-width: 100%; }
 
 :focus-visible {
-    outline: 2px solid var(--gold);
+    outline: 2px solid var(--text);
     outline-offset: 6px;
 }
-
-img, video {
-    display: block;
-    max-width: 100%;
-}
-
-button { cursor: pointer; }
 
 .skip-link {
     position: fixed;
@@ -137,7 +127,7 @@ button { cursor: pointer; }
     gap: 16px;
 }
 
-/* 2. НИТЬ: переход, а не ещё один экран */
+/* 2. НИТЬ */
 
 .thread {
     height: clamp(130px, 24vw, 260px);
@@ -182,7 +172,13 @@ button { cursor: pointer; }
     z-index: -1;
     background:
         linear-gradient(90deg, #050505b3, transparent 70%),
-        linear-gradient(0deg, var(--bg), transparent 25%, transparent 80%, var(--bg));
+        linear-gradient(
+            0deg,
+            var(--bg),
+            transparent 25%,
+            transparent 80%,
+            var(--bg)
+        );
 }
 
 .hero-nav {
@@ -253,9 +249,11 @@ button { cursor: pointer; }
     letter-spacing: .12em;
 }
 
-/* 4. ФРАГМЕНТЫ */
+/* 4. ГАЛЕРЕЯ:
+   шторы → руки вверх → дыхание → бокал → гирлянда → портрет */
 
-.gallery-grid {
+.gallery-opening,
+.gallery-details {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 24px;
@@ -272,23 +270,42 @@ button { cursor: pointer; }
 }
 
 .photo img {
+    display: block;
     width: 100%;
     height: auto;
     filter: grayscale(1);
 }
 
-.photo-wide { grid-column: span 8; }
-.photo-side { grid-column: span 4; margin-top: 70px; }
+/* Общий план и второй жест */
 
-.detail-first { grid-column: 2 / span 5; }
-.detail-second { grid-column: 8 / span 5; margin-top: 100px; }
-
-.gallery-end {
-    width: min(100%, 800px);
-    margin: 70px auto 0;
+.photo-curtains {
+    grid-column: 1 / span 7;
 }
 
-/* Дыхание между общим образом и деталями */
+.photo-arms {
+    grid-column: 9 / span 4;
+    margin-top: 100px;
+}
+
+/* Деталь и диагональный акцент */
+
+.photo-glass {
+    grid-column: 2 / span 4;
+}
+
+.photo-lights {
+    grid-column: 7 / span 6;
+    margin-top: 100px;
+}
+
+/* Тихий портрет в конце */
+
+.gallery-portrait {
+    width: min(100%, 560px);
+    margin: 110px auto 0;
+}
+
+/* ДЫХАНИЕ */
 
 .breath {
     display: grid;
@@ -337,6 +354,11 @@ button { cursor: pointer; }
     border: 1px solid #ffffff55;
     background: #050505cc;
     font-size: .7rem;
+}
+
+.breath-button:disabled {
+    cursor: default;
+    opacity: .7;
 }
 
 /* 5. МАНИФЕСТ */
@@ -480,6 +502,7 @@ summary {
     height: 100%;
     display: grid;
     place-items: center;
+    min-height: 0;
 }
 
 .lightbox img {
@@ -487,6 +510,7 @@ summary {
     max-height: 100%;
     object-fit: contain;
     min-height: 0;
+    filter: grayscale(1);
 }
 
 .modal-control {
@@ -511,6 +535,8 @@ summary {
     color: var(--muted);
 }
 
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+
 @media (max-width: 700px) {
     .section { padding: 70px 20px; }
 
@@ -524,7 +550,6 @@ summary {
     .nav-links a { font-size: .68rem; }
 
     .hero-bg { background-position: 58% center; }
-
     .hero-content { padding: 120px 8vw 180px; }
 
     .hero-bottom {
@@ -532,20 +557,34 @@ summary {
         line-height: 1.8;
     }
 
-    .gallery-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+    .gallery-opening,
+    .gallery-details {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 24px 12px;
     }
 
-    .photo-wide { grid-column: 1 / -1; }
+    .photo-curtains {
+        grid-column: 1 / span 5;
+    }
 
-    .photo-side {
-        grid-column: 2;
+    .photo-arms {
+        grid-column: 3 / span 4;
+        margin-top: 12px;
+    }
+
+    .photo-glass {
+        grid-column: 1 / span 4;
+    }
+
+    .photo-lights {
+        grid-column: 2 / span 5;
         margin-top: 20px;
     }
 
-    .detail-first { grid-column: 1; }
-    .detail-second { grid-column: 2; margin-top: 45px; }
+    .gallery-portrait {
+        width: 85%;
+        margin-top: 65px;
+    }
 
     .breath {
         grid-template-columns: minmax(0, 1fr);
@@ -554,53 +593,35 @@ summary {
     }
 
     .breath-copy { max-width: 240px; }
-    .breath-frame { width: min(80%, 340px); margin-inline: auto; }
 
-    .gallery-end { margin-top: 45px; }
+    .breath-frame {
+        width: min(80%, 340px);
+        margin-inline: auto;
+    }
 
     .spaces-grid { grid-template-columns: 1fr; }
     .space-card.wide { grid-column: auto; }
-    .space-card { min-height: 150px; padding: 24px; }
+
+    .space-card {
+        min-height: 150px;
+        padding: 24px;
+    }
 
     .lightbox { padding: 70px 48px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
+
     *, *::before, *::after {
         animation: none !important;
         transition: none !important;
     }
 }
-   /* Плавное растворение краёв главной фотографии */
-.hero-bg {
-    -webkit-mask-image: radial-gradient(
-        ellipse 70% 75% at 60% 48%,
-        black 30%,
-        transparent 85%
-    );
-    mask-image: radial-gradient(
-        ellipse 70% 75% at 60% 48%,
-        black 30%,
-        transparent 85%
-    );
-}
 
-@media (max-width: 700px) {
-    .hero-bg {
-        -webkit-mask-image: radial-gradient(
-            ellipse 90% 72% at 55% 48%,
-            black 25%,
-            transparent 85%
-        );
-        mask-image: radial-gradient(
-            ellipse 90% 72% at 55% 48%,
-            black 25%,
-            transparent 85%
-        );
-    }
-}
-/* Мягкие края фотографии со всех четырёх сторон */
+/* ТЕКУЩАЯ МАСКА ГЛАВНОГО ФОТО.
+   Сохранена без нового раунда десктопной доводки. */
+
 .hero-bg {
     -webkit-mask-image:
         linear-gradient(
@@ -636,16 +657,19 @@ summary {
         );
     mask-composite: intersect;
 }
-
 </style>
 </head>
 
 <body>
-<a class="skip-link" href="#hero" data-i18n="skip">Перейти к главной</a>
+<a class="skip-link" href="#hero" data-i18n="skip">
+    Перейти к главной
+</a>
 
 <main>
-    <!-- 1. ПЕРВАЯ ФРАЗА -->
-    <section class="intro" aria-label="Вступление" data-label="introLabel">
+    <!-- 1. ИНТРО -->
+    <section class="intro"
+             aria-label="Вступление"
+             data-label="introLabel">
         <div class="intro-inner">
             <p class="intro-quote" data-i18n="intro">
                 Слышать, как тот, кто рядом, дышит чаще —
@@ -659,25 +683,31 @@ summary {
         </div>
     </section>
 
-    <!-- 2. ПЕРЕХОД -->
+    <!-- 2. НИТЬ -->
     <div class="thread" aria-hidden="true"></div>
 
-    <!-- 3. ЗНАКОМСТВО -->
+    <!-- 3. ГЛАВНАЯ -->
     <section class="hero" id="hero" aria-labelledby="name">
         <div class="hero-bg" aria-hidden="true"></div>
 
-        <nav class="hero-nav" aria-label="Навигация" data-label="navigation">
+        <nav class="hero-nav"
+             aria-label="Навигация"
+             data-label="navigation">
             <div class="nav-links">
                 <a href="#fragments" data-i18n="fragments">Фрагменты</a>
                 <a href="#manifesto" data-i18n="manifesto">Манифест</a>
                 <a href="#spaces" data-i18n="spaces">Пространства</a>
             </div>
 
-            <div class="languages" role="group"
-                 aria-label="Язык" data-label="language">
-                <button type="button" data-lang="ru"
+            <div class="languages"
+                 role="group"
+                 aria-label="Язык"
+                 data-label="language">
+                <button type="button"
+                        data-lang="ru"
                         aria-pressed="true">RU</button>
-                <button type="button" data-lang="en"
+                <button type="button"
+                        data-lang="en"
                         aria-pressed="false">EN</button>
             </div>
         </nav>
@@ -692,29 +722,47 @@ summary {
         </p>
     </section>
 
-    <!-- 4. ОБРАЗ → ДЫХАНИЕ → ДЕТАЛИ -->
-    <section class="section" id="fragments" aria-labelledby="gallery-title">
+    <!-- 4. ФРАГМЕНТЫ -->
+    <section class="section"
+             id="fragments"
+             aria-labelledby="gallery-title">
         <div class="container">
-            <p class="eyebrow" data-i18n="galleryNote">Образ / движение / детали</p>
-            <h2 class="section-title" id="gallery-title"
+            <p class="eyebrow" data-i18n="galleryNote">
+                Образ / движение / детали
+            </p>
+
+            <h2 class="section-title"
+                id="gallery-title"
                 data-i18n="fragments">Фрагменты</h2>
 
-            <div class="gallery-grid">
-                <button class="photo photo-wide" type="button" data-photo>
-                    <img src="img/bg-gal5.1.png"
-                         alt="Сидящий силуэт"
+            <!-- ОБЩИЙ ПЛАН → ДРУГОЙ ЖЕСТ -->
+            <div class="gallery-opening">
+                <button class="photo photo-curtains"
+                        type="button"
+                        data-photo>
+                    <img src="img/gallery-curtains.jpg"
+                         width="960"
+                         height="1280"
+                         alt="Силуэт перед светлыми шторами"
                          data-alt="photo1"
-                         loading="lazy" decoding="async">
+                         loading="lazy"
+                         decoding="async">
                 </button>
 
-                <button class="photo photo-side" type="button" data-photo>
-                    <img src="img/bg-gal2.jpg"
-                         alt="Портретный фрагмент"
+                <button class="photo photo-arms"
+                        type="button"
+                        data-photo>
+                    <img src="img/gallery-arms.jpg"
+                         width="576"
+                         height="1344"
+                         alt="Сидящая фигура с поднятыми руками"
                          data-alt="photo2"
-                         loading="lazy" decoding="async">
+                         loading="lazy"
+                         decoding="async">
                 </button>
             </div>
 
+            <!-- ДЫХАНИЕ -->
             <div class="breath">
                 <p class="breath-copy" data-i18n="breathCopy">
                     Иногда движение почти незаметно.
@@ -724,65 +772,76 @@ summary {
                     <img src="img/кожа.png"
                          alt="Деталь силуэта"
                          data-alt="breathPoster"
-                         loading="lazy" decoding="async">
+                         loading="lazy"
+                         decoding="async">
 
-                    <!-- Путь читается только после нажатия:
-                         видео не загружается при открытии страницы. -->
                     <video id="breath-video"
-                           muted playsinline preload="none"
+                           muted
+                           playsinline
+                           preload="none"
                            data-src="video/breath.mp4"
                            aria-label="Короткий фрагмент дыхания"
                            data-label="breathVideo"></video>
 
-                    <button class="breath-button" type="button"
+                    <button class="breath-button"
+                            type="button"
                             id="breath-button"
                             aria-controls="breath-video"
-                            aria-pressed="false"
-                            data-i18n="playBreath">
+                            aria-pressed="false">
                         Оживить кадр
                     </button>
                 </div>
             </div>
 
-            <div class="gallery-grid">
-                <button class="photo detail-first" type="button" data-photo>
-                    <img src="img/кожа.png"
-                         alt="Деталь шнуровки"
+            <!-- ДЕТАЛЬ → СВЕТОВАЯ ДИАГОНАЛЬ -->
+            <div class="gallery-details">
+                <button class="photo photo-glass"
+                        type="button"
+                        data-photo>
+                    <img src="img/gallery-glass.jpg"
+                         width="1030"
+                         height="1839"
+                         alt="Руки в сетчатых перчатках держат бокал за спиной"
                          data-alt="photo3"
-                         loading="lazy" decoding="async">
+                         loading="lazy"
+                         decoding="async">
                 </button>
 
-                <button class="photo detail-second" type="button" data-photo>
-                    <img src="img/bg-gal6.jpg"
-                         alt="Отражение в зеркале"
+                <button class="photo photo-lights"
+                        type="button"
+                        data-photo>
+                    <img src="img/gallery-lights.jpg"
+                         width="1080"
+                         height="1650"
+                         alt="Диагональная поза на диване со световой гирляндой"
                          data-alt="photo4"
-                         loading="lazy" decoding="async">
-                </button>
-
-                <button class="photo photo-wide" type="button" data-photo>
-                    <img src="img/bg-gal4.jpg"
-                         alt="Личный кадр"
-                         data-alt="photo5"
-                         loading="lazy" decoding="async">
+                         loading="lazy"
+                         decoding="async">
                 </button>
             </div>
 
-            <div class="gallery-end">
+            <!-- ПОРТРЕТ ПЕРЕД МАНИФЕСТОМ -->
+            <div class="gallery-portrait">
                 <button class="photo" type="button" data-photo>
-                    <img src="img/bg-gal.jpg"
-                         alt="Завершающий кадр галереи"
-                         data-alt="photo6"
-                         loading="lazy" decoding="async">
+                    <img src="img/gallery-portrait.jpg"
+                         width="1080"
+                         height="1488"
+                         alt="Чёрно-белый портрет с опущенным взглядом"
+                         data-alt="photo5"
+                         loading="lazy"
+                         decoding="async">
                 </button>
             </div>
         </div>
     </section>
 
     <!-- 5. МАНИФЕСТ -->
-    <section class="section manifesto" id="manifesto"
+    <section class="section manifesto"
+             id="manifesto"
              aria-labelledby="manifesto-title">
         <div class="manifesto-inner">
-            <h2 class="section-title" id="manifesto-title"
+            <h2 class="section-title"
+                id="manifesto-title"
                 data-i18n="manifesto">Манифест</h2>
 
             <div class="manifesto-block">
@@ -809,6 +868,7 @@ summary {
                     Ведь взгляд — не право. Это приглашение.
                     И может быть отозвано в любой момент.
                 </p>
+
                 <p data-i18n="darkness">
                     Темнота мне друг и спутник. Но она не прячет,
                     а позволяет видеть в сумраке лишь то,
@@ -819,7 +879,6 @@ summary {
             <details>
                 <summary data-i18n="readMore">Продолжить чтение</summary>
                 <div class="manifesto-full">
-                    <!-- Здесь можно разместить окончательную полную версию. -->
                     <p data-i18n="full1">
                         И право мне самой определить, когда себя заметить дать,
                         когда укрыть в тени.
@@ -836,10 +895,13 @@ summary {
         </div>
     </section>
 
-    <!-- 6. БУДУЩИЕ ПРОСТРАНСТВА: пока без внешних ссылок -->
-    <section class="section spaces" id="spaces" aria-labelledby="spaces-title">
+    <!-- 6. ПРОСТРАНСТВА -->
+    <section class="section spaces"
+             id="spaces"
+             aria-labelledby="spaces-title">
         <div class="container">
-            <h2 class="section-title" id="spaces-title"
+            <h2 class="section-title"
+                id="spaces-title"
                 data-i18n="spaces">Пространства</h2>
 
             <div class="spaces-grid">
@@ -870,33 +932,45 @@ summary {
         </div>
     </section>
 
-    <!-- 7. ГРАНИЦА -->
+    <!-- 7. ФИНАЛ -->
     <footer class="section final">
         <h2 data-i18n="final">Как близко — решаю я.</h2>
         <p class="final-signature">ALEKSA</p>
-        <a class="text-link" href="#top" data-i18n="backTop">К началу ↑</a>
+        <a class="text-link" href="#top" data-i18n="backTop">
+            К началу ↑
+        </a>
     </footer>
 </main>
 
-<!-- ПРОСМОТР ФОТОГРАФИЙ -->
-<dialog class="lightbox" id="lightbox"
-        aria-label="Просмотр фотографий" data-label="photoViewer">
+<!-- ПРОСМОТР ПЯТИ ФОТОГРАФИЙ -->
+<dialog class="lightbox"
+        id="lightbox"
+        aria-label="Просмотр фотографий"
+        data-label="photoViewer">
     <div class="lightbox-inner">
         <img id="lightbox-image" alt="">
     </div>
 
-    <button class="modal-control modal-close" type="button"
-            id="modal-close" aria-label="Закрыть" data-label="close">×</button>
+    <button class="modal-control modal-close"
+            type="button"
+            id="modal-close"
+            aria-label="Закрыть"
+            data-label="close">×</button>
 
-    <button class="modal-control modal-prev" type="button"
-            id="modal-prev" aria-label="Предыдущее фото"
+    <button class="modal-control modal-prev"
+            type="button"
+            id="modal-prev"
+            aria-label="Предыдущее фото"
             data-label="previous">←</button>
 
-    <button class="modal-control modal-next" type="button"
-            id="modal-next" aria-label="Следующее фото"
+    <button class="modal-control modal-next"
+            type="button"
+            id="modal-next"
+            aria-label="Следующее фото"
             data-label="following">→</button>
 
-    <span class="modal-counter" id="modal-counter"
+    <span class="modal-counter"
+          id="modal-counter"
           aria-live="polite"></span>
 </dialog>
 
@@ -939,12 +1013,11 @@ const translations = {
         close: "Закрыть",
         previous: "Предыдущее фото",
         following: "Следующее фото",
-        photo1: "Сидящий силуэт",
-        photo2: "Портретный фрагмент",
-        photo3: "Деталь шнуровки",
-        photo4: "Отражение в зеркале",
-        photo5: "Личный кадр",
-        photo6: "Завершающий кадр галереи"
+        photo1: "Силуэт перед светлыми шторами",
+        photo2: "Сидящая фигура с поднятыми руками",
+        photo3: "Руки в сетчатых перчатках держат бокал за спиной",
+        photo4: "Диагональная поза на диване со световой гирляндой",
+        photo5: "Чёрно-белый портрет с опущенным взглядом"
     },
 
     en: {
@@ -984,12 +1057,11 @@ const translations = {
         close: "Close",
         previous: "Previous photo",
         following: "Next photo",
-        photo1: "A seated silhouette",
-        photo2: "A portrait fragment",
-        photo3: "Lacing detail",
-        photo4: "A mirror reflection",
-        photo5: "A personal frame",
-        photo6: "The final gallery frame"
+        photo1: "A silhouette against pale curtains",
+        photo2: "A seated figure with raised arms",
+        photo3: "Hands in mesh gloves holding a glass behind the back",
+        photo4: "A diagonal pose on a sofa with a string of lights",
+        photo5: "A black-and-white portrait with a lowered gaze"
     }
 };
 
@@ -1007,15 +1079,20 @@ const videoButton = document.getElementById("breath-button");
 function updateVideoButton() {
     const key = videoFailed
         ? "videoUnavailable"
-        : video.paused ? "playBreath" : "pauseBreath";
+        : video.paused
+            ? "playBreath"
+            : "pauseBreath";
 
     videoButton.textContent = translations[language][key];
     videoButton.setAttribute("aria-pressed", String(!video.paused));
 }
 
 function setLanguage(value) {
+    if (!translations[value]) return;
+
     language = value;
     document.documentElement.lang = value;
+
     const dictionary = translations[value];
 
     document.querySelectorAll("[data-i18n]").forEach(element => {
@@ -1025,7 +1102,9 @@ function setLanguage(value) {
 
     document.querySelectorAll("[data-label]").forEach(element => {
         const text = dictionary[element.dataset.label];
-        if (text !== undefined) element.setAttribute("aria-label", text);
+        if (text !== undefined) {
+            element.setAttribute("aria-label", text);
+        }
     });
 
     document.querySelectorAll("[data-alt]").forEach(element => {
@@ -1045,14 +1124,19 @@ function setLanguage(value) {
 }
 
 document.querySelectorAll("[data-lang]").forEach(button => {
-    button.addEventListener("click", () => setLanguage(button.dataset.lang));
+    button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+    });
 });
 
-/* Лайтбокс: кнопки, стрелки клавиатуры, Escape и возврат фокуса. */
+/* ЛАЙТБОКС */
 
 function showPhoto(index) {
-    currentPhoto = (index + photoButtons.length) % photoButtons.length;
-    const image = photoButtons[currentPhoto].querySelector("img");
+    currentPhoto =
+        (index + photoButtons.length) % photoButtons.length;
+
+    const image =
+        photoButtons[currentPhoto].querySelector("img");
 
     lightboxImage.src = image.currentSrc || image.src;
     lightboxImage.alt = image.alt;
@@ -1064,6 +1148,7 @@ function showPhoto(index) {
 photoButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
         returnFocus = button;
+        video.pause();
         showPhoto(index);
         lightbox.showModal();
         document.body.classList.add("modal-open");
@@ -1088,6 +1173,7 @@ lightbox.addEventListener("keydown", event => {
         event.preventDefault();
         showPhoto(currentPhoto - 1);
     }
+
     if (event.key === "ArrowRight") {
         event.preventDefault();
         showPhoto(currentPhoto + 1);
@@ -1095,8 +1181,10 @@ lightbox.addEventListener("keydown", event => {
 });
 
 lightbox.addEventListener("click", event => {
-    if (event.target === lightbox ||
-        event.target.classList.contains("lightbox-inner")) {
+    if (
+        event.target === lightbox ||
+        event.target.classList.contains("lightbox-inner")
+    ) {
         lightbox.close();
     }
 });
@@ -1107,8 +1195,8 @@ lightbox.addEventListener("close", () => {
     returnFocus?.focus();
 });
 
-/* Видео загружается только по желанию посетителя.
-   Один показ, без обязательной петли и без звука. */
+/* ДЫХАНИЕ:
+   загрузка по кнопке, без звука, примерно шесть секунд. */
 
 videoButton.addEventListener("click", async () => {
     if (videoFailed) return;
@@ -1125,10 +1213,9 @@ videoButton.addEventListener("click", async () => {
     if (video.ended) video.currentTime = 0;
 
     try {
+        video.defaultPlaybackRate = 2 / 3;
         video.playbackRate = 2 / 3;
-
-await video.play();
-
+        await video.play();
     } catch {
         updateVideoButton();
     }
