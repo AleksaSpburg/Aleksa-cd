@@ -443,7 +443,10 @@ details[open] summary::after { content: " –"; }
 }
 
 .space-card {
-    min-height: 180px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    min-height: 220px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -452,6 +455,23 @@ details[open] summary::after { content: " –"; }
 }
 
 .space-card.wide { grid-column: 1 / -1; }
+
+/* Фоновый силуэт: чёрно-белый, прозрачный, растворяется к тексту */
+.space-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--space-img) right center / auto 100% no-repeat;
+    opacity: .42;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 60%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 60%);
+    transition: opacity .4s ease;
+}
+
+a.space-card:hover::before,
+a.space-card:focus-visible::before,
+a.space-card:active::before { opacity: .75; }
 
 /* Живые ссылки в карточках */
 a.space-card {
@@ -624,7 +644,11 @@ a.space-card:focus-visible {
 
     .spaces-grid { grid-template-columns: 1fr; }
     .space-card.wide { grid-column: auto; }
-    .space-card { min-height: 150px; padding: 24px; }
+    .space-card { min-height: 170px; padding: 24px; }
+    .space-card::before {
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 75%);
+        mask-image: linear-gradient(90deg, transparent 0%, #000 75%);
+    }
 
     .lightbox { padding: 70px 48px; }
 }
@@ -804,17 +828,17 @@ a.space-card:focus-visible {
             <h2 class="section-title" id="spaces-title" data-i18n="spaces">Пространства</h2>
 
             <div class="spaces-grid">
-                <a class="space-card wide" href="https://t.me/RazvodnayaAleksa" target="_blank" rel="noopener noreferrer">
+                <a class="space-card wide" style="--space-img:url('img/space-tg.jpg')" href="https://t.me/RazvodnayaAleksa" target="_blank" rel="noopener noreferrer">
                     <h3>TELEGRAM ↗</h3>
                     <p>@RazvodnayaAleksa</p>
                 </a>
 
-                <a class="space-card" href="https://ton.place/id3858841" target="_blank" rel="noopener noreferrer">
+                <a class="space-card" style="--space-img:url('img/space-ton.jpg')" href="https://ton.place/id3858841" target="_blank" rel="noopener noreferrer">
                     <h3>TONPLACE ↗</h3>
                     <p>Aleksa</p>
                 </a>
 
-                <a class="space-card" href="https://bbsgayru.net/user/Aleksa" target="_blank" rel="noopener noreferrer">
+                <a class="space-card" style="--space-img:url('img/space-bbs.jpg')" href="https://bbsgayru.net/user/Aleksa" target="_blank" rel="noopener noreferrer">
                     <h3>BBS ↗</h3>
                     <p>Aleksa</p>
                 </a>
