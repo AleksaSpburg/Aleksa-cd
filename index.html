@@ -98,6 +98,8 @@
             max-width: 1200px;
             gap: 10px; 
             grid-template-columns: repeat(3, 1fr);
+            /* Автоматическая высота строк, чтобы не было пустот */
+            grid-auto-rows: minmax(250px, auto); 
         }
 
         .gallery-item {
@@ -114,29 +116,22 @@
         .gallery-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Заполняет блок, сохраняя пропорции */
-            filter: grayscale(0) contrast(1.1) brightness(0.9); /* Убрали жесткое ЧБ, чтобы дать цвету играть */
+            object-fit: cover; 
+            filter: grayscale(0) contrast(1.1) brightness(0.9);
             transition: all 0.6s ease;
+            display: block;
         }
 
         .gallery-item:hover { border-color: #555; transform: scale(1.02); z-index: 10; }
-        .gallery-item:hover img { filter: grayscale(0) contrast(1.2) brightness(1.1); transform: scale(1.05); }
+        .gallery-item:hover img { filter: grayscale(0) contrast(1.2) brightness(1.1); }
 
         /* DESKTOP СЕТКА */
-        .item-1 { grid-column: span 2; aspect-ratio: 4 / 3; } /* Красная комната (широкая) */
-        .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; } /* Зеркало (высокое) */
-        .item-3 { grid-column: span 1; aspect-ratio: 1 / 1; } /* Текстура (квадрат) */
-        .item-4 { grid-column: span 1; aspect-ratio: 3 / 4; } /* Красная комната (высокая) */
-        .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; } /* Зеркало (квадрат) */
-        .item-6 { grid-column: span 2; aspect-ratio: 4 / 3; } /* Красная комната (широкая) */
-
-        /* Фокус на Desktop */
-        .item-1 img { object-position: center 30%; }
-        .item-2 img { object-position: center 20%; }
-        .item-3 img { object-position: center center; }
-        .item-4 img { object-position: center 20%; }
-        .item-5 img { object-position: center 20%; }
-        .item-6 img { object-position: center 30%; }
+        .item-1 { grid-column: span 2; grid-row: span 2; } /* Широкая и высокая */
+        .item-2 { grid-column: span 1; grid-row: span 2; } /* Вертикальная */
+        .item-3 { grid-column: span 1; grid-row: span 1; } 
+        .item-4 { grid-column: span 1; grid-row: span 2; } /* Вертикальная */
+        .item-5 { grid-column: span 1; grid-row: span 1; } 
+        .item-6 { grid-column: span 2; grid-row: span 1; } /* Широкая */
 
         /* 4. МАНИФЕСТ */
         .section-manifesto { background-color: #000; align-items: flex-start; }
@@ -189,6 +184,7 @@
                     "txtr red2"
                     "mirror2 red2"
                     "red3 red3";
+                grid-auto-rows: auto;
             }
 
             .item-1 { grid-area: red1; aspect-ratio: 1 / 1; }   
@@ -197,10 +193,6 @@
             .item-4 { grid-area: red2; aspect-ratio: 9 / 16; }  
             .item-5 { grid-area: mirror2; aspect-ratio: 1 / 1; }  
             .item-6 { grid-area: red3; aspect-ratio: 4 / 5; }  
-
-            /* В мобильной версии даем фото влезть целиком, чтобы ничего не обрезалось */
-            .item-1 img, .item-2 img, .item-4 img, .item-6 img { object-fit: contain; } 
-            .item-3 img, .item-5 img { object-fit: cover; }
 
             .bento-skeleton { grid-template-columns: 1fr; }
             .link-box.wide { grid-column: span 1; }
@@ -231,29 +223,29 @@
     <!-- ЭКРАН 3. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="gallery-grid">
-            <!-- 1. Красная комната (силуэт) -->
-            <div class="gallery-item item-1" onclick="openLightbox('img/bg-gal-red (1).jpg')">
-                <img src="img/bg-gal-red (1).jpg" alt="Red Room">
+            <!-- 1. Красная комната -->
+            <div class="gallery-item item-1" onclick="openLightbox('img/red1.jpg')">
+                <img src="img/red1.jpg" alt="Red Room">
             </div>
-            <!-- 2. Зеркало (лицо) -->
-            <div class="gallery-item item-2" onclick="openLightbox('img/bg-gal-mir (1).jpg')">
-                <img src="img/bg-gal-mir (1).jpg" alt="Mirror">
+            <!-- 2. Зеркало -->
+            <div class="gallery-item item-2" onclick="openLightbox('img/mir1.jpg')">
+                <img src="img/mir1.jpg" alt="Mirror">
             </div>
-            <!-- 3. Текстура (шнуровка) -->
-            <div class="gallery-item item-3" onclick="openLightbox('img/bg-gal-txtr.jpg')">
-                <img src="img/bg-gal-txtr.jpg" alt="Texture">
+            <!-- 3. Текстура -->
+            <div class="gallery-item item-3" onclick="openLightbox('img/txtr.jpg')">
+                <img src="img/txtr.jpg" alt="Texture">
             </div>
-            <!-- 4. Красная комната (спина) -->
-            <div class="gallery-item item-4" onclick="openLightbox('img/bg-gal-red (4).jpg')">
-                <img src="img/bg-gal-red (4).jpg" alt="Red Back">
+            <!-- 4. Спина -->
+            <div class="gallery-item item-4" onclick="openLightbox('img/red4.jpg')">
+                <img src="img/red4.jpg" alt="Red Back">
             </div>
-            <!-- 5. Зеркало (квадрат) -->
-            <div class="gallery-item item-5" onclick="openLightbox('img/bg-gal-mir (2).jpg')">
-                <img src="img/bg-gal-mir (2).jpg" alt="Mirror 2">
+            <!-- 5. Зеркало 2 -->
+            <div class="gallery-item item-5" onclick="openLightbox('img/mir2.jpg')">
+                <img src="img/mir2.jpg" alt="Mirror 2">
             </div>
-            <!-- 6. Красная комната (согнувшись) -->
-            <div class="gallery-item item-6" onclick="openLightbox('img/bg-gal-red (7).jpg')">
-                <img src="img/bg-gal-red (7).jpg" alt="Red Bend">
+            <!-- 6. Согнувшись -->
+            <div class="gallery-item item-6" onclick="openLightbox('img/red7.jpg')">
+                <img src="img/red7.jpg" alt="Red Bend">
             </div>
         </div>
     </section>
