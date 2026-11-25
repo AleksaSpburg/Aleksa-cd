@@ -98,13 +98,12 @@
             max-width: 1200px;
             gap: 10px; 
             grid-template-columns: repeat(3, 1fr);
-            /* Автоматическая высота строк, чтобы не было пустот */
             grid-auto-rows: minmax(250px, auto); 
         }
 
         .gallery-item {
             position: relative;
-            background-color: #000; 
+            background-color: #000; /* Черный фон для паспарту */
             border: 1px solid #222;
             overflow: hidden;
             cursor: pointer;
@@ -125,13 +124,16 @@
         .gallery-item:hover { border-color: #555; transform: scale(1.02); z-index: 10; }
         .gallery-item:hover img { filter: grayscale(0) contrast(1.2) brightness(1.1); }
 
-        /* DESKTOP СЕТКА */
-        .item-1 { grid-column: span 2; grid-row: span 2; } /* Широкая и высокая */
-        .item-2 { grid-column: span 1; grid-row: span 2; } /* Вертикальная */
-        .item-3 { grid-column: span 1; grid-row: span 1; } 
-        .item-4 { grid-column: span 1; grid-row: span 2; } /* Вертикальная */
-        .item-5 { grid-column: span 1; grid-row: span 1; } 
-        .item-6 { grid-column: span 2; grid-row: span 1; } /* Широкая */
+        /* DESKTOP СЕТКА (Вертикальная мозаика) */
+        .item-1 { grid-column: span 1; grid-row: span 2; aspect-ratio: 3 / 4; } /* Вертикальная */
+        .item-2 { grid-column: span 1; grid-row: span 2; aspect-ratio: 3 / 4; } /* Вертикальная */
+        .item-3 { grid-column: span 1; grid-row: span 1; aspect-ratio: 1 / 1; } /* Квадрат */
+        .item-4 { grid-column: span 1; grid-row: span 2; aspect-ratio: 3 / 4; } /* Вертикальная */
+        .item-5 { grid-column: span 1; grid-row: span 1; aspect-ratio: 1 / 1; } /* Квадрат */
+        .item-6 { grid-column: span 1; grid-row: span 2; aspect-ratio: 3 / 4; } /* Вертикальная */
+
+        /* ФИКС ОБРЕЗКИ ДЛЯ 1 И 6 ФОТО (Contain показывает всё целиком) */
+        .item-1 img, .item-6 img { object-fit: contain; }
 
         /* 4. МАНИФЕСТ */
         .section-manifesto { background-color: #000; align-items: flex-start; }
@@ -178,21 +180,16 @@
             
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-areas:
-                    "red1 red1"
-                    "mirror1 mirror1"
-                    "txtr red2"
-                    "mirror2 red2"
-                    "red3 red3";
                 grid-auto-rows: auto;
             }
 
-            .item-1 { grid-area: red1; aspect-ratio: 1 / 1; }   
-            .item-2 { grid-area: mirror1; aspect-ratio: 4 / 5; } 
-            .item-3 { grid-area: txtr; aspect-ratio: 1 / 1; }   
-            .item-4 { grid-area: red2; aspect-ratio: 9 / 16; }  
-            .item-5 { grid-area: mirror2; aspect-ratio: 1 / 1; }  
-            .item-6 { grid-area: red3; aspect-ratio: 4 / 5; }  
+            /* Формы для мобилки (1 и 6 - вертикальные, как на телефоне) */
+            .item-1 { grid-column: 1 / -1; aspect-ratio: 3 / 4; }   
+            .item-2 { grid-column: span 1; aspect-ratio: 3 / 4; } 
+            .item-3 { grid-column: span 1; aspect-ratio: 1 / 1; }   
+            .item-4 { grid-column: span 1; aspect-ratio: 3 / 4; }  
+            .item-5 { grid-column: span 1; aspect-ratio: 1 / 1; }  
+            .item-6 { grid-column: 1 / -1; aspect-ratio: 3 / 4; }  
 
             .bento-skeleton { grid-template-columns: 1fr; }
             .link-box.wide { grid-column: span 1; }
@@ -223,27 +220,27 @@
     <!-- ЭКРАН 3. ГАЛЕРЕЯ -->
     <section class="section-gallery">
         <div class="gallery-grid">
-            <!-- 1. Красная комната -->
+            <!-- 1. Красная комната (Вертикальная) -->
             <div class="gallery-item item-1" onclick="openLightbox('img/red1.jpg')">
                 <img src="img/red1.jpg" alt="Red Room">
             </div>
-            <!-- 2. Зеркало -->
+            <!-- 2. Зеркало (Вертикальная) -->
             <div class="gallery-item item-2" onclick="openLightbox('img/mir1.jpg')">
                 <img src="img/mir1.jpg" alt="Mirror">
             </div>
-            <!-- 3. Текстура -->
+            <!-- 3. Текстура (Квадрат) -->
             <div class="gallery-item item-3" onclick="openLightbox('img/txtr.jpg')">
                 <img src="img/txtr.jpg" alt="Texture">
             </div>
-            <!-- 4. Спина -->
+            <!-- 4. Спина (Вертикальная) -->
             <div class="gallery-item item-4" onclick="openLightbox('img/red4.jpg')">
                 <img src="img/red4.jpg" alt="Red Back">
             </div>
-            <!-- 5. Зеркало 2 -->
+            <!-- 5. Зеркало 2 (Квадрат) -->
             <div class="gallery-item item-5" onclick="openLightbox('img/mir2.jpg')">
                 <img src="img/mir2.jpg" alt="Mirror 2">
             </div>
-            <!-- 6. Согнувшись -->
+            <!-- 6. Согнувшись (Вертикальная) -->
             <div class="gallery-item item-6" onclick="openLightbox('img/red7.jpg')">
                 <img src="img/red7.jpg" alt="Red Bend">
             </div>
