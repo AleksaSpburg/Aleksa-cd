@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#050505">
 <title>ALEKSA | Official</title>
+<meta name="description" content="Aleksa — официальная страница.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -152,6 +158,8 @@ img, video { display: block; max-width: 100%; }
     position: relative;
     isolation: isolate;
     overflow: hidden;
+    z-index: 20;
+    padding-top: 88px;
 }
 
 .hero-bg {
@@ -164,6 +172,17 @@ img, video { display: block; max-width: 100%; }
     mask-image: radial-gradient(ellipse 75% 80% at 65% 50%, black 40%, transparent 100%);
 }
 
+/* Лёгкое зерно поверх главного кадра */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 .hero::after {
     content: "";
     position: absolute;
@@ -174,12 +193,25 @@ img, video { display: block; max-width: 100%; }
         linear-gradient(0deg, var(--bg), transparent 25%, transparent 80%, var(--bg));
 }
 
+/* Закреплённая шапка */
 .hero-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
     padding: 24px clamp(20px, 5vw, 80px);
+    transition: background-color .3s ease;
+}
+
+.hero-nav.is-stuck {
+    background: #050505cc;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .nav-links {
@@ -268,7 +300,8 @@ img, video { display: block; max-width: 100%; }
     transition: filter 0.3s ease;
 }
 
-.photo:hover img {
+.photo:hover img,
+.photo:active img {
     filter: grayscale(0.7) contrast(1.1);
 }
 
@@ -351,13 +384,14 @@ img, video { display: block; max-width: 100%; }
     font-size: clamp(1.1rem, 2.3vw, 1.55rem);
     line-height: 1.95;
     color: #b3b3b3;
+    font-weight: 400;
 }
 
 .manifesto-block p { margin: 0 0 20px; }
 
 .manifesto-block strong {
     color: var(--text);
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .manifesto-choice {
@@ -377,13 +411,19 @@ summary {
     padding: 12px 0;
     color: var(--text);
     font-size: .85rem;
+    list-style: none;
 }
+
+summary::-webkit-details-marker { display: none; }
+summary::after { content: " +"; color: var(--muted); }
+details[open] summary::after { content: " –"; }
 
 .manifesto-full {
     padding-top: 20px;
     color: #b3b3b3;
     font-size: 1rem;
     line-height: 1.95;
+    font-weight: 400;
 }
 
 /* 6. ПРОСТРАНСТВА */
@@ -669,7 +709,7 @@ a.space-card:focus-visible {
 
                     <video id="breath-video" muted playsinline preload="none" data-src="video/breath.mp4" aria-label="Короткий фрагмент дыхания" data-label="breathVideo"></video>
 
-                    <button class="breath-button" type="button" id="breath-button" aria-controls="breath-video" aria-pressed="false">
+                    <button class="breath-button" type="button" id="breath-button" aria-controls="breath-video">
                         Оживить кадр
                     </button>
                 </div>
@@ -907,7 +947,6 @@ function updateVideoButton() {
             : "pauseBreath";
 
     videoButton.textContent = translations[language][key];
-    videoButton.setAttribute("aria-pressed", String(!video.paused));
 }
 
 function setLanguage(value) {
@@ -940,7 +979,10 @@ function setLanguage(value) {
 }
 
 document.querySelectorAll("[data-lang]").forEach(button => {
-    button.addEventListener("click", () => setLanguage(button.dataset.lang));
+    button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+        try { localStorage.setItem("lang", button.dataset.lang); } catch {}
+    });
 });
 
 function showPhoto(index) {
@@ -997,6 +1039,20 @@ lightbox.addEventListener("close", () => {
     returnFocus?.focus();
 });
 
+/* Свайп между фото на телефоне */
+let touchX = null;
+
+lightbox.addEventListener("touchstart", event => {
+    touchX = event.changedTouches[0].clientX;
+}, { passive: true });
+
+lightbox.addEventListener("touchend", event => {
+    if (touchX === null) return;
+    const dx = event.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) > 50) showPhoto(currentPhoto + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
 videoButton.addEventListener("click", async () => {
     if (videoFailed) return;
 
@@ -1045,6 +1101,21 @@ if ("IntersectionObserver" in window) {
 document.addEventListener("visibilitychange", () => {
     if (document.hidden) video.pause();
 });
+
+/* Шапка: фон появляется после прокрутки */
+const nav = document.querySelector(".hero-nav");
+function onScroll() {
+    nav.classList.toggle("is-stuck", window.scrollY > 60);
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+/* Запоминаем выбранный язык */
+(function () {
+    let saved = null;
+    try { saved = localStorage.getItem("lang"); } catch {}
+    if (saved && saved !== "ru" && translations[saved]) setLanguage(saved);
+})();
 </script>
 </body>
 </html>
