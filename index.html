@@ -300,15 +300,22 @@ img, video { display: block; max-width: 100%; }
     transition: filter 0.3s ease;
 }
 
+.photo-glass img { filter: grayscale(1) brightness(.7) contrast(1.1); }
+
 .photo:hover img,
 .photo:active img {
     filter: grayscale(0.7) contrast(1.1);
 }
 
+.photo-glass:hover img,
+.photo-glass:active img {
+    filter: grayscale(.7) brightness(.75) contrast(1.15);
+}
+
 /* Десктопная асимметрия */
-.photo-curtains { grid-column: 1 / span 7; }
-.photo-arms { grid-column: 9 / span 4; margin-top: 100px; }
-.photo-glass { grid-column: 2 / span 4; }
+.photo-curtains { grid-column: 2 / span 5; }
+.photo-arms { grid-column: 8 / span 4; margin-top: 100px; }
+.photo-glass { grid-column: 1 / span 5; margin-top: 140px; }
 .photo-lights { grid-column: 7 / span 6; margin-top: 100px; }
 
 .gallery-portrait {
@@ -690,7 +697,7 @@ a.space-card:focus-visible {
             <!-- ОБЩИЙ ПЛАН → ДРУГОЙ ЖЕСТ -->
             <div class="gallery-opening">
                 <button class="photo photo-curtains" type="button" data-photo>
-                    <img src="img/red1.jpg" width="960" height="1280" alt="Силуэт в красном свете" data-alt="photo1" loading="lazy" decoding="async">
+                    <img src="img/red-glow.jpg" width="686" height="1280" alt="Силуэт в контровом свете" data-alt="photo1" loading="lazy" decoding="async">
                 </button>
 
                 <button class="photo photo-arms" type="button" data-photo>
@@ -718,7 +725,7 @@ a.space-card:focus-visible {
             <!-- ДЕТАЛЬ → СВЕТОВАЯ ДИАГОНАЛЬ -->
             <div class="gallery-details">
                 <button class="photo photo-glass" type="button" data-photo>
-                    <img src="img/txtr.jpg" width="1030" height="1839" alt="Деталь шнуровки на коже" data-alt="photo3" loading="lazy" decoding="async">
+                    <img src="img/mir-sofa.jpg" width="1100" height="1363" alt="Отражение в высоком зеркале" data-alt="photo3" loading="lazy" decoding="async">
                 </button>
 
                 <button class="photo photo-lights" type="button" data-photo>
@@ -877,9 +884,9 @@ const translations = {
         close: "Закрыть",
         previous: "Предыдущее фото",
         following: "Следующее фото",
-        photo1: "Силуэт в красном свете",
+        photo1: "Силуэт в контровом свете",
         photo2: "Лицо в отражении зеркала",
-        photo3: "Деталь шнуровки на коже",
+        photo3: "Отражение в высоком зеркале",
         photo4: "Диагональная поза в красном свете",
         photo5: "Финальный красный силуэт"
     },
@@ -920,9 +927,9 @@ const translations = {
         close: "Close",
         previous: "Previous photo",
         following: "Next photo",
-        photo1: "A silhouette in red light",
+        photo1: "A silhouette in backlight",
         photo2: "A face in the mirror reflection",
-        photo3: "A close-up of lacing on skin",
+        photo3: "A reflection in a tall mirror",
         photo4: "A diagonal pose in red light",
         photo5: "The final red silhouette"
     }
