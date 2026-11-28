@@ -8,9 +8,11 @@
 <title>ALEKSA | Official</title>
 <meta name="description" content="Aleksa — официальная страница.">
 
+<link rel="preload" as="image" href="img/bg-main.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@300;400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Montserrat:wght@300;400&display=swap"></noscript>
 
 <style>
 :root {
@@ -166,7 +168,7 @@ img, video { display: block; max-width: 100%; }
     position: absolute;
     inset: 0;
     z-index: -2;
-    background: url("img/bg-main-ru.png") 65% center / cover no-repeat;
+    background: url("img/bg-main.webp") 65% center / cover no-repeat;
     /* Плавное растворение краев главного фото (и на десктопе, и на мобилках) */
     -webkit-mask-image: radial-gradient(ellipse 75% 80% at 65% 50%, black 40%, transparent 100%);
     mask-image: radial-gradient(ellipse 75% 80% at 65% 50%, black 40%, transparent 100%);
@@ -418,6 +420,7 @@ img, video { display: block; max-width: 100%; }
 }
 
 .photo-glass img { filter: grayscale(1) brightness(.7) contrast(1.1); }
+.photo-lights img { filter: grayscale(1) brightness(.85) contrast(1.1); }
 
 .photo:hover img,
 .photo:active img {
@@ -429,11 +432,16 @@ img, video { display: block; max-width: 100%; }
     filter: grayscale(.7) brightness(.75) contrast(1.15);
 }
 
+.photo-lights:hover img,
+.photo-lights:active img {
+    filter: grayscale(.7) brightness(.9) contrast(1.15);
+}
+
 /* Десктопная асимметрия */
 .photo-curtains { grid-column: 2 / span 5; }
 .photo-arms { grid-column: 8 / span 4; margin-top: 100px; }
-.photo-glass { grid-column: 1 / span 5; margin-top: 140px; }
-.photo-lights { grid-column: 7 / span 6; margin-top: 100px; }
+.photo-glass { grid-column: 1 / span 5; margin-top: 160px; }
+.photo-lights { grid-column: 7 / span 6; }
 
 .gallery-portrait {
     width: min(100%, 560px);
@@ -869,7 +877,7 @@ a.space-card:focus-visible {
                 </p>
 
                 <div class="breath-frame">
-                    <img src="img/кожа.png" alt="Деталь силуэта" data-alt="breathPoster" loading="lazy" decoding="async">
+                    <img src="img/skin.webp" alt="Деталь силуэта" data-alt="breathPoster" loading="lazy" decoding="async">
 
                     <video id="breath-video" muted playsinline preload="none" data-src="video/breath.mp4" aria-label="Короткий фрагмент дыхания" data-label="breathVideo"></video>
 
@@ -886,7 +894,7 @@ a.space-card:focus-visible {
                 </button>
 
                 <button class="photo photo-lights" type="button" data-photo>
-                    <img src="img/red4.jpg" width="1080" height="1650" alt="Диагональная поза в красном свете" data-alt="photo4" loading="lazy" decoding="async">
+                    <img src="img/garland.jpg" width="960" height="1280" alt="Лёжа на диване в свете гирлянды" data-alt="photo4" loading="lazy" decoding="async">
                 </button>
             </div>
 
@@ -1047,7 +1055,7 @@ const translations = {
         photo1: "Силуэт в контровом свете",
         photo2: "Лицо в отражении зеркала",
         photo3: "Отражение в высоком зеркале",
-        photo4: "Диагональная поза в красном свете",
+        photo4: "Лёжа на диване в свете гирлянды",
         photo5: "Финальный красный силуэт"
     },
     en: {
@@ -1093,7 +1101,7 @@ const translations = {
         photo1: "A silhouette in backlight",
         photo2: "A face in the mirror reflection",
         photo3: "A reflection in a tall mirror",
-        photo4: "A diagonal pose in red light",
+        photo4: "Lying on the sofa in the glow of string lights",
         photo5: "The final red silhouette"
     }
 };
